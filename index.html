@@ -200,7 +200,6 @@ body {
 .form-group input.destaque { border-color: rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.08); }
 .form-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-/* ====== Slider de porcentagem ====== */
 .percent-slider-wrap { display: flex; gap: 12px; align-items: center; }
 .percent-slider-wrap input[type="range"] { flex: 1; -webkit-appearance: none; appearance: none; height: 8px; border-radius: 6px; background: var(--border-strong); outline: none; padding: 0; cursor: pointer; }
 .percent-slider-wrap input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 22px; height: 22px; border-radius: 50%; background: linear-gradient(135deg, #F0B429, #D4881C); cursor: pointer; box-shadow: 0 4px 10px rgba(240,180,41,0.5); border: 2px solid #fff; }
@@ -256,6 +255,7 @@ table td strong { color: var(--text); font-weight: 600; }
 .catalog-item .code { font-weight: 700; color: var(--text); }
 .catalog-item .price { color: var(--accent-green); font-weight: 700; white-space: nowrap; flex-shrink: 0; }
 .catalog-item .cat-tag { font-size: 0.68rem; color: var(--text-muted); background: rgba(240, 180, 41, 0.12); border: 1px solid rgba(240, 180, 41, 0.25); padding: 2px 10px; border-radius: 12px; margin-left: 6px; }
+.catalog-item .cor-tag { font-size: 0.68rem; color: #fff; padding: 2px 10px; border-radius: 12px; margin-left: 6px; font-weight: 700; }
 
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(6px); z-index: 3000; align-items: center; justify-content: center; padding: 16px; overflow-y: auto; }
 .modal-overlay.active { display: flex; }
@@ -302,6 +302,14 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
     font-size: 0.82rem; color: var(--text-muted); line-height: 1.6;
 }
 .info-comissao-box strong { color: #a78bfa; }
+
+/* Bolinha de cor */
+.cor-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: middle; border: 2px solid rgba(255,255,255,0.4); flex-shrink: 0; }
+
+/* Observação destaque */
+.observacao-box { background: linear-gradient(135deg, rgba(245, 158, 11, 0.08), rgba(212, 136, 28, 0.04)); border: 1px solid rgba(245, 158, 11, 0.35); border-left: 4px solid var(--accent-yellow); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+.observacao-box h2 { font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; }
+.observacao-box h2 i { color: var(--accent-yellow); }
 
 @media (max-width: 992px) {
     .sidebar { transform: translateX(-100%); }
@@ -373,6 +381,7 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
         <li><a data-section="pedido"><i class="fas fa-shopping-cart"></i> <span class="menu-text">Novo Pedido</span></a></li>
         <li><a data-section="fornecedor"><i class="fas fa-handshake"></i> <span class="menu-text">Cadastro Fornecedor</span></a></li>
         <li><a data-section="produto"><i class="fas fa-box"></i> <span class="menu-text">Cadastro Produto</span></a></li>
+        <li><a data-section="cor"><i class="fas fa-palette"></i> <span class="menu-text">Cadastro de Cores</span></a></li>
         <li><a data-section="cliente"><i class="fas fa-user"></i> <span class="menu-text">Cadastro Cliente</span></a></li>
         <li><a data-section="frete"><i class="fas fa-truck"></i> <span class="menu-text">Cadastro Frete</span></a></li>
         <li><a data-section="historico"><i class="fas fa-history"></i> <span class="menu-text">Histórico Pedidos</span></a></li>
@@ -407,7 +416,7 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
         <div class="finance-grid">
             <div class="finance-card"><i class="fas fa-shopping-cart card-icon"></i><div class="card-label">Itens no Pedido Atual</div><div class="card-value" id="totalPedidosCard">0</div><div class="card-sub"><span id="totalItensCard">0 itens</span></div></div>
             <div class="finance-card"><i class="fas fa-box card-icon"></i><div class="card-label">Produtos no Catálogo</div><div class="card-value" id="cardCatalogCount">0</div><div class="card-sub">Disponíveis</div></div>
-            <div class="finance-card"><i class="fas fa-handshake card-icon"></i><div class="card-label">Fornecedores</div><div class="card-value" id="cardFornCount">0</div><div class="card-sub">Cadastrados</div></div>
+            <div class="finance-card"><i class="fas fa-palette card-icon"></i><div class="card-label">Cores Cadastradas</div><div class="card-value" id="cardCorCount">0</div><div class="card-sub">Disponíveis</div></div>
             <div class="finance-card"><i class="fas fa-user card-icon"></i><div class="card-label">Clientes</div><div class="card-value" id="cardCliCount">0</div><div class="card-sub">Cadastrados</div></div>
         </div>
         <div class="two-col">
@@ -434,7 +443,7 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
             <i class="fas fa-pen-to-square"></i>
             <div>
                 <strong>✏️ Editando pedido #<span id="editModeNumero"></span></strong>
-                <span>As alterações vão substituir os dados originais. Clique em <b>Salvar Alterações</b> no final da página para confirmar.</span>
+                <span>As alterações vão substituir os dados originais. Clique em <b>Salvar Alterações</b> ao final para confirmar.</span>
             </div>
             <button class="btn btn-outline" id="btnCancelarEdicao" type="button"><i class="fas fa-times"></i> Cancelar Edição</button>
         </div>
@@ -457,9 +466,9 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
         </div>
 
         <div class="form-section">
-            <h2><i class="fas fa-flag"></i> Status do Pedido</h2>
+            <h2><i class="fas fa-flag"></i> Status e Pagamento</h2>
             <div class="form-row">
-                <div class="form-group" style="grid-column: 1 / -1;">
+                <div class="form-group">
                     <label>Status Atual <span style="color: var(--accent-red);">*</span></label>
                     <select id="statusPedidoSelect" required>
                         <option value="Em andamento">🔵 Em andamento</option>
@@ -469,6 +478,35 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
                         <option value="Entregue">🟣 Entregue</option>
                         <option value="Cancelado">🔴 Cancelado</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Parcelamento <span style="color: var(--accent-red);">*</span></label>
+                    <select id="parcelamentoSelect" required>
+                        <option value="À vista">💰 À vista</option>
+                        <option value="Parcelado 2x">📆 Parcelado 2x</option>
+                        <option value="Parcelado 3x">📆 Parcelado 3x</option>
+                        <option value="Parcelado 4x">📆 Parcelado 4x</option>
+                        <option value="Parcelado 5x">📆 Parcelado 5x</option>
+                        <option value="Parcelado 6x">📆 Parcelado 6x</option>
+                        <option value="Parcelado 10x">📆 Parcelado 10x</option>
+                        <option value="Parcelado 12x">📆 Parcelado 12x</option>
+                        <option value="Boleto 30 dias">🧾 Boleto 30 dias</option>
+                        <option value="Boleto 30/60">🧾 Boleto 30/60</option>
+                        <option value="Boleto 30/60/90">🧾 Boleto 30/60/90</option>
+                        <option value="Cartão de Crédito">💳 Cartão de Crédito</option>
+                        <option value="PIX">⚡ PIX</option>
+                        <option value="Cheque Pré-datado">📝 Cheque Pré-datado</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Data de Vencimento (1ª parcela)</label>
+                    <input type="date" id="vencimentoInput">
+                </div>
+                <div class="form-group">
+                    <label>Forma de Pagamento (observação)</label>
+                    <input type="text" id="formaPagamentoObs" placeholder="Ex: 3x sem juros / entrada + 2x / etc.">
                 </div>
             </div>
         </div>
@@ -499,14 +537,13 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
             <form id="pedidoForm">
                 <div class="form-row">
                     <div class="form-group"><label>Produto</label><select id="produtoSelect" required><option value="">Selecione...</option></select></div>
+                    <div class="form-group"><label>Cor (pigmentação)</label><select id="corSelect"><option value="">Sem cor específica</option></select></div>
                     <div class="form-group"><label>Quantidade (Baldes)</label><input type="number" id="quantidade" min="1" value="1" required></div>
-                    <div class="form-group"><label>Valor Unitário (R$)</label><input type="number" id="valorUnitario" step="0.01" readonly></div>
+                    <div class="form-group"><label>Valor Unitário (R$)</label><input type="number" id="valorUnitario" step="0.01" placeholder="0.00"></div>
                     <div class="form-group"><label>Valor Total (R$)</label><input type="text" id="valorTotal" readonly></div>
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Adicionar Item</button>
-                    <button type="button" class="btn btn-success" id="finalizarPedido"><i class="fas fa-check"></i> Finalizar Pedido</button>
-                    <button type="button" class="btn btn-danger" id="limparPedido"><i class="fas fa-trash"></i> Limpar</button>
                 </div>
             </form>
         </div>
@@ -514,23 +551,40 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
         <div class="form-section">
             <h2><i class="fas fa-tags"></i> Desconto e Entrada</h2>
             <div class="form-row">
-                <div class="form-group"><label>Desconto (R$)</label><input type="number" id="descontoInput" step="0.01" min="0" value="0.00" placeholder="0.00"></div>
-                <div class="form-group"><label>Entrada / Sinal (R$)</label><input type="number" id="entradaInput" step="0.01" min="0" value="0.00" placeholder="0.00" class="destaque"></div>
+                <div class="form-group">
+                    <label>Desconto (%) <span style="color: var(--accent-red);">*</span></label>
+                    <div class="percent-slider-wrap">
+                        <input type="range" id="descontoRange" min="0" max="100" step="0.5" value="0">
+                        <input type="number" id="descontoInput" step="0.01" min="0" max="100" value="0.00" placeholder="0.00">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Entrada / Sinal (R$)</label>
+                    <input type="number" id="entradaInput" step="0.01" min="0" value="0.00" placeholder="0.00" class="destaque">
+                </div>
             </div>
-            <p style="font-size:0.78rem; color:var(--text-dim); margin-top:4px;"><i class="fas fa-info-circle"></i> O desconto reduz o subtotal antes do cálculo do ICMS. A entrada é subtraída do Total Geral para gerar o Saldo a Pagar.</p>
+            <p style="font-size:0.78rem; color:var(--text-dim); margin-top:4px;"><i class="fas fa-info-circle"></i> O desconto é aplicado em <b>porcentagem</b> sobre o subtotal. A entrada é subtraída do Total Geral para gerar o Saldo a Pagar.</p>
         </div>
 
         <div class="table-section">
-            <h2><i class="fas fa-list"></i> Itens do Pedido <span style="font-size:0.8rem; font-weight:400; color:var(--text-dim);">(máx. 20 itens)</span></h2>
+            <h2><i class="fas fa-list"></i> Itens do Pedido <span style="font-size:0.8rem; font-weight:400; color:var(--text-dim);">(clique em ✏️ para editar valores)</span></h2>
             <div class="filter-bar">
                 <input type="text" id="searchTable" placeholder="🔍 Buscar...">
                 <select id="filterCategory"><option value="">Todas categorias</option></select>
+                <select id="filterCor"><option value="">Todas as cores</option></select>
             </div>
             <div class="table-scroll">
-                <table><thead><tr><th>Item</th><th>Produto</th><th>Qtd.</th><th>Valor Unit.</th><th>Valor Total</th><th>Ações</th></tr></thead><tbody id="tabelaPedidos"></tbody></table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th><th>Produto</th><th>Cor</th><th>Qtd.</th><th>Valor Unit.</th><th>Valor Total</th><th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelaPedidos"></tbody>
+                </table>
             </div>
             <div class="total-geral sub"><span>SUBTOTAL DOS ITENS</span><span class="valor" id="subtotalDisplay">R$ 0,00</span></div>
-            <div class="total-geral sub desconto"><span>DESCONTO</span><span class="valor" id="descontoDisplay">- R$ 0,00</span></div>
+            <div class="total-geral sub desconto"><span>DESCONTO (<span id="descontoPercentDisplay">0,00%</span>)</span><span class="valor" id="descontoDisplay">- R$ 0,00</span></div>
             <div class="total-geral sub"><span>BASE DE CÁLCULO ICMS</span><span class="valor" id="baseIcmsDisplay">R$ 0,00</span></div>
             <div class="total-geral sub"><span id="impostoLabel">IMPOSTO ICMS (7,00%)</span><span class="valor" id="impostoDisplay">R$ 0,00</span></div>
             <div class="total-geral"><span>TOTAL GERAL</span><span class="valor" id="totalGeralDisplay">R$ 0,00</span></div>
@@ -544,6 +598,21 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
             <div class="catalog-grid" id="catalogGrid"></div>
         </div>
 
+        <div class="observacao-box">
+            <h2><i class="fas fa-comment-alt"></i> Observações do Pedido</h2>
+            <div class="form-group">
+                <textarea id="observacaoPedido" rows="4" maxlength="1000" placeholder="Digite observações sobre o pedido (prazo de entrega, condições especiais, detalhes de pigmentação, etc.)"></textarea>
+                <div style="text-align:right; font-size:0.72rem; color:var(--text-dim); margin-top:4px;"><span id="obsPedidoContador">0</span>/1000</div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <div class="form-actions" style="justify-content: center;">
+                <button type="button" class="btn btn-success" id="finalizarPedido" style="padding: 14px 40px; font-size: 1rem;"><i class="fas fa-check"></i> Finalizar Pedido</button>
+                <button type="button" class="btn btn-danger" id="limparPedido" style="padding: 14px 30px;"><i class="fas fa-trash"></i> Limpar</button>
+            </div>
+        </div>
+
         <div class="table-section">
             <h2><i class="fas fa-clipboard-check"></i> Pedidos Finalizados</h2>
             <div class="filter-bar">
@@ -551,7 +620,7 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
             </div>
             <div class="table-scroll">
                 <table>
-                    <thead><tr><th>Nº</th><th>Data</th><th>Cliente</th><th>Representante</th><th>Status</th><th>Itens</th><th>Total</th><th>Ações</th></tr></thead>
+                    <thead><tr><th>Nº</th><th>Data</th><th>Cliente</th><th>Representante</th><th>Parcelamento</th><th>Status</th><th>Itens</th><th>Total</th><th>Ações</th></tr></thead>
                     <tbody id="tabelaPedidosFinalizados"></tbody>
                 </table>
             </div>
@@ -610,6 +679,34 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
         <div class="table-section">
             <h2><i class="fas fa-list"></i> Produtos Cadastrados</h2>
             <div class="table-scroll"><table><thead><tr><th>Código</th><th>Nome</th><th>Categoria</th><th>Preço</th><th>Ações</th></tr></thead><tbody id="tabelaProdutos"></tbody></table></div>
+        </div>
+    </div>
+
+    <!-- ====== NOVA ABA: CADASTRO DE CORES ====== -->
+    <div id="section-cor" class="section">
+        <div class="form-section">
+            <h2><i class="fas fa-palette"></i> Nova Cor</h2>
+            <form id="corForm">
+                <div class="form-row">
+                    <div class="form-group"><label>Código da Cor</label><input type="text" id="corCodigo" required placeholder="Ex: C01"></div>
+                    <div class="form-group"><label>Nome da Cor</label><input type="text" id="corNome" required placeholder="Ex: Azul Royal"></div>
+                    <div class="form-group"><label>Cor Visual</label><input type="color" id="corHex" value="#3b82f6" style="height:44px; padding:4px; cursor:pointer;"></div>
+                    <div class="form-group"><label>Referência / Linha</label><input type="text" id="corReferencia" placeholder="Ex: Suvinil / Coral / etc."></div>
+                </div>
+                <div class="form-actions"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar Cor</button><button type="reset" class="btn btn-outline">Cancelar</button></div>
+            </form>
+        </div>
+        <div class="table-section">
+            <h2><i class="fas fa-list"></i> Cores Cadastradas</h2>
+            <div class="filter-bar">
+                <input type="text" id="searchCores" placeholder="🔍 Buscar cor...">
+            </div>
+            <div class="table-scroll">
+                <table>
+                    <thead><tr><th>Prévia</th><th>Código</th><th>Nome</th><th>Referência</th><th>HEX</th><th>Ações</th></tr></thead>
+                    <tbody id="tabelaCores"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
@@ -673,9 +770,10 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
                     <option value="Cancelado">🔴 Cancelado</option>
                 </select>
                 <select id="filterRepresentanteHistorico"><option value="">Todos os representantes</option></select>
+                <select id="filterParcelamentoHistorico"><option value="">Todos os parcelamentos</option></select>
             </div>
             <div class="table-scroll">
-                <table><thead><tr><th>Nº</th><th>Data</th><th>Empresa</th><th>Representante</th><th>Status</th><th>Qtd Itens</th><th>Total</th><th>Ações</th></tr></thead><tbody id="tabelaHistorico"></tbody></table>
+                <table><thead><tr><th>Nº</th><th>Data</th><th>Empresa</th><th>Representante</th><th>Parcelamento</th><th>Status</th><th>Qtd Itens</th><th>Total</th><th>Ações</th></tr></thead><tbody id="tabelaHistorico"></tbody></table>
             </div>
             <div class="pagination" id="paginacaoHistorico"></div>
             <div class="total-geral" style="margin-top:14px;"><span>TOTAL GERAL DOS PEDIDOS FILTRADOS</span><span class="valor" id="totalHistoricoGeral">R$ 0,00</span></div>
@@ -729,10 +827,10 @@ input[readonly] { background: rgba(240, 180, 41, 0.06) !important; color: var(--
         </div>
 
         <div class="finance-grid">
-            <div class="finance-card"><i class="fas fa-shopping-cart card-icon"></i><div class="card-label">Vendas no Mês (com ICMS)</div><div class="card-value" id="ccVendasMes">R$ 0,00</div><div class="card-sub" id="ccVendasMesQtd">0 pedidos</div></div>
-            <div class="finance-card"><i class="fas fa-shopping-bag card-icon"></i><div class="card-label">Vendas no Ano (com ICMS)</div><div class="card-value" id="ccVendasAno">R$ 0,00</div><div class="card-sub" id="ccVendasAnoQtd">0 pedidos</div></div>
-            <div class="finance-card"><i class="fas fa-receipt card-icon"></i><div class="card-label">Base de Comissão (sem ICMS)</div><div class="card-value" id="ccBaseTotal">R$ 0,00</div><div class="card-sub">Total das vendas filtradas</div></div>
-            <div class="finance-card"><i class="fas fa-user-check card-icon"></i><div class="card-label">Representantes Ativos</div><div class="card-value" id="ccRepsAtivos">0</div><div class="card-sub">Com vendas registradas</div></div>
+            <div class="finance-card"><i class="fas fa-shopping-cart card-icon"></i><div class="card-label">Vendas no Mês</div><div class="card-value" id="ccVendasMes">R$ 0,00</div><div class="card-sub" id="ccVendasMesQtd">0 pedidos</div></div>
+            <div class="finance-card"><i class="fas fa-shopping-bag card-icon"></i><div class="card-label">Vendas no Ano</div><div class="card-value" id="ccVendasAno">R$ 0,00</div><div class="card-sub" id="ccVendasAnoQtd">0 pedidos</div></div>
+            <div class="finance-card"><i class="fas fa-receipt card-icon"></i><div class="card-label">Base de Comissão</div><div class="card-value" id="ccBaseTotal">R$ 0,00</div><div class="card-sub">Total sem ICMS</div></div>
+            <div class="finance-card"><i class="fas fa-user-check card-icon"></i><div class="card-label">Representantes Ativos</div><div class="card-value" id="ccRepsAtivos">0</div><div class="card-sub">Com vendas</div></div>
         </div>
 
         <div class="two-col">
@@ -898,7 +996,7 @@ const ITENS_POR_PAGINA = 15;
 const COMISSAO_PADRAO = 5.00;
 const LUCRO_PADRAO = 21.00;
 
-/* ========= Orientação PDF (global, persistida) ========= */
+/* ========= Orientação PDF ========= */
 let orientacaoPDFAtual = localStorage.getItem('pop_tintas_orientacao_pdf') || 'landscape';
 function getOrientacaoPDF() { return orientacaoPDFAtual; }
 function setOrientacaoPDF(v) {
@@ -914,7 +1012,7 @@ function setupBotoesOrientacao() {
         b.classList.toggle('active', b.dataset.orientValue === orientacaoPDFAtual);
         b.addEventListener('click', () => {
             setOrientacaoPDF(b.dataset.orientValue);
-            mostrarToast('Orientação definida: ' + (b.dataset.orientValue === 'portrait' ? 'Retrato 📄' : 'Paisagem 🖨️'));
+            mostrarToast('Orientação: ' + (b.dataset.orientValue === 'portrait' ? 'Retrato 📄' : 'Paisagem 🖨️'));
         });
     });
 }
@@ -1028,7 +1126,7 @@ function setAliquotaICMS(v) {
     }
 }
 
-let catalogData = [], pedidos = [], historico = [], fornecedores = [], clientes = [], fretes = [], backupHistory = [];
+let catalogData = [], pedidos = [], historico = [], fornecedores = [], clientes = [], fretes = [], cores = [], backupHistory = [];
 let representantes = [];
 let comissaoPercent = COMISSAO_PADRAO;
 let lucroPercent = LUCRO_PADRAO;
@@ -1047,40 +1145,39 @@ const DB = {
 const CATALOGO_INICIAL = [
     { codigo: '1', nome: 'CRISTAL BRILHO NATURAL', preco: 244.15, categoria: 'Cristal Brilho' },
     { codigo: '16', nome: 'CRISTAL BRILHO DUBAI', preco: 255.6, categoria: 'Cristal Brilho' },
-    { codigo: '1390', nome: 'CRISTAL BRILHO FLAMINGO', preco: 255.6, categoria: 'Cristal Brilho' },
     { codigo: '17', nome: 'CRISTAL BRILHO BRILHANTE RED', preco: 255.6, categoria: 'Cristal Brilho' },
     { codigo: '18', nome: 'CRISTAL BRILHO POMERIGGIO', preco: 255.6, categoria: 'Cristal Brilho' },
     { codigo: '395', nome: 'CRISTAL BRILHO ONIX', preco: 255.6, categoria: 'Cristal Brilho' },
     { codigo: '53', nome: 'DIAMANTE NOBRE NATURAL', preco: 313.05, categoria: 'Diamante Nobre' },
     { codigo: '59', nome: 'DIAMANTE NOBRE PRETO', preco: 353.95, categoria: 'Diamante Nobre' },
     { codigo: '27', nome: 'DIAMANTE NOBRE PLUS ARENITO', preco: 376.25, categoria: 'Diamante Nobre Plus' },
-    { codigo: '28', nome: 'DIAMANTE NOBRE PLUS ROSE STONE', preco: 376.25, categoria: 'Diamante Nobre Plus' },
-    { codigo: '29', nome: 'DIAMANTE NOBRE PLUS BARROCO', preco: 376.25, categoria: 'Diamante Nobre Plus' },
-    { codigo: '30', nome: 'DIAMANTE NOBRE PLUS GRIGIO NATURALE', preco: 376.25, categoria: 'Diamante Nobre Plus' },
-    { codigo: '106', nome: 'DIAMANTE NOBRE PLUS RED STAR', preco: 376.25, categoria: 'Diamante Nobre Plus' },
-    { codigo: '58', nome: 'DIAMANTE NOBRE PLUS BLACK STAR', preco: 376.25, categoria: 'Diamante Nobre Plus' },
     { codigo: '102', nome: 'GRAFFINO ROYAL NATURAL', preco: 154.8, categoria: 'Graffino Royal' },
     { codigo: '47', nome: 'GRAFFINO ROYAL MARFIM', preco: 154.8, categoria: 'Graffino Royal' },
-    { codigo: '49', nome: 'GRAFFINO ROYAL CAMURÇA', preco: 154.8, categoria: 'Graffino Royal' },
-    { codigo: '48', nome: 'GRAFFINO ROYAL AREIA', preco: 154.8, categoria: 'Graffino Royal' },
     { codigo: '69', nome: 'TEXTURA RUSTICA NATURAL', preco: 101.35, categoria: 'Textura Rústica' },
     { codigo: '308', nome: 'EFEITO FULGET LAGO ROSA', preco: 297.5, categoria: 'Efeito Fulget' },
-    { codigo: '328', nome: 'EFEITO FULGET OFF WHITE', preco: 297.5, categoria: 'Efeito Fulget' },
     { codigo: '139', nome: 'EFEITO FULGET AÇO CORTEN', preco: 341.8, categoria: 'Efeito Fulget' },
-    { codigo: '103', nome: 'EFEITO FULGET VERDE CARIRI', preco: 341.8, categoria: 'Efeito Fulget' },
     { codigo: '241', nome: 'FUNDO PREPARADOR CONCENTRADO 900ML', preco: 28.2, categoria: 'Fundo Preparador' },
-    { codigo: '39', nome: 'FUNDO PREPARADOR CONCENTRADO 3,6L', preco: 80.4, categoria: 'Fundo Preparador' },
-    { codigo: '52', nome: 'FUNDO PREPARADOR CONCENTRADO 14L', preco: 245.6, categoria: 'Fundo Preparador' },
     { codigo: '1504', nome: 'ADITIVOS BRILHO GRANDE PRATA', preco: 500.45, categoria: 'Aditivos' },
-    { codigo: '223', nome: 'ADITIVOS BRILHO MÉDIO PRATA', preco: 172.3, categoria: 'Aditivos' },
     { codigo: '1860', nome: 'MANTA LIQUIDA GRANDE', preco: 439.95, categoria: 'Manta Líquida' },
-    { codigo: '625', nome: 'BROCAL IMPORTADO PRATA', preco: 20.6, categoria: 'Brocal' },
-    { codigo: '766', nome: 'BROCAL IMPORTADO DOURADO', preco: 29.7, categoria: 'Brocal' }
+    { codigo: '625', nome: 'BROCAL IMPORTADO PRATA', preco: 20.6, categoria: 'Brocal' }
+];
+
+const CORES_INICIAIS = [
+    { codigo: 'C01', nome: 'Branco', hex: '#ffffff', referencia: 'Padrão' },
+    { codigo: 'C02', nome: 'Preto', hex: '#000000', referencia: 'Padrão' },
+    { codigo: 'C03', nome: 'Azul Royal', hex: '#1e40af', referencia: 'Suvinil' },
+    { codigo: 'C04', nome: 'Verde Musgo', hex: '#4d7c0f', referencia: 'Coral' },
+    { codigo: 'C05', nome: 'Vermelho Fogo', hex: '#dc2626', referencia: 'Padrão' },
+    { codigo: 'C06', nome: 'Amarelo Ouro', hex: '#facc15', referencia: 'Padrão' },
+    { codigo: 'C07', nome: 'Cinza Chumbo', hex: '#4b5563', referencia: 'Padrão' },
+    { codigo: 'C08', nome: 'Bege Areia', hex: '#d6c7a1', referencia: 'Padrão' },
+    { codigo: 'C09', nome: 'Terracota', hex: '#c2410c', referencia: 'Padrão' },
+    { codigo: 'C10', nome: 'Marfim', hex: '#fef3c7', referencia: 'Padrão' }
 ];
 
 function salvarBackupAutomatico() {
     try {
-        const dados = { sistema: EMPRESA_NOME, representante: REPRESENTANTE, catalogo: catalogData, pedido_atual: pedidos, historico, fornecedores, clientes, fretes, representantes, comissaoPercent, lucroPercent, orientacaoPDF: orientacaoPDFAtual, backupAutomatico: true, geradoEm: new Date().toISOString() };
+        const dados = { sistema: EMPRESA_NOME, representante: REPRESENTANTE, catalogo: catalogData, pedido_atual: pedidos, historico, fornecedores, clientes, fretes, cores, representantes, comissaoPercent, lucroPercent, orientacaoPDF: orientacaoPDFAtual, backupAutomatico: true, geradoEm: new Date().toISOString() };
         localStorage.setItem('pop_tintas_auto_backup', JSON.stringify(dados));
         localStorage.setItem('pop_tintas_last_auto_backup', new Date().toISOString());
     } catch (e) { console.warn('Auto-backup falhou:', e); }
@@ -1088,6 +1185,7 @@ function salvarBackupAutomatico() {
 function salvarTudo() {
     DB.set('catalogo', catalogData); DB.set('pedido_atual', pedidos); DB.set('historico', historico);
     DB.set('fornecedores', fornecedores); DB.set('clientes', clientes); DB.set('fretes', fretes);
+    DB.set('cores', cores);
     DB.set('representantes', representantes);
     DB.set('comissao_percent', comissaoPercent);
     DB.set('lucro_percent', lucroPercent);
@@ -1099,11 +1197,11 @@ function carregarTudo() {
     pedidos = DB.get('pedido_atual', []);
     historico = DB.get('historico', []);
     fornecedores = DB.get('fornecedores', [
-        { id: 1, nome: 'Moinho Dois Irmãos', cnpj: '00.111.222/0001-33', inscricao: '123.456.789', telefone: '(85) 9999-9999' },
-        { id: 2, nome: 'Santa Rosa Alimentos', cnpj: '11.222.333/0001-44', inscricao: '987.654.321', telefone: '(85) 8888-8888' }
+        { id: 1, nome: 'Moinho Dois Irmãos', cnpj: '00.111.222/0001-33', inscricao: '123.456.789', telefone: '(85) 9999-9999' }
     ]);
     clientes = DB.get('clientes', [{ id: 1, nome: 'IMPÉRIO TINTAS E REVESTIMENTOS', cnpj: '33.869.032/0001-87', inscricao: '123.456.789', telefone: '(85) 3371-2711', cidade: 'FORTALEZA' }]);
     fretes = DB.get('fretes', [{ id: 1, transportadora: 'TRANSCEARA', prazo: 28, valor: 0 }]);
+    cores = DB.get('cores', CORES_INICIAIS.slice());
     representantes = DB.get('representantes', REPRESENTANTES_INICIAIS.slice());
     comissaoPercent = clampPercent(DB.get('comissao_percent', COMISSAO_PADRAO));
     lucroPercent = clampPercent(DB.get('lucro_percent', LUCRO_PADRAO));
@@ -1111,6 +1209,7 @@ function carregarTudo() {
     historico.forEach(h => {
         if (!h.status) h.status = 'Em andamento';
         if (!h.representante) h.representante = REPRESENTANTE;
+        if (!h.parcelamento) h.parcelamento = 'À vista';
     });
     salvarTudo();
 }
@@ -1182,20 +1281,29 @@ function calcularTotais() {
     const sub = pedidos.reduce((s, p) => s + p.total, 0);
     const dEl = document.getElementById('descontoInput');
     const eEl = document.getElementById('entradaInput');
-    const descontoBruto = parseFloat(dEl?.value) || 0;
-    const entradaBruta  = parseFloat(eEl?.value) || 0;
-    const desconto = Math.min(Math.max(descontoBruto, 0), sub);
+    const descontoPerc = clampPercent(dEl?.value || 0);
+    const entradaBruta = parseFloat(eEl?.value) || 0;
+    const desconto = sub * (descontoPerc / 100);
     const baseICMS = Math.max(sub - desconto, 0);
     const aliquota = getAliquotaICMS();
     const imposto = baseICMS * (aliquota / 100);
     const totalGeral = baseICMS + imposto;
     const entrada = Math.min(Math.max(entradaBruta, 0), totalGeral);
     const saldo = totalGeral - entrada;
-    return { sub, desconto, baseICMS, imposto, totalGeral, entrada, saldo, aliquota };
+    return { sub, desconto, descontoPerc, baseICMS, imposto, totalGeral, entrada, saldo, aliquota };
 }
 function recalcularTotaisPedido() {
     const t = calcularTotais();
-    const vals = { subtotalDisplay: fmt(t.sub), descontoDisplay: '- ' + fmt(t.desconto), baseIcmsDisplay: fmt(t.baseICMS), impostoDisplay: fmt(t.imposto), totalGeralDisplay: fmt(t.totalGeral), entradaDisplay: '- ' + fmt(t.entrada), saldoDisplay: fmt(t.saldo) };
+    const vals = {
+        subtotalDisplay: fmt(t.sub),
+        descontoDisplay: '- ' + fmt(t.desconto),
+        descontoPercentDisplay: t.descontoPerc.toFixed(2).replace('.', ',') + '%',
+        baseIcmsDisplay: fmt(t.baseICMS),
+        impostoDisplay: fmt(t.imposto),
+        totalGeralDisplay: fmt(t.totalGeral),
+        entradaDisplay: '- ' + fmt(t.entrada),
+        saldoDisplay: fmt(t.saldo)
+    };
     Object.entries(vals).forEach(([id, v]) => { const el = document.getElementById(id); if (el) el.textContent = v; });
     const lbl = document.getElementById('impostoLabel');
     if (lbl) lbl.textContent = `IMPOSTO ICMS (${t.aliquota.toFixed(2).replace('.', ',')}%)`;
@@ -1209,11 +1317,36 @@ function populateRepresentanteSelect() {
     sel.innerHTML = '';
     representantes.forEach(r => {
         const o = document.createElement('option');
-        o.value = r;
-        o.textContent = r;
+        o.value = r; o.textContent = r;
         sel.appendChild(o);
     });
     if (atual) sel.value = atual;
+}
+
+function populateCorSelect() {
+    const sel = document.getElementById('corSelect');
+    if (!sel) return;
+    const atual = sel.value;
+    sel.innerHTML = '<option value="">Sem cor específica</option>';
+    cores.forEach(c => {
+        const o = document.createElement('option');
+        o.value = c.codigo;
+        o.textContent = `${c.codigo} - ${c.nome}`;
+        sel.appendChild(o);
+    });
+    if (atual) sel.value = atual;
+    // Filtro de cor na tabela
+    const fc = document.getElementById('filterCor');
+    if (fc) {
+        const atual2 = fc.value;
+        fc.innerHTML = '<option value="">Todas as cores</option>';
+        cores.forEach(c => {
+            const o = document.createElement('option');
+            o.value = c.codigo; o.textContent = `${c.codigo} - ${c.nome}`;
+            fc.appendChild(o);
+        });
+        if (atual2) fc.value = atual2;
+    }
 }
 
 function populateClienteSelect() {
@@ -1270,6 +1403,11 @@ function parseDataBR(str) {
     return isNaN(d.getTime()) ? null : d;
 }
 
+function getCor(codigo) {
+    if (!codigo) return null;
+    return cores.find(c => c.codigo === codigo) || null;
+}
+
 function populateSelects() {
     const sel = document.getElementById('produtoSelect');
     if (!sel) return;
@@ -1289,6 +1427,7 @@ function populateSelects() {
     }
     populateClienteSelect();
     populateRepresentanteSelect();
+    populateCorSelect();
     atualizarFiltrosComissoes();
 }
 
@@ -1307,12 +1446,25 @@ function adicionarItemPedido(e) {
     const qtd = parseInt(document.getElementById('quantidade').value, 10) || 1;
     const prod = catalogData.find(p => p.codigo === code);
     if (!prod) { alert('Produto não encontrado!'); return; }
-    pedidos.push({ codigo: prod.codigo, nome: prod.nome, categoria: prod.categoria, quantidade: qtd, unitario: parseFloat(prod.preco), total: qtd * parseFloat(prod.preco) });
+    // Usa o valor unitário digitado (se houver), ou o padrão do catálogo
+    const vu = parseFloat(document.getElementById('valorUnitario').value) || parseFloat(prod.preco);
+    const corCod = document.getElementById('corSelect').value || '';
+    pedidos.push({
+        codigo: prod.codigo,
+        nome: prod.nome,
+        categoria: prod.categoria,
+        cor: corCod,
+        quantidade: qtd,
+        unitario: vu,
+        total: qtd * vu
+    });
     salvarTudo(); renderTabelaPedidos(); atualizarDashboard();
     e.target.reset();
     document.getElementById('valorUnitario').value = '';
     document.getElementById('valorTotal').value = '';
     document.getElementById('produtoSelect').value = '';
+    document.getElementById('corSelect').value = '';
+    document.getElementById('quantidade').value = 1;
 }
 
 function renderTabelaPedidos() {
@@ -1320,12 +1472,22 @@ function renderTabelaPedidos() {
     if (!tbody) return;
     tbody.innerHTML = '';
     pedidos.forEach((p, idx) => {
+        const cor = getCor(p.cor);
+        const corHtml = cor
+            ? `<span class="cor-dot" style="background:${esc(cor.hex)}"></span>${esc(cor.nome)}`
+            : '<span style="color:var(--text-dim); font-style:italic;">—</span>';
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${idx+1}</td><td><strong>${esc(p.codigo)}</strong> - ${esc(p.nome)}</td><td>${p.quantidade}</td><td>${fmt(p.unitario)}</td><td>${fmt(p.total)}</td>
+        tr.innerHTML = `
+            <td>${idx+1}</td>
+            <td><strong>${esc(p.codigo)}</strong> - ${esc(p.nome)}</td>
+            <td>${corHtml}</td>
+            <td>${p.quantidade}</td>
+            <td>${fmt(p.unitario)}</td>
+            <td><strong>${fmt(p.total)}</strong></td>
             <td>
-                <button class="btn btn-info btn-sm" data-action="view-pedido" data-idx="${idx}"><i class="fas fa-eye"></i></button>
-                <button class="btn btn-warning btn-sm" data-action="edit-pedido" data-idx="${idx}"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-danger btn-sm" data-action="del-pedido" data-idx="${idx}"><i class="fas fa-times"></i></button>
+                <button class="btn btn-info btn-sm" data-action="view-pedido" data-idx="${idx}" title="Ver detalhes"><i class="fas fa-eye"></i></button>
+                <button class="btn btn-warning btn-sm" data-action="edit-pedido" data-idx="${idx}" title="Editar item"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" data-action="del-pedido" data-idx="${idx}" title="Remover"><i class="fas fa-times"></i></button>
             </td>`;
         tbody.appendChild(tr);
     });
@@ -1334,14 +1496,51 @@ function renderTabelaPedidos() {
 }
 
 function removerItem(idx) { if (!confirm('Remover este item?')) return; pedidos.splice(idx, 1); salvarTudo(); renderTabelaPedidos(); atualizarDashboard(); }
+
 function editarItem(idx) {
     const item = pedidos[idx]; if (!item) return;
     document.getElementById('editIndex').value = idx;
     document.getElementById('editType').value = 'pedido';
     document.getElementById('editModalTitle').textContent = 'Item do Pedido';
-    document.getElementById('editFields').innerHTML = `<div class="form-group"><label>Quantidade</label><input type="number" id="editQuantidade" min="1" value="${parseInt(item.quantidade,10)}" required></div>`;
+    const corOptionsHtml = cores.map(c => `<option value="${esc(c.codigo)}" ${c.codigo === item.cor ? 'selected' : ''}>${esc(c.codigo)} - ${esc(c.nome)}</option>`).join('');
+    document.getElementById('editFields').innerHTML = `
+        <div class="form-group" style="margin-bottom:10px;">
+            <label>Produto</label>
+            <input type="text" value="${esc(item.codigo)} - ${esc(item.nome)}" readonly>
+        </div>
+        <div class="form-group" style="margin-bottom:10px;">
+            <label>Cor</label>
+            <select id="editCor">
+                <option value="">Sem cor específica</option>
+                ${corOptionsHtml}
+            </select>
+        </div>
+        <div class="form-group" style="margin-bottom:10px;">
+            <label>Quantidade</label>
+            <input type="number" id="editQuantidade" min="1" value="${parseInt(item.quantidade,10)}" required>
+        </div>
+        <div class="form-group" style="margin-bottom:10px;">
+            <label>Valor Unitário (R$)</label>
+            <input type="number" id="editValorUnitario" step="0.01" min="0" value="${item.unitario.toFixed(2)}" required>
+        </div>
+        <div class="form-group" style="margin-bottom:10px;">
+            <label>Valor Total (R$)</label>
+            <input type="text" id="editValorTotalView" readonly value="${fmt(item.total)}">
+        </div>
+        <div style="font-size:0.78rem; color:var(--text-dim); margin-top:6px;"><i class="fas fa-info-circle"></i> O valor total é recalculado automaticamente.</div>`;
+    const qEl = document.getElementById('editQuantidade');
+    const vuEl = document.getElementById('editValorUnitario');
+    const vtEl = document.getElementById('editValorTotalView');
+    const atualizarVT = () => {
+        const q = parseInt(qEl.value, 10) || 0;
+        const vu = parseFloat(vuEl.value) || 0;
+        if (vtEl) vtEl.value = fmt(q * vu);
+    };
+    qEl?.addEventListener('input', atualizarVT);
+    vuEl?.addEventListener('input', atualizarVT);
     document.getElementById('editModal').classList.add('active');
 }
+
 function closeEditModal() { document.getElementById('editModal').classList.remove('active'); }
 function closeViewModal() { document.getElementById('viewModal').classList.remove('active'); }
 
@@ -1354,12 +1553,18 @@ function limparPedido() {
     }
     const dEl = document.getElementById('descontoInput');
     const eEl = document.getElementById('entradaInput');
-    if (pedidos.length === 0 && parseFloat(dEl.value || 0) === 0 && parseFloat(eEl.value || 0) === 0) return;
-    if (confirm('Limpar todos os itens, desconto e entrada?')) {
+    const oEl = document.getElementById('observacaoPedido');
+    if (pedidos.length === 0 && parseFloat(dEl.value || 0) === 0 && parseFloat(eEl.value || 0) === 0 && (!oEl || !oEl.value)) return;
+    if (confirm('Limpar todos os itens, desconto, entrada e observação?')) {
         pedidos = [];
         dEl.value = 0; eEl.value = 0;
+        if (oEl) oEl.value = '';
+        document.getElementById('descontoRange').value = 0;
+        document.getElementById('obsPedidoContador').textContent = '0';
         document.getElementById('statusPedidoSelect').value = 'Em andamento';
-        atualizarStatusPreview();
+        document.getElementById('parcelamentoSelect').value = 'À vista';
+        document.getElementById('vencimentoInput').value = '';
+        document.getElementById('formaPagamentoObs').value = '';
         salvarTudo(); renderTabelaPedidos(); atualizarDashboard();
     }
 }
@@ -1375,7 +1580,8 @@ function renderPedidosFinalizados() {
         const emp = h.cliente ? h.cliente.nome : '-';
         const status = h.status || 'Em andamento';
         const rep = h.representante || REPRESENTANTE;
-        const txt = `#${h.numero} ${h.data} ${h.hora||''} ${emp} ${status} ${rep}`.toLowerCase();
+        const parc = h.parcelamento || 'À vista';
+        const txt = `#${h.numero} ${h.data} ${emp} ${status} ${rep} ${parc}`.toLowerCase();
         if (busca && !txt.includes(busca)) return;
         contador++;
         const emEdicao = (historicoEditandoIdx === i);
@@ -1386,6 +1592,7 @@ function renderPedidosFinalizados() {
             <td>${esc(h.data)}${h.hora ? ' ' + esc(h.hora) : ''}</td>
             <td>${esc(emp)}</td>
             <td>${esc(rep)}</td>
+            <td><span class="badge" style="background:rgba(139,92,246,0.15); color:#a78bfa; border:1px solid rgba(139,92,246,0.3);">${esc(parc)}</span></td>
             <td><span class="status-badge ${STATUS_CLASS[status]||'status-em-andamento'}"><i class="fas fa-flag"></i>${esc(status)}</span></td>
             <td>${h.itens.length}</td>
             <td><strong>${fmt(h.total)}</strong></td>
@@ -1397,7 +1604,7 @@ function renderPedidosFinalizados() {
         tbody.appendChild(tr);
     });
     if (contador === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:22px; color:var(--text-dim); font-style:italic;">${historico.length === 0 ? 'Nenhum pedido finalizado ainda.' : 'Nenhum pedido corresponde à busca.'}</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:22px; color:var(--text-dim); font-style:italic;">${historico.length === 0 ? 'Nenhum pedido finalizado ainda.' : 'Nenhum pedido corresponde à busca.'}</td></tr>`;
     }
 }
 
@@ -1439,6 +1646,7 @@ function editarPedidoHistorico(idx) {
     }
     pedidos = h.itens.map(it => ({
         codigo: it.codigo, nome: it.nome, categoria: it.categoria,
+        cor: it.cor || '',
         quantidade: it.quantidade, unitario: it.unitario, total: it.total
     }));
     const clienteSel = document.getElementById('clienteVendaSelect');
@@ -1458,8 +1666,15 @@ function editarPedidoHistorico(idx) {
     }
     const statusSel = document.getElementById('statusPedidoSelect');
     if (statusSel) { statusSel.value = h.status || 'Em andamento'; atualizarStatusPreview(); }
-    document.getElementById('descontoInput').value = (h.desconto || 0).toFixed(2);
+    const parcSel = document.getElementById('parcelamentoSelect');
+    if (parcSel) parcSel.value = h.parcelamento || 'À vista';
+    document.getElementById('vencimentoInput').value = h.vencimento || '';
+    document.getElementById('formaPagamentoObs').value = h.formaPagamentoObs || '';
+    document.getElementById('descontoInput').value = (h.descontoPercent || 0).toFixed(2);
+    document.getElementById('descontoRange').value = h.descontoPercent || 0;
     document.getElementById('entradaInput').value = (h.entrada || 0).toFixed(2);
+    document.getElementById('observacaoPedido').value = h.observacao || '';
+    document.getElementById('obsPedidoContador').textContent = (h.observacao || '').length;
     historicoEditandoIdx = idx;
     mostrarBannerEdicao(h.numero);
     ajustarBotaoFinalizar(true);
@@ -1479,8 +1694,14 @@ function cancelarEdicaoPedido(silencioso) {
     ajustarBotaoFinalizar(false);
     pedidos = [];
     document.getElementById('descontoInput').value = 0;
+    document.getElementById('descontoRange').value = 0;
     document.getElementById('entradaInput').value = 0;
+    document.getElementById('observacaoPedido').value = '';
+    document.getElementById('obsPedidoContador').textContent = '0';
     document.getElementById('statusPedidoSelect').value = 'Em andamento';
+    document.getElementById('parcelamentoSelect').value = 'À vista';
+    document.getElementById('vencimentoInput').value = '';
+    document.getElementById('formaPagamentoObs').value = '';
     atualizarStatusPreview();
     renderTabelaPedidos();
     renderPedidosFinalizados();
@@ -1511,6 +1732,10 @@ function finalizarPedido() {
     if (!clienteSel) { alert('⚠️ Selecione a empresa/cliente antes de finalizar!'); return; }
     const representanteSel = getRepresentanteSelecionado() || REPRESENTANTE;
     const statusSel = document.getElementById('statusPedidoSelect').value;
+    const parcelamentoSel = document.getElementById('parcelamentoSelect').value;
+    const vencimento = document.getElementById('vencimentoInput').value;
+    const formaPagamentoObs = document.getElementById('formaPagamentoObs').value.trim();
+    const observacao = (document.getElementById('observacaoPedido')?.value || '').trim();
     const t = recalcularTotaisPedido();
     const editando = historicoEditandoIdx >= 0;
     const numero = editando ? historico[historicoEditandoIdx].numero : getProximoNumeroPedido();
@@ -1518,8 +1743,9 @@ function finalizarPedido() {
         `Empresa: ${clienteSel.nome}\n` +
         `Representante: ${representanteSel}\n` +
         `Status: ${STATUS_EMOJI[statusSel]} ${statusSel}\n` +
+        `Parcelamento: ${parcelamentoSel}\n` +
         `Itens: ${pedidos.length} (${pedidos.reduce((s,p)=>s+p.quantidade,0)} baldes)\n\n` +
-        `Subtotal: ${fmt(t.sub)}\nDesconto: - ${fmt(t.desconto)}\nBase ICMS: ${fmt(t.baseICMS)}\n` +
+        `Subtotal: ${fmt(t.sub)}\nDesconto (${t.descontoPerc.toFixed(2)}%): - ${fmt(t.desconto)}\nBase ICMS: ${fmt(t.baseICMS)}\n` +
         `ICMS (${t.aliquota.toFixed(2).replace('.', ',')}%): ${fmt(t.imposto)}\n` +
         `TOTAL GERAL: ${fmt(t.totalGeral)}\nEntrada: - ${fmt(t.entrada)}\nSALDO A PAGAR: ${fmt(t.saldo)}\n\n` +
         (editando ? `Confirmar as alterações?` : `Confirma a finalização?`);
@@ -1536,11 +1762,16 @@ function finalizarPedido() {
     const pedidoData = {
         numero, data: dataPedido, hora: horaPedido,
         itens: JSON.parse(JSON.stringify(pedidos)),
-        subtotal: t.sub, desconto: t.desconto, baseICMS: t.baseICMS, imposto: t.imposto,
+        subtotal: t.sub, desconto: t.desconto, descontoPercent: t.descontoPerc,
+        baseICMS: t.baseICMS, imposto: t.imposto,
         aliquotaICMS: t.aliquota, tipoOperacao: 'substituicao',
         total: t.totalGeral, entrada: t.entrada, saldo: t.saldo,
         cliente: { ...clienteSel }, representante: representanteSel,
-        status: statusSel
+        status: statusSel,
+        parcelamento: parcelamentoSel,
+        vencimento: vencimento || '',
+        formaPagamentoObs: formaPagamentoObs || '',
+        observacao: observacao || ''
     };
     if (editando) {
         historico[historicoEditandoIdx] = pedidoData;
@@ -1552,15 +1783,23 @@ function finalizarPedido() {
     }
     pedidos = [];
     document.getElementById('descontoInput').value = 0;
+    document.getElementById('descontoRange').value = 0;
     document.getElementById('entradaInput').value = 0;
     document.getElementById('statusPedidoSelect').value = 'Em andamento';
+    document.getElementById('parcelamentoSelect').value = 'À vista';
+    document.getElementById('vencimentoInput').value = '';
+    document.getElementById('formaPagamentoObs').value = '';
+    document.getElementById('observacaoPedido').value = '';
+    document.getElementById('obsPedidoContador').textContent = '0';
     document.getElementById('searchTable').value = '';
     document.getElementById('filterCategory').value = '';
+    document.getElementById('filterCor').value = '';
     document.getElementById('catalogSearch').value = '';
     document.getElementById('quantidade').value = 1;
     document.getElementById('valorUnitario').value = '';
     document.getElementById('valorTotal').value = '';
     document.getElementById('produtoSelect').value = '';
+    document.getElementById('corSelect').value = '';
     atualizarStatusPreview();
     renderCatalog();
     salvarTudo();
@@ -1596,12 +1835,71 @@ function filterCatalog() { renderCatalog(document.getElementById('catalogSearch'
 function filterTable() {
     const s = (document.getElementById('searchTable').value || '').toLowerCase();
     const c = document.getElementById('filterCategory').value || '';
+    const corFiltro = document.getElementById('filterCor').value || '';
     document.querySelectorAll('#tabelaPedidos tr').forEach(r => {
         const t = r.textContent.toLowerCase();
-        r.style.display = ((!c || t.includes(c.toLowerCase())) && t.includes(s)) ? '' : 'none';
+        const corMatch = !corFiltro || t.includes(corFiltro.toLowerCase()) || (corFiltro === '' && true);
+        r.style.display = ((!c || t.includes(c.toLowerCase())) && t.includes(s) && corMatch) ? '' : 'none';
     });
 }
 
+/* ========= CORES ========= */
+function salvarCor(e) {
+    e.preventDefault();
+    const codigo = document.getElementById('corCodigo').value.trim().toUpperCase();
+    const nome = document.getElementById('corNome').value.trim();
+    const hex = document.getElementById('corHex').value;
+    const referencia = document.getElementById('corReferencia').value.trim();
+    if (!codigo || !nome) { alert('Preencha código e nome da cor.'); return; }
+    if (cores.some(c => c.codigo === codigo)) { alert('Código de cor já existe!'); return; }
+    cores.push({ codigo, nome, hex, referencia });
+    salvarTudo(); renderCores(); populateCorSelect(); e.target.reset();
+    document.getElementById('corHex').value = '#3b82f6';
+    atualizarDashboard();
+    mostrarToast(`Cor ${codigo} cadastrada!`);
+}
+function renderCores() {
+    const t = document.getElementById('tabelaCores'); if (!t) return;
+    const busca = (document.getElementById('searchCores')?.value || '').toLowerCase();
+    t.innerHTML = '';
+    cores.filter(c => !busca || c.nome.toLowerCase().includes(busca) || c.codigo.toLowerCase().includes(busca) || (c.referencia || '').toLowerCase().includes(busca)).forEach((c, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td><span class="cor-dot" style="background:${esc(c.hex)}; width:24px; height:24px;"></span></td>
+            <td><strong>${esc(c.codigo)}</strong></td>
+            <td>${esc(c.nome)}</td>
+            <td>${esc(c.referencia || '-')}</td>
+            <td><code style="font-size:0.75rem; color:var(--text-muted);">${esc(c.hex)}</code></td>
+            <td>
+                <button class="btn btn-warning btn-sm" data-action="edit-cor" data-code="${esc(c.codigo)}"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" data-action="del-cor" data-code="${esc(c.codigo)}"><i class="fas fa-trash"></i></button>
+            </td>`;
+        t.appendChild(tr);
+    });
+    if (cores.length === 0) {
+        t.innerHTML = '<tr><td colspan="6" style="text-align:center; padding:22px; color:var(--text-dim); font-style:italic;">Nenhuma cor cadastrada.</td></tr>';
+    }
+}
+function editarCor(codigo) {
+    const c = cores.find(x => x.codigo === codigo); if (!c) return;
+    document.getElementById('editIndex').value = codigo;
+    document.getElementById('editType').value = 'cor';
+    document.getElementById('editModalTitle').textContent = 'Cor';
+    document.getElementById('editFields').innerHTML = `
+        <div class="form-group" style="margin-bottom:10px;"><label>Código</label><input type="text" id="ecCodigo" value="${esc(c.codigo)}" readonly></div>
+        <div class="form-group" style="margin-bottom:10px;"><label>Nome</label><input type="text" id="ecNome" value="${esc(c.nome)}" required></div>
+        <div class="form-group" style="margin-bottom:10px;"><label>Cor Visual</label><input type="color" id="ecHex" value="${esc(c.hex)}" style="height:44px; padding:4px;"></div>
+        <div class="form-group" style="margin-bottom:10px;"><label>Referência</label><input type="text" id="ecReferencia" value="${esc(c.referencia || '')}"></div>`;
+    document.getElementById('editModal').classList.add('active');
+}
+function excluirCor(codigo) {
+    if (!confirm(`Excluir a cor ${codigo}?`)) return;
+    cores = cores.filter(c => c.codigo !== codigo);
+    salvarTudo(); renderCores(); populateCorSelect(); atualizarDashboard();
+    mostrarToast(`Cor ${codigo} excluída.`);
+}
+
+/* ========= FORNECEDOR ========= */
 function salvarFornecedor(e) {
     e.preventDefault();
     const nome = document.getElementById('fornNome').value.trim();
@@ -1638,6 +1936,7 @@ function editarFornecedor(i) {
 }
 function excluirFornecedor(id) { if (!confirm('Excluir este fornecedor?')) return; fornecedores = fornecedores.filter(f => f.id !== id); salvarTudo(); renderFornecedores(); atualizarDashboard(); }
 
+/* ========= PRODUTO ========= */
 function salvarProduto(e) {
     e.preventDefault();
     const codigo = document.getElementById('prodCodigo').value.trim();
@@ -1676,6 +1975,7 @@ function editarProduto(i) {
 }
 function excluirProduto(codigo) { if (!confirm('Excluir este produto?')) return; catalogData = catalogData.filter(p => p.codigo !== codigo); salvarTudo(); populateSelects(); renderCatalog(); renderProdutos(); atualizarDashboard(); }
 
+/* ========= CLIENTE ========= */
 function salvarCliente(e) {
     e.preventDefault();
     const nome = document.getElementById('cliNome').value.trim();
@@ -1713,6 +2013,7 @@ function editarCliente(i) {
 }
 function excluirCliente(id) { if (!confirm('Excluir este cliente?')) return; clientes = clientes.filter(c => c.id !== id); salvarTudo(); renderClientes(); populateClienteSelect(); atualizarDashboard(); }
 
+/* ========= FRETE ========= */
 function salvarFrete(e) {
     e.preventDefault();
     const tt = document.getElementById('freteTransportadora').value.trim();
@@ -1748,18 +2049,26 @@ function editarFrete(i) {
 }
 function excluirFrete(id) { if (!confirm('Excluir este frete?')) return; fretes = fretes.filter(f => f.id !== id); salvarTudo(); renderFretes(); atualizarDashboard(); }
 
+/* ========= SALVAR EDIÇÃO (modal) ========= */
 function salvarEdicaoForm(e) {
     e.preventDefault();
     const type = document.getElementById('editType').value;
-    const i = parseInt(document.getElementById('editIndex').value, 10);
+    const i = document.getElementById('editIndex').value;
     if (type === 'pedido') {
+        const idx = parseInt(i, 10);
+        if (!pedidos[idx]) { closeEditModal(); return; }
         const q = parseInt(document.getElementById('editQuantidade').value, 10) || 1;
-        if (!pedidos[i]) { closeEditModal(); return; }
-        pedidos[i].quantidade = q;
-        pedidos[i].total = q * pedidos[i].unitario;
+        const vu = parseFloat(document.getElementById('editValorUnitario').value) || pedidos[idx].unitario;
+        const cor = document.getElementById('editCor').value || '';
+        pedidos[idx].quantidade = q;
+        pedidos[idx].unitario = vu;
+        pedidos[idx].total = q * vu;
+        pedidos[idx].cor = cor;
         salvarTudo(); renderTabelaPedidos(); atualizarDashboard();
+        mostrarToast('Item atualizado!');
     } else if (type === 'fornecedor') {
-        const f = fornecedores[i]; if (f) {
+        const idx = parseInt(i, 10);
+        const f = fornecedores[idx]; if (f) {
             f.nome = document.getElementById('efNome').value.trim();
             f.cnpj = document.getElementById('efCnpj').value.trim();
             f.inscricao = document.getElementById('efInscricao').value.trim();
@@ -1767,14 +2076,16 @@ function salvarEdicaoForm(e) {
             salvarTudo(); renderFornecedores();
         }
     } else if (type === 'produto') {
-        const p = catalogData[i]; if (p) {
+        const idx = parseInt(i, 10);
+        const p = catalogData[idx]; if (p) {
             p.nome = document.getElementById('epNome').value.trim();
             p.categoria = document.getElementById('epCategoria').value.trim();
             p.preco = parseFloat(document.getElementById('epPreco').value) || p.preco;
             salvarTudo(); populateSelects(); renderCatalog(); renderProdutos();
         }
     } else if (type === 'cliente') {
-        const c = clientes[i]; if (c) {
+        const idx = parseInt(i, 10);
+        const c = clientes[idx]; if (c) {
             c.nome = document.getElementById('ecNome').value.trim();
             c.cnpj = document.getElementById('ecCnpj').value.trim();
             c.inscricao = document.getElementById('ecInscricao').value.trim();
@@ -1783,11 +2094,20 @@ function salvarEdicaoForm(e) {
             salvarTudo(); renderClientes(); populateClienteSelect();
         }
     } else if (type === 'frete') {
-        const f = fretes[i]; if (f) {
+        const idx = parseInt(i, 10);
+        const f = fretes[idx]; if (f) {
             f.transportadora = document.getElementById('eftNome').value.trim();
             f.prazo = parseInt(document.getElementById('eftPrazo').value, 10) || 0;
             f.valor = parseFloat(document.getElementById('eftValor').value) || 0;
             salvarTudo(); renderFretes();
+        }
+    } else if (type === 'cor') {
+        const codigo = i;
+        const c = cores.find(x => x.codigo === codigo); if (c) {
+            c.nome = document.getElementById('ecNome').value.trim();
+            c.hex = document.getElementById('ecHex').value;
+            c.referencia = document.getElementById('ecReferencia').value.trim();
+            salvarTudo(); renderCores(); populateCorSelect();
         }
     }
     closeEditModal();
@@ -1818,7 +2138,6 @@ function abrirProdutoPDF(idx) {
         const pageW = doc.internal.pageSize.getWidth();
         const pageH = doc.internal.pageSize.getHeight();
         const MX = 14;
-
         doc.setFillColor(10, 10, 15); doc.rect(0, 0, pageW, 18, 'F');
         doc.setFillColor(240, 180, 41); doc.rect(0, 0, 3, 18, 'F');
         doc.setTextColor(240, 180, 41); doc.setFont('helvetica', 'bold'); doc.setFontSize(12);
@@ -1828,13 +2147,11 @@ function abrirProdutoPDF(idx) {
         doc.setFontSize(7); doc.setTextColor(200, 200, 210);
         doc.text(`Representante: ${REPRESENTANTE}`, pageW - MX, 8, { align: 'right' });
         doc.text(`Emitido em: ${new Date().toLocaleString('pt-BR')}`, pageW - MX, 13, { align: 'right' });
-
         let y = 30;
         doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(30, 30, 50);
         doc.text('FICHA DO PRODUTO', MX, y); y += 8;
         doc.setDrawColor(240, 180, 41); doc.setLineWidth(0.5);
         doc.line(MX, y, pageW - MX, y); y += 8;
-
         doc.setFont('helvetica', 'bold'); doc.setFontSize(10); doc.setTextColor(60, 60, 80);
         doc.text('Código:', MX, y);
         doc.setFont('helvetica', 'normal'); doc.setTextColor(30, 30, 50);
@@ -1851,14 +2168,12 @@ function abrirProdutoPDF(idx) {
         doc.text('Preço:', MX, y);
         doc.setFont('helvetica', 'normal'); doc.setTextColor(16, 185, 129); doc.setFontSize(12);
         doc.text(fmt(p.preco), MX + 30, y); y += 14;
-
         doc.setDrawColor(240, 180, 41); doc.setLineWidth(0.3);
         doc.line(MX, pageH - 10, pageW - MX, pageH - 10);
         doc.setFont('helvetica', 'bold'); doc.setFontSize(7); doc.setTextColor(180, 140, 40);
         doc.text(EMPRESA_NOME, MX, pageH - 6);
         doc.setFont('helvetica', 'normal'); doc.setTextColor(140, 140, 160);
         doc.text(`${REPRESENTANTE}  •  Pág. 1/1`, pageW - MX, pageH - 6, { align: 'right' });
-
         const blobUrl = doc.output('bloburl');
         const win = window.open(blobUrl, '_blank');
         if (!win) { alert('⚠️ Pop-up bloqueado. Baixando automaticamente.'); doc.save(`produto_${p.codigo}_${dataArquivo()}.pdf`); }
@@ -1950,13 +2265,13 @@ function desenharPedidoCompacto(doc, envelope, layout) {
     if (envelope.itens && envelope.itens.length > 0) {
         doc.autoTable({
             startY: y,
-            head: [['#', 'Cód.', 'Produto', 'Categoria', 'Qtd', 'Unit.', 'Total']],
-            body: envelope.itens.map(it => [asText(it.item), asText(it.codigo), asText(it.produto), asText(it.categoria), asText(it.quantidade), fmt(it.valorUnitario), fmt(it.valorTotal)]),
+            head: [['#', 'Cód.', 'Produto', 'Cor', 'Qtd', 'Unit.', 'Total']],
+            body: envelope.itens.map(it => [asText(it.item), asText(it.codigo), asText(it.produto), asText(it.corNome) || '—', asText(it.quantidade), fmt(it.valorUnitario), fmt(it.valorTotal)]),
             theme: 'grid',
             styles: { font: 'helvetica', fontSize: isA5 ? 7 : 7.5, cellPadding: { top: 1.5, right: 2, bottom: 1.5, left: 2 }, textColor: [50, 50, 70], lineColor: [230, 230, 240], lineWidth: 0.1 },
             headStyles: { fillColor: [240, 180, 41], textColor: [26, 18, 0], fontStyle: 'bold', fontSize: isA5 ? 6.8 : 7.2 },
             alternateRowStyles: { fillColor: [252, 249, 240] },
-            columnStyles: { 0: { cellWidth: 8, halign: 'center' }, 1: { cellWidth: 14, halign: 'center' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 32 }, 4: { cellWidth: 12, halign: 'center' }, 5: { cellWidth: 22, halign: 'right' }, 6: { cellWidth: 24, halign: 'right', fontStyle: 'bold' } },
+            columnStyles: { 0: { cellWidth: 8, halign: 'center' }, 1: { cellWidth: 14, halign: 'center' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 30 }, 4: { cellWidth: 12, halign: 'center' }, 5: { cellWidth: 22, halign: 'right' }, 6: { cellWidth: 24, halign: 'right', fontStyle: 'bold' } },
             margin: { top: 20, left: MX, right: MX, bottom: FOOTER_H + 2 },
             didDrawPage: function(data) { if (data.pageNumber > 1) desenharBannerPDF(doc, pageW, MX); }
         });
@@ -1964,13 +2279,14 @@ function desenharPedidoCompacto(doc, envelope, layout) {
     }
 
     const aliquota = Number(c.aliquotaICMS || 7).toFixed(2).replace('.', ',');
+    const descontoPercTxt = (Number(r.descontoPercent) || 0).toFixed(2).replace('.', ',');
     doc.autoTable({
         startY: y,
         head: [['Resumo Financeiro', 'Valor']],
         body: [
             ['Subtotal', fmt(r.subtotal || r.sub || 0)],
-            ['Desconto', '- ' + fmt(r.desconto || 0)],
-            ['Base ICMS (sem imposto)', fmt(r.baseICMS !== undefined ? r.baseICMS : (r.subtotal || r.sub || 0))],
+            [`Desconto (${descontoPercTxt}%)`, '- ' + fmt(r.desconto || 0)],
+            ['Base ICMS', fmt(r.baseICMS !== undefined ? r.baseICMS : (r.subtotal || r.sub || 0))],
             [`ICMS (${aliquota}%)`, fmt(r.valorICMS || r.imposto || 0)],
             ['TOTAL GERAL', fmt(r.totalGeral || r.total || 0)],
             ['Entrada', '- ' + fmt(r.entrada || 0)],
@@ -1989,7 +2305,40 @@ function desenharPedidoCompacto(doc, envelope, layout) {
         margin: { top: 20, left: MX, right: MX, bottom: FOOTER_H + 2 },
         didDrawPage: function(data) { if (data.pageNumber > 1) desenharBannerPDF(doc, pageW, MX); }
     });
-    return doc.lastAutoTable.finalY + 4;
+    y = doc.lastAutoTable.finalY + 4;
+
+    // Informações de pagamento
+    doc.autoTable({
+        startY: y,
+        head: [['Forma de Pagamento', 'Detalhes']],
+        body: [
+            ['Parcelamento', asText(c.parcelamento) || '—'],
+            ['Vencimento 1ª parcela', asText(c.vencimento) || '—'],
+            ['Observação de pagamento', asText(c.formaPagamentoObs) || '—']
+        ],
+        theme: 'grid',
+        styles: { font: 'helvetica', fontSize: isA5 ? 7.5 : 8, cellPadding: { top: 1.6, right: 3, bottom: 1.6, left: 3 }, textColor: [40, 40, 60], lineColor: [230, 220, 190], lineWidth: 0.1 },
+        headStyles: { fillColor: [59, 130, 246], textColor: [255, 255, 255], fontStyle: 'bold', fontSize: isA5 ? 7.5 : 8 },
+        columnStyles: { 0: { cellWidth: CW * 0.35, fontStyle: 'bold' }, 1: { cellWidth: 'auto' } },
+        margin: { top: 20, left: MX, right: MX, bottom: FOOTER_H + 2 }
+    });
+    y = doc.lastAutoTable.finalY + 4;
+
+    // Observações
+    if (c.observacao && String(c.observacao).trim()) {
+        const linhas = doc.splitTextToSize(String(c.observacao), CW - 8);
+        const altura = 8 + linhas.length * 3.5;
+        if (y + altura > pageH - FOOTER_H - 5) { doc.addPage(); desenharBannerPDF(doc, pageW, MX); y = 22; }
+        doc.setFillColor(255, 251, 235); doc.setDrawColor(240, 180, 41); doc.setLineWidth(0.3);
+        doc.roundedRect(MX, y, CW, altura, 1.5, 1.5, 'FD');
+        doc.setFillColor(240, 180, 41); doc.rect(MX, y, 1.5, altura, 'F');
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(isA5 ? 7 : 7.5); doc.setTextColor(150, 100, 0);
+        doc.text('OBSERVAÇÕES DO PEDIDO', MX + 4, y + 4);
+        doc.setFont('helvetica', 'normal'); doc.setFontSize(isA5 ? 7 : 7.5); doc.setTextColor(60, 60, 60);
+        doc.text(linhas, MX + 4, y + 8);
+        y += altura + 4;
+    }
+    return y;
 }
 function novoLayoutPDF(doc, titulo) {
     const pageW = doc.internal.pageSize.getWidth();
@@ -2002,9 +2351,27 @@ function abrirPedidoPDFHistorico(idx) {
     const h = historico[idx]; if (!h) { alert('Pedido não encontrado.'); return; }
     const envelope = {
         _tipo: 'pedido',
-        cabecalho: { empresaSistema: EMPRESA_NOME, representante: h.representante || REPRESENTANTE, numero: h.numero, data: h.data, hora: h.hora || '', quantidadeItens: h.itens.length, quantidadeTotal: h.itens.reduce((s, p) => s + p.quantidade, 0), aliquotaICMS: h.aliquotaICMS || ALIQUOTA_ICMS, cliente: h.cliente || null, status: h.status || 'Em andamento' },
-        itens: h.itens.map((p, i) => ({ item: i+1, codigo: p.codigo, produto: p.nome, categoria: p.categoria, quantidade: p.quantidade, valorUnitario: p.unitario, valorTotal: p.total })),
-        resumo: { subtotal: h.subtotal, desconto: h.desconto || 0, baseICMS: h.baseICMS !== undefined ? h.baseICMS : h.subtotal, valorICMS: h.imposto, totalGeral: h.total, entrada: h.entrada || 0, saldo: h.saldo !== undefined ? h.saldo : h.total }
+        cabecalho: {
+            empresaSistema: EMPRESA_NOME, representante: h.representante || REPRESENTANTE,
+            numero: h.numero, data: h.data, hora: h.hora || '',
+            quantidadeItens: h.itens.length,
+            quantidadeTotal: h.itens.reduce((s, p) => s + p.quantidade, 0),
+            aliquotaICMS: h.aliquotaICMS || ALIQUOTA_ICMS,
+            cliente: h.cliente || null, status: h.status || 'Em andamento',
+            parcelamento: h.parcelamento || 'À vista',
+            vencimento: h.vencimento || '',
+            formaPagamentoObs: h.formaPagamentoObs || '',
+            observacao: h.observacao || ''
+        },
+        itens: h.itens.map((p, i) => {
+            const cor = getCor(p.cor);
+            return {
+                item: i+1, codigo: p.codigo, produto: p.nome, categoria: p.categoria,
+                corCodigo: p.cor || '', corNome: cor ? cor.nome : '',
+                quantidade: p.quantidade, valorUnitario: p.unitario, valorTotal: p.total
+            };
+        }),
+        resumo: { subtotal: h.subtotal, desconto: h.desconto || 0, descontoPercent: h.descontoPercent || 0, baseICMS: h.baseICMS !== undefined ? h.baseICMS : h.subtotal, valorICMS: h.imposto, totalGeral: h.total, entrada: h.entrada || 0, saldo: h.saldo !== undefined ? h.saldo : h.total }
     };
     try {
         const { jsPDF } = window.jspdf;
@@ -2023,14 +2390,17 @@ function paginarHistoricoReset() { paginaHistorico = 1; }
 function historicoFiltrado() {
     const filtroStatus = document.getElementById('filterStatus')?.value || '';
     const filtroRep = document.getElementById('filterRepresentanteHistorico')?.value || '';
+    const filtroParc = document.getElementById('filterParcelamentoHistorico')?.value || '';
     const busca = (document.getElementById('searchHistorico')?.value || '').toLowerCase();
     return historico.map((h, i) => ({ h, i })).filter(({ h }) => {
         const status = h.status || 'Em andamento';
         if (filtroStatus && status !== filtroStatus) return false;
         const rep = h.representante || REPRESENTANTE;
         if (filtroRep && rep !== filtroRep) return false;
+        const parc = h.parcelamento || 'À vista';
+        if (filtroParc && parc !== filtroParc) return false;
         const emp = h.cliente ? h.cliente.nome : '-';
-        const txt = `#${h.numero} ${h.data} ${h.hora || ''} ${emp} ${status} ${rep}`.toLowerCase();
+        const txt = `#${h.numero} ${h.data} ${h.hora || ''} ${emp} ${status} ${rep} ${parc}`.toLowerCase();
         if (busca && !txt.includes(busca)) return false;
         return true;
     });
@@ -2050,12 +2420,14 @@ function renderHistorico() {
         const status = h.status || 'Em andamento';
         const emp = h.cliente ? h.cliente.nome : '-';
         const rep = h.representante || REPRESENTANTE;
+        const parc = h.parcelamento || 'À vista';
         const tr = document.createElement('tr');
         tr.innerHTML = `<td><strong>#${esc(h.numero)}</strong></td>
             <td>${esc(h.data)}${h.hora ? ' ' + esc(h.hora) : ''}</td>
             <td>${esc(emp)}</td>
             <td>${esc(rep)}</td>
-            <td><span class="status-badge ${STATUS_CLASS[status] || 'status-em-andamento'}" data-action="status-hist" data-idx="${i}" title="Clique para alterar"><i class="fas fa-flag"></i>${esc(status)}</span></td>
+            <td><span class="badge" style="background:rgba(139,92,246,0.15); color:#a78bfa; border:1px solid rgba(139,92,246,0.3);">${esc(parc)}</span></td>
+            <td><span class="status-badge ${STATUS_CLASS[status] || 'status-em-andamento'}" data-action="status-hist" data-idx="${i}"><i class="fas fa-flag"></i>${esc(status)}</span></td>
             <td>${h.itens.length}</td>
             <td><strong>${fmt(h.total)}</strong></td>
             <td>
@@ -2132,7 +2504,7 @@ function atualizarDashboard() {
         else det.textContent = `🔵 ${contagem['Em andamento'] || 0} • 🟢 ${contagem['Finalizado'] || 0} • 🟡 ${contagem['Pendente'] || 0} • 🔴 ${contagem['Cancelado'] || 0}`;
     }
     setTxt('cardCatalogCount', catalogData.length);
-    setTxt('cardFornCount', fornecedores.length);
+    setTxt('cardCorCount', cores.length);
     setTxt('cardCliCount', clientes.length);
 }
 
@@ -2160,10 +2532,8 @@ function updateCharts() {
 }
 
 /* ============================================================
- *  COMISSÕES & VENDAS  —  BASE = VALOR SEM ICMS
+ *  COMISSÕES & VENDAS
  * ============================================================ */
-
-/* Retorna a base correta para comissão: subtotal − desconto (SEM ICMS) */
 function getBaseFiscal(h) {
     if (h.baseICMS !== undefined && h.baseICMS !== null) return parseFloat(h.baseICMS) || 0;
     const sub = parseFloat(h.subtotal) || 0;
@@ -2179,7 +2549,9 @@ function atualizarFiltrosComissoes() {
     const selRep = document.getElementById('ccFiltroRep');
     const selAno = document.getElementById('ccFiltroAno');
     const selHistRep = document.getElementById('filterRepresentanteHistorico');
+    const selHistParc = document.getElementById('filterParcelamentoHistorico');
     const anos = [...new Set(historico.map(h => { const d = parseDataBR(h.data); return d ? d.getFullYear() : null; }).filter(Boolean))].sort().reverse();
+    const parcelamentos = [...new Set(historico.map(h => h.parcelamento || 'À vista'))].sort();
     if (selRep) {
         const atual = selRep.value;
         selRep.innerHTML = '<option value="">Todos os representantes</option>';
@@ -2191,6 +2563,12 @@ function atualizarFiltrosComissoes() {
         selHistRep.innerHTML = '<option value="">Todos os representantes</option>';
         representantes.forEach(r => { const o = document.createElement('option'); o.value = r; o.textContent = r; selHistRep.appendChild(o); });
         if (atual) selHistRep.value = atual;
+    }
+    if (selHistParc) {
+        const atual = selHistParc.value;
+        selHistParc.innerHTML = '<option value="">Todos os parcelamentos</option>';
+        parcelamentos.forEach(p => { const o = document.createElement('option'); o.value = p; o.textContent = p; selHistParc.appendChild(o); });
+        if (atual) selHistParc.value = atual;
     }
     if (selAno) {
         const atual = selAno.value;
@@ -2227,7 +2605,6 @@ function atualizarComissoes() {
     const legendColor = isDark ? '#eaf0ff' : '#0f172a';
 
     const vendas = getVendasFiltradas();
-    // Somatórios — Total com ICMS (para exibição) e Base sem ICMS (para cálculo)
     const totalVendas = vendas.reduce((s, { h }) => s + h.total, 0);
     const totalBase = vendas.reduce((s, { h }) => s + getBaseFiscal(h), 0);
     const totalComissao = calcularComissao(totalBase);
@@ -2308,13 +2685,9 @@ function atualizarComissoes() {
         porRep[r].qtd += 1;
     });
     const ranking = Object.entries(porRep).map(([rep, d]) => ({
-        rep,
-        vendas: d.vendas,
-        base: d.base,
-        qtd: d.qtd,
+        rep, vendas: d.vendas, base: d.base, qtd: d.qtd,
         ticket: d.qtd > 0 ? d.vendas / d.qtd : 0,
-        comissao: calcularComissao(d.base),
-        lucro: calcularLucro(d.base),
+        comissao: calcularComissao(d.base), lucro: calcularLucro(d.base),
         participacao: totalVendas > 0 ? (d.vendas / totalVendas * 100) : 0
     })).sort((a, b) => b.vendas - a.vendas);
 
@@ -2381,8 +2754,7 @@ function atualizarComissoes() {
             historico.forEach(h => {
                 const d = parseDataBR(h.data);
                 if (d && d.getFullYear() === anoAtual && (d.getMonth() + 1) === m) {
-                    v += h.total;
-                    base += getBaseFiscal(h);
+                    v += h.total; base += getBaseFiscal(h);
                 }
             });
             labels.push(MESES_NOME[m-1].substring(0, 3));
@@ -2391,18 +2763,11 @@ function atualizarComissoes() {
         }
         chartVendasMensais = new Chart(cv1, {
             type: 'line',
-            data: {
-                labels,
-                datasets: [
-                    { label: 'Vendas (R$)', data: dadosVendas, borderColor: '#F0B429', backgroundColor: 'rgba(240,180,41,0.15)', tension: 0.35, fill: true, pointBackgroundColor: '#F0B429', pointRadius: 4 },
-                    { label: 'Comissão (R$)', data: dadosComissoes, borderColor: '#a78bfa', backgroundColor: 'rgba(167,139,250,0.15)', tension: 0.35, fill: true, pointBackgroundColor: '#a78bfa', pointRadius: 4 }
-                ]
-            },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { labels: { color: legendColor, font: { size: 11 } } }, tooltip: { callbacks: { label: c => c.dataset.label + ': ' + fmt(c.raw) } } },
-                scales: { y: { beginAtZero: true, ticks: { color: tickColor, callback: v => 'R$ ' + (v/1000).toFixed(0) + 'k' }, grid: { color: gridColor } }, x: { ticks: { color: tickColor }, grid: { display: false } } }
-            }
+            data: { labels, datasets: [
+                { label: 'Vendas (R$)', data: dadosVendas, borderColor: '#F0B429', backgroundColor: 'rgba(240,180,41,0.15)', tension: 0.35, fill: true, pointBackgroundColor: '#F0B429', pointRadius: 4 },
+                { label: 'Comissão (R$)', data: dadosComissoes, borderColor: '#a78bfa', backgroundColor: 'rgba(167,139,250,0.15)', tension: 0.35, fill: true, pointBackgroundColor: '#a78bfa', pointRadius: 4 }
+            ] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: legendColor, font: { size: 11 } } }, tooltip: { callbacks: { label: c => c.dataset.label + ': ' + fmt(c.raw) } } }, scales: { y: { beginAtZero: true, ticks: { color: tickColor, callback: v => 'R$ ' + (v/1000).toFixed(0) + 'k' }, grid: { color: gridColor } }, x: { ticks: { color: tickColor }, grid: { display: false } } } }
         });
     }
 
@@ -2414,11 +2779,7 @@ function atualizarComissoes() {
         chartComissaoRep = new Chart(cv2, {
             type: 'bar',
             data: { labels: labels.length ? labels : ['Sem dados'], datasets: [{ label: 'Comissão (R$)', data: dados.length ? dados : [0], backgroundColor: ['#F0B429','#D4881C','#B8760E','#F5C542','#a78bfa','#ec4899','#06b6d4'], borderRadius: 6 }] },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmt(c.raw) } } },
-                scales: { y: { beginAtZero: true, ticks: { color: tickColor, callback: v => 'R$ ' + (v/1000).toFixed(0) + 'k' }, grid: { color: gridColor } }, x: { ticks: { color: tickColor, maxRotation: 30 }, grid: { display: false } } }
-            }
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmt(c.raw) } } }, scales: { y: { beginAtZero: true, ticks: { color: tickColor, callback: v => 'R$ ' + (v/1000).toFixed(0) + 'k' }, grid: { color: gridColor } }, x: { ticks: { color: tickColor, maxRotation: 30 }, grid: { display: false } } } }
         });
     }
 
@@ -2429,24 +2790,15 @@ function atualizarComissoes() {
         vendas.forEach(({ h }) => {
             h.itens.forEach(it => {
                 const k = it.codigo + '|' + it.nome;
-                if (!prodMap[k]) prodMap[k] = { nome: it.nome.substring(0, 25), total: 0, qtd: 0 };
+                if (!prodMap[k]) prodMap[k] = { nome: it.nome.substring(0, 25), total: 0 };
                 prodMap[k].total += it.total;
-                prodMap[k].qtd += it.quantidade;
             });
         });
         const top = Object.values(prodMap).sort((a,b) => b.total - a.total).slice(0, 5);
         chartTopProdutos = new Chart(cv3, {
             type: 'bar',
-            data: {
-                labels: top.length ? top.map(p => p.nome) : ['Sem dados'],
-                datasets: [{ label: 'Vendas (R$)', data: top.length ? top.map(p => p.total) : [0], backgroundColor: ['#F0B429','#D4881C','#B8760E','#F5C542','#a78bfa'], borderRadius: 6 }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmt(c.raw) } } },
-                scales: { x: { beginAtZero: true, ticks: { color: tickColor, callback: v => 'R$ ' + (v/1000).toFixed(0) + 'k' }, grid: { color: gridColor } }, y: { ticks: { color: tickColor, font: { size: 10 } }, grid: { display: false } } }
-            }
+            data: { labels: top.length ? top.map(p => p.nome) : ['Sem dados'], datasets: [{ label: 'Vendas (R$)', data: top.length ? top.map(p => p.total) : [0], backgroundColor: ['#F0B429','#D4881C','#B8760E','#F5C542','#a78bfa'], borderRadius: 6 }] },
+            options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => fmt(c.raw) } } }, scales: { x: { beginAtZero: true, ticks: { color: tickColor, callback: v => 'R$ ' + (v/1000).toFixed(0) + 'k' }, grid: { color: gridColor } }, y: { ticks: { color: tickColor, font: { size: 10 } }, grid: { display: false } } } }
         });
     }
 
@@ -2461,17 +2813,14 @@ function atualizarComissoes() {
         });
         const statusLabels = Object.keys(porStatus);
         const statusVals = Object.values(porStatus);
-        const cores = statusLabels.map(s => {
+        const coresArr = statusLabels.map(s => {
             const rgb = STATUS_RGB[s] || [59, 130, 246];
             return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
         });
         chartStatusVendas = new Chart(cv4, {
             type: 'doughnut',
-            data: { labels: statusLabels.length ? statusLabels : ['Sem dados'], datasets: [{ data: statusVals.length ? statusVals : [1], backgroundColor: cores.length ? cores : ['#8892b8'], borderWidth: 3, borderColor: isDark ? '#11173a' : '#fff' }] },
-            options: {
-                responsive: true, maintainAspectRatio: false,
-                plugins: { legend: { position: 'bottom', labels: { color: legendColor, font: { size: 11 } } }, tooltip: { callbacks: { label: c => c.label + ': ' + fmt(c.raw) } } }
-            }
+            data: { labels: statusLabels.length ? statusLabels : ['Sem dados'], datasets: [{ data: statusVals.length ? statusVals : [1], backgroundColor: coresArr.length ? coresArr : ['#8892b8'], borderWidth: 3, borderColor: isDark ? '#11173a' : '#fff' }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: legendColor, font: { size: 11 } } }, tooltip: { callbacks: { label: c => c.label + ': ' + fmt(c.raw) } } } }
         });
     }
 }
@@ -2479,15 +2828,11 @@ function atualizarComissoes() {
 function aplicarComissao() {
     const c = clampPercent(document.getElementById('comissaoPercentInput').value);
     const l = clampPercent(document.getElementById('lucroPercentInput').value);
-    comissaoPercent = c;
-    lucroPercent = l;
-    // Sincroniza inputs e sliders
+    comissaoPercent = c; lucroPercent = l;
     sincronizarPercentuais();
-    salvarTudo();
-    atualizarComissoes();
+    salvarTudo(); atualizarComissoes();
     mostrarToast(`Comissão ${c.toFixed(2)}% e Lucro ${l.toFixed(2)}% aplicados!`);
 }
-
 function sincronizarPercentuais() {
     const ci = document.getElementById('comissaoPercentInput');
     const cr = document.getElementById('comissaoPercentRange');
@@ -2504,32 +2849,18 @@ function exportarComissoesCSV() {
     const sep = ';';
     const escCSV = v => `"${String(v ?? '').replace(/"/g,'""')}"`;
     let csv = `COMISSÕES E VENDAS - ${EMPRESA_NOME}\n`;
-    csv += `Representante Padrão${sep}${escCSV(REPRESENTANTE)}\n`;
-    csv += `% Comissão${sep}${comissaoPercent.toFixed(2)}\n`;
-    csv += `% Lucro Estimado${sep}${lucroPercent.toFixed(2)}\n`;
-    csv += `Base de Cálculo${sep}Valor SEM ICMS (subtotal - desconto)\n\n`;
+    csv += `% Comissão${sep}${comissaoPercent.toFixed(2)}\n% Lucro${sep}${lucroPercent.toFixed(2)}\n\n`;
     csv += `Nº${sep}Data${sep}Cliente${sep}Representante${sep}Total c/ ICMS${sep}Base s/ ICMS${sep}Comissão${sep}Lucro${sep}Status\n`;
     vendas.forEach(({ h }) => {
         const rep = h.representante || REPRESENTANTE;
         const base = getBaseFiscal(h);
-        csv += [
-            '#' + h.numero, h.data, escCSV(h.cliente?.nome || '-'), escCSV(rep),
-            h.total.toFixed(2).replace('.', ','),
-            base.toFixed(2).replace('.', ','),
-            calcularComissao(base).toFixed(2).replace('.', ','),
-            calcularLucro(base).toFixed(2).replace('.', ','),
-            escCSV(h.status || '-')
-        ].join(sep) + '\n';
+        csv += ['#' + h.numero, h.data, escCSV(h.cliente?.nome || '-'), escCSV(rep), h.total.toFixed(2).replace('.', ','), base.toFixed(2).replace('.', ','), calcularComissao(base).toFixed(2).replace('.', ','), calcularLucro(base).toFixed(2).replace('.', ','), escCSV(h.status || '-')].join(sep) + '\n';
     });
     const totalV = vendas.reduce((s,{h}) => s + h.total, 0);
     const totalBase = vendas.reduce((s,{h}) => s + getBaseFiscal(h), 0);
-    csv += `\nTotal de Vendas (c/ ICMS)${sep}${totalV.toFixed(2).replace('.', ',')}\n`;
-    csv += `Base de Comissão (s/ ICMS)${sep}${totalBase.toFixed(2).replace('.', ',')}\n`;
-    csv += `Total de Comissões${sep}${calcularComissao(totalBase).toFixed(2).replace('.', ',')}\n`;
-    csv += `Total de Lucros${sep}${calcularLucro(totalBase).toFixed(2).replace('.', ',')}\n`;
+    csv += `\nTotal Vendas${sep}${totalV.toFixed(2).replace('.', ',')}\nBase s/ ICMS${sep}${totalBase.toFixed(2).replace('.', ',')}\nComissões${sep}${calcularComissao(totalBase).toFixed(2).replace('.', ',')}\nLucros${sep}${calcularLucro(totalBase).toFixed(2).replace('.', ',')}\n`;
     baixarBlob(new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' }), `comissoes_${dataArquivo()}.csv`);
 }
-
 function exportarComissoesPDF() {
     const vendas = getVendasFiltradas();
     const totalV = vendas.reduce((s,{h}) => s + h.total, 0);
@@ -2540,15 +2871,12 @@ function exportarComissoesPDF() {
         const pageW = doc.internal.pageSize.getWidth();
         const pageH = doc.internal.pageSize.getHeight();
         const MX = 10;
-        const CW = pageW - MX * 2;
-
         desenharBannerPDF(doc, pageW, MX);
         doc.setFont('helvetica', 'bold'); doc.setFontSize(14); doc.setTextColor(180, 130, 20);
         doc.text('COMISSÕES E VENDAS', MX, 22);
         doc.setFont('helvetica', 'normal'); doc.setFontSize(9); doc.setTextColor(90, 90, 110);
-        doc.text(`Representante: ${REPRESENTANTE}   •   % Comissão: ${comissaoPercent.toFixed(2)}%   •   % Lucro: ${lucroPercent.toFixed(2)}%`, MX, 28);
-        doc.text(`Base: valor SEM ICMS (subtotal - desconto)   •   Gerado em: ${new Date().toLocaleString('pt-BR')}`, pageW - MX, 28, { align: 'right' });
-
+        doc.text(`% Comissão: ${comissaoPercent.toFixed(2)}%   •   % Lucro: ${lucroPercent.toFixed(2)}%   •   Base: sem ICMS`, MX, 28);
+        doc.text(`Gerado: ${new Date().toLocaleString('pt-BR')}`, pageW - MX, 28, { align: 'right' });
         doc.autoTable({
             startY: 34,
             head: [['Nº', 'Data', 'Cliente', 'Representante', 'Total c/ ICMS', 'Base s/ ICMS', 'Comissão', 'Lucro', 'Status']],
@@ -2560,43 +2888,21 @@ function exportarComissoesPDF() {
             theme: 'grid',
             styles: { fontSize: 7.5, cellPadding: 1.5, textColor: [50,50,70] },
             headStyles: { fillColor: [240, 180, 41], textColor: [26,18,0], fontStyle: 'bold' },
-            alternateRowStyles: { fillColor: [252, 249, 240] },
-            columnStyles: {
-                0: { cellWidth: 14, halign: 'center' },
-                1: { cellWidth: 20 },
-                2: { cellWidth: 'auto' },
-                3: { cellWidth: 30 },
-                4: { cellWidth: 24, halign: 'right' },
-                5: { cellWidth: 24, halign: 'right', fontStyle: 'bold', textColor: [40, 90, 200] },
-                6: { cellWidth: 22, halign: 'right', fontStyle: 'bold', textColor: [120, 60, 180] },
-                7: { cellWidth: 22, halign: 'right', fontStyle: 'bold', textColor: [16, 130, 90] },
-                8: { cellWidth: 22 }
-            },
+            columnStyles: { 0: { cellWidth: 14, halign: 'center' }, 1: { cellWidth: 20 }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 30 }, 4: { cellWidth: 24, halign: 'right' }, 5: { cellWidth: 24, halign: 'right', fontStyle: 'bold', textColor: [40, 90, 200] }, 6: { cellWidth: 22, halign: 'right', fontStyle: 'bold', textColor: [120, 60, 180] }, 7: { cellWidth: 22, halign: 'right', fontStyle: 'bold', textColor: [16, 130, 90] }, 8: { cellWidth: 22 } },
             margin: { left: MX, right: MX, bottom: 12 }
         });
-
         let y = doc.lastAutoTable.finalY + 6;
-        doc.autoTable({
-            startY: y,
-            head: [['Total Vendas (c/ ICMS)', 'Base Comissão (s/ ICMS)', 'Comissões', 'Lucros']],
-            body: [[fmt(totalV), fmt(totalBase), fmt(calcularComissao(totalBase)), fmt(calcularLucro(totalBase))]],
-            theme: 'grid',
-            styles: { fontSize: 9, cellPadding: 2.5, fontStyle: 'bold' },
-            headStyles: { fillColor: [212, 136, 28], textColor: [255,255,255] }
-        });
-
+        doc.autoTable({ startY: y, head: [['Total Vendas', 'Base s/ ICMS', 'Comissões', 'Lucros']], body: [[fmt(totalV), fmt(totalBase), fmt(calcularComissao(totalBase)), fmt(calcularLucro(totalBase))]], theme: 'grid', styles: { fontSize: 9, cellPadding: 2.5, fontStyle: 'bold' }, headStyles: { fillColor: [212, 136, 28], textColor: [255,255,255] } });
         desenharRodapePDF(doc, pageW, pageH, MX);
         doc.save(`comissoes_${dataArquivo()}.pdf`);
     } catch (err) { alert('Erro ao gerar PDF: ' + err.message); }
 }
-
 function exportarComissoesExcel() {
     const vendas = getVendasFiltradas();
     try {
         const wb = XLSX.utils.book_new();
         const totalV = vendas.reduce((s,{h}) => s + h.total, 0);
         const totalBase = vendas.reduce((s,{h}) => s + getBaseFiscal(h), 0);
-
         const detalheAoa = [['Nº','Data','Cliente','Representante','Total c/ ICMS','Base s/ ICMS','Comissão','Lucro','Status']];
         vendas.forEach(({ h }) => {
             const rep = h.representante || REPRESENTANTE;
@@ -2606,33 +2912,6 @@ function exportarComissoesExcel() {
         detalheAoa.push([]);
         detalheAoa.push(['TOTAL','','','', totalV, totalBase, calcularComissao(totalBase), calcularLucro(totalBase), '']);
         XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(detalheAoa), 'Vendas');
-
-        const porRep = {};
-        vendas.forEach(({ h }) => {
-            const r = h.representante || REPRESENTANTE;
-            if (!porRep[r]) porRep[r] = { vendas: 0, base: 0, qtd: 0 };
-            porRep[r].vendas += h.total;
-            porRep[r].base += getBaseFiscal(h);
-            porRep[r].qtd++;
-        });
-        const rankAoa = [['Representante','Vendas c/ ICMS','Base s/ ICMS','Qtd Pedidos','Ticket Médio','Comissão','Lucro']];
-        Object.entries(porRep).sort((a,b) => b[1].vendas - a[1].vendas).forEach(([rep, d]) => {
-            rankAoa.push([rep, d.vendas, d.base, d.qtd, d.qtd > 0 ? d.vendas/d.qtd : 0, calcularComissao(d.base), calcularLucro(d.base)]);
-        });
-        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rankAoa), 'Ranking');
-
-        const anoAtual = new Date().getFullYear();
-        const mesAoa = [['Mês','Qtd','Total Vendas c/ ICMS','Base s/ ICMS','Comissão','Lucro']];
-        for (let m = 1; m <= 12; m++) {
-            let q = 0, v = 0, base = 0;
-            historico.forEach(h => {
-                const d = parseDataBR(h.data);
-                if (d && d.getFullYear() === anoAtual && (d.getMonth()+1) === m) { q++; v += h.total; base += getBaseFiscal(h); }
-            });
-            mesAoa.push([MESES_NOME[m-1], q, v, base, calcularComissao(base), calcularLucro(base)]);
-        }
-        XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(mesAoa), 'Mensal');
-
         XLSX.writeFile(wb, `comissoes_${dataArquivo()}.xlsx`);
     } catch (err) { alert('Erro ao gerar Excel: ' + err.message); }
 }
@@ -2650,7 +2929,7 @@ function dataArquivo() {
 }
 
 function realizarBackupManual() {
-    const dados = { sistema: EMPRESA_NOME, representante: REPRESENTANTE, catalogo: catalogData, pedido_atual: pedidos, historico, fornecedores, clientes, fretes, representantes, comissaoPercent, lucroPercent, orientacaoPDF: orientacaoPDFAtual, exportadoEm: new Date().toISOString() };
+    const dados = { sistema: EMPRESA_NOME, representante: REPRESENTANTE, catalogo: catalogData, pedido_atual: pedidos, historico, fornecedores, clientes, fretes, cores, representantes, comissaoPercent, lucroPercent, orientacaoPDF: orientacaoPDFAtual, exportadoEm: new Date().toISOString() };
     const json = JSON.stringify(dados, null, 2);
     const agora = new Date();
     const nome = `backup_imperio_tintas_${agora.getFullYear()}-${String(agora.getMonth()+1).padStart(2,'0')}-${String(agora.getDate()).padStart(2,'0')}_${String(agora.getHours()).padStart(2,'0')}h${String(agora.getMinutes()).padStart(2,'0')}.json`;
@@ -2675,12 +2954,14 @@ function processarRestauracao(ev) {
             fornecedores = d.fornecedores || [];
             clientes = d.clientes || [];
             fretes = d.fretes || [];
+            cores = d.cores || CORES_INICIAIS.slice();
             representantes = d.representantes || REPRESENTANTES_INICIAIS.slice();
             comissaoPercent = clampPercent(d.comissaoPercent != null ? d.comissaoPercent : COMISSAO_PADRAO);
             lucroPercent = clampPercent(d.lucroPercent != null ? d.lucroPercent : LUCRO_PADRAO);
             historico.forEach(h => {
                 if (!h.status) h.status = 'Em andamento';
                 if (!h.representante) h.representante = REPRESENTANTE;
+                if (!h.parcelamento) h.parcelamento = 'À vista';
             });
             historicoEditandoIdx = -1;
             esconderBannerEdicao();
@@ -2688,11 +2969,10 @@ function processarRestauracao(ev) {
             paginarHistoricoReset();
             salvarTudo(); carregarTudo();
             populateSelects(); renderCatalog(); renderProdutos(); renderTabelaPedidos();
-            renderFornecedores(); renderClientes(); renderFretes(); renderHistorico();
-            renderPedidosFinalizados();
+            renderFornecedores(); renderClientes(); renderFretes(); renderCores();
+            renderHistorico(); renderPedidosFinalizados();
             atualizarDashboard(); atualizarTelaBackup(); atualizarBannerProximoPedido();
-            sincronizarPercentuais();
-            atualizarComissoes();
+            sincronizarPercentuais(); atualizarComissoes();
             alert('✅ Backup restaurado!');
         } catch (err) { alert('Erro ao restaurar: ' + err.message); }
     };
@@ -2748,16 +3028,14 @@ function navigateTo(section) {
     document.querySelectorAll('.sidebar-menu a').forEach(el => el.classList.remove('active'));
     const m = document.querySelector(`.sidebar-menu a[data-section="${section}"]`);
     if (m) m.classList.add('active');
-    const titles = { dashboard:'Dashboard', pedido:'Novo Pedido', fornecedor:'Cadastro Fornecedor', produto:'Cadastro Produto', cliente:'Cadastro Cliente', frete:'Cadastro Frete', historico:'Histórico Pedidos', comissoes:'Comissões & Vendas', backup:'Backup' };
-    const icons = { dashboard:'chart-pie', pedido:'shopping-cart', fornecedor:'handshake', produto:'box', cliente:'user', frete:'truck', historico:'history', comissoes:'hand-holding-usd', backup:'database' };
+    const titles = { dashboard:'Dashboard', pedido:'Novo Pedido', fornecedor:'Cadastro Fornecedor', produto:'Cadastro Produto', cor:'Cadastro de Cores', cliente:'Cadastro Cliente', frete:'Cadastro Frete', historico:'Histórico Pedidos', comissoes:'Comissões & Vendas', backup:'Backup' };
+    const icons = { dashboard:'chart-pie', pedido:'shopping-cart', fornecedor:'handshake', produto:'box', cor:'palette', cliente:'user', frete:'truck', historico:'history', comissoes:'hand-holding-usd', backup:'database' };
     document.getElementById('pageTitle').innerHTML = `<i class="fas fa-${icons[section] || 'circle'}"></i> ${titles[section] || section}`;
     if (window.innerWidth <= 992) { document.getElementById('sidebar').classList.remove('open'); document.getElementById('overlay').classList.remove('active'); }
     if (section === 'backup') atualizarTelaBackup();
     if (section === 'historico') renderHistorico();
-    if (section === 'comissoes') {
-        sincronizarPercentuais();
-        atualizarComissoes();
-    }
+    if (section === 'cor') renderCores();
+    if (section === 'comissoes') { sincronizarPercentuais(); atualizarComissoes(); }
     if (section === 'dashboard') { atualizarDashboard(); setTimeout(() => { if (typeof updateCharts === 'function') try { updateCharts(); } catch(e){} }, 100); }
     if (section === 'pedido') { recalcularTotaisPedido(); atualizarStatusPreview(); atualizarBannerProximoPedido(); renderPedidosFinalizados(); }
 }
@@ -2780,7 +3058,6 @@ function fazerLogin(e) {
         document.getElementById('password').focus();
     }
 }
-
 function logout() {
     const resposta = confirm('Deseja realizar um backup antes de sair?\n\n• OK = Baixar backup e sair\n• Cancelar = Sair sem backup');
     if (resposta) realizarBackupManual();
@@ -2788,7 +3065,6 @@ function logout() {
     localStorage.removeItem('pop_tintas_user');
     location.reload();
 }
-
 function iniciarSistema() {
     carregarTudo();
     historicoEditandoIdx = -1;
@@ -2807,7 +3083,7 @@ function iniciarSistema() {
     sincronizarPercentuais();
     setupBotoesOrientacao();
     populateSelects(); renderCatalog(); renderTabelaPedidos();
-    renderFornecedores(); renderProdutos(); renderClientes(); renderFretes();
+    renderFornecedores(); renderProdutos(); renderClientes(); renderFretes(); renderCores();
     renderHistorico(); renderPedidosFinalizados(); atualizarDashboard(); atualizarTelaBackup();
     atualizarStatusPreview(); atualizarBannerProximoPedido();
     updateCharts();
@@ -2841,21 +3117,42 @@ function setupEventListeners() {
         calcularTotal();
     });
     document.getElementById('quantidade')?.addEventListener('input', calcularTotal);
-    document.getElementById('descontoInput')?.addEventListener('input', recalcularTotaisPedido);
+    document.getElementById('valorUnitario')?.addEventListener('input', calcularTotal);
+
+    // Sincronização slider ↔ input do desconto
+    const dr = document.getElementById('descontoRange');
+    const di = document.getElementById('descontoInput');
+    if (dr) dr.addEventListener('input', () => { if (di) di.value = clampPercent(dr.value).toFixed(2); recalcularTotaisPedido(); });
+    if (di) di.addEventListener('input', () => { if (dr) dr.value = clampPercent(di.value); recalcularTotaisPedido(); });
+    if (di) di.addEventListener('blur', () => { di.value = clampPercent(di.value).toFixed(2); if (dr) dr.value = clampPercent(di.value); recalcularTotaisPedido(); });
+
     document.getElementById('entradaInput')?.addEventListener('input', recalcularTotaisPedido);
     document.getElementById('pedidoForm')?.addEventListener('submit', adicionarItemPedido);
     document.getElementById('limparPedido')?.addEventListener('click', limparPedido);
     document.getElementById('finalizarPedido')?.addEventListener('click', finalizarPedido);
     document.getElementById('searchTable')?.addEventListener('keyup', filterTable);
     document.getElementById('filterCategory')?.addEventListener('change', filterTable);
+    document.getElementById('filterCor')?.addEventListener('change', filterTable);
     document.getElementById('catalogSearch')?.addEventListener('keyup', filterCatalog);
     document.getElementById('searchFinalizados')?.addEventListener('keyup', renderPedidosFinalizados);
     document.getElementById('btnCancelarEdicao')?.addEventListener('click', () => cancelarEdicaoPedido(false));
+
+    // Contador de observação
+    const obsEl = document.getElementById('observacaoPedido');
+    const obsCont = document.getElementById('obsPedidoContador');
+    if (obsEl && obsCont) obsEl.addEventListener('input', () => { obsCont.textContent = obsEl.value.length; });
+
+    // Contador de observação do relatório
+    document.getElementById('observacaoRelatorio')?.addEventListener('input', function() {
+        const c = document.getElementById('obsContador');
+        if (c) c.textContent = this.value.length;
+    });
 
     document.getElementById('fornecedorForm')?.addEventListener('submit', salvarFornecedor);
     document.getElementById('produtoCadastroForm')?.addEventListener('submit', salvarProduto);
     document.getElementById('clienteForm')?.addEventListener('submit', salvarCliente);
     document.getElementById('freteForm')?.addEventListener('submit', salvarFrete);
+    document.getElementById('corForm')?.addEventListener('submit', salvarCor);
 
     document.getElementById('editForm')?.addEventListener('submit', salvarEdicaoForm);
     document.getElementById('closeEditBtn')?.addEventListener('click', closeEditModal);
@@ -2868,8 +3165,12 @@ function setupEventListeners() {
     document.getElementById('searchHistorico')?.addEventListener('keyup', () => { paginarHistoricoReset(); renderHistorico(); });
     document.getElementById('filterStatus')?.addEventListener('change', () => { paginarHistoricoReset(); renderHistorico(); });
     document.getElementById('filterRepresentanteHistorico')?.addEventListener('change', () => { paginarHistoricoReset(); renderHistorico(); });
+    document.getElementById('filterParcelamentoHistorico')?.addEventListener('change', () => { paginarHistoricoReset(); renderHistorico(); });
 
-    // Sincronização slider ↔ input de comissão
+    // Cores
+    document.getElementById('searchCores')?.addEventListener('keyup', renderCores);
+
+    // Comissões - sliders
     const ci = document.getElementById('comissaoPercentInput');
     const cr = document.getElementById('comissaoPercentRange');
     const li = document.getElementById('lucroPercentInput');
@@ -2912,6 +3213,8 @@ function setupEventListeners() {
             case 'view-prod': visualizarItem('produto', idx); break;
             case 'edit-prod': editarProduto(idx); break;
             case 'del-prod': excluirProduto(code); break;
+            case 'edit-cor': editarCor(code); break;
+            case 'del-cor': excluirCor(code); break;
             case 'view-cli': visualizarItem('cliente', idx); break;
             case 'edit-cli': editarCliente(idx); break;
             case 'del-cli': excluirCliente(id); break;
