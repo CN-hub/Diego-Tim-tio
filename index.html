@@ -21,10 +21,6 @@
 html, body { max-width: 100%; overflow-x: hidden; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 body { font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.5; }
 
-/* ============================================================
-   TEMA ESCURO - PALETA IMPÉRIO REVESTIMENTOS
-   Preto #000000 | Dourado #D2842C / #F3B63B / #FCE484 | Bege #C8B17F
-   ============================================================ */
 :root, [data-theme="dark"] {
     --bg: #000000;
     --sidebar-bg: linear-gradient(180deg, #0a0806 0%, #000000 100%);
@@ -52,7 +48,6 @@ body { font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; li
                 radial-gradient(ellipse at bottom, rgba(210, 132, 44, 0.13), transparent 60%),
                 linear-gradient(135deg, #000000 0%, #0a0806 100%);
 }
-
 [data-theme="light"] {
     --bg: #f4f6fb; --sidebar-bg: #ffffff; --sidebar-border: rgba(15, 23, 42, 0.08);
     --card-bg: #ffffff; --card-bg-solid: #ffffff; --card-hover: #f8fafc;
@@ -291,7 +286,6 @@ table td strong { color: var(--text); font-weight: 600; }
 .icms-banner .icms-info { color: var(--text-muted); flex: 1; min-width: 180px; }
 .icms-banner .icms-info strong { color: var(--text); display: block; font-size: 0.95rem; margin-bottom: 3px; }
 
-/* ===== NOVO: Controles ICMS (Sim/Não + Alíquota) ===== */
 .icms-controls-group { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
 .icms-control { display: flex; flex-direction: column; gap: 6px; }
 .icms-ctrl-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; }
@@ -308,6 +302,32 @@ table td strong { color: var(--text); font-weight: 600; }
 .icms-rate-input-wrap .suffix { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-left: 4px; }
 .icms-rate { padding: 10px 22px; background: linear-gradient(135deg, #FCE484 0%, #F3B63B 50%, #D2842C 100%); color: #1a0e00; border-radius: 12px; font-weight: 700; font-size: 1.3rem; min-width: 110px; text-align: center; transition: all 0.3s ease; }
 .icms-rate.desativado { background: linear-gradient(135deg, #3a3a3a, #1f1f1f); color: #8a7a5a; font-size: 0.85rem; }
+
+/* ========= Commission Config (Products) ========= */
+.com-config-box { background: linear-gradient(135deg, rgba(16, 185, 129, 0.06), rgba(243, 182, 59, 0.04)); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 12px; padding: 14px 18px; margin: 14px 0 6px; }
+.com-config-box h3 { font-size: 0.82rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--text); font-weight: 700; }
+.com-config-box h3 i { color: var(--accent-green); }
+.com-config-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end; }
+.com-config-col { display: flex; flex-direction: column; gap: 6px; }
+.com-config-col > label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; }
+.com-toggle { display: inline-flex; gap: 4px; background: var(--card-bg-solid); border: 1px solid var(--border-strong); border-radius: 10px; padding: 3px; }
+.com-toggle button { background: transparent; border: none; padding: 8px 16px; border-radius: 8px; font-family: inherit; font-weight: 700; font-size: 0.82rem; color: var(--text-muted); cursor: pointer; transition: 0.2s; min-width: 55px; }
+.com-toggle button:hover { color: #F3B63B; }
+.com-toggle button.active[data-com-value="sim"] { background: linear-gradient(135deg, #10b981, #059669); color: #fff; box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4); }
+.com-toggle button.active[data-com-value="nao"] { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4); }
+.com-rate-wrap { display: flex; align-items: center; background: var(--input-bg); border: 1px solid var(--border-strong); border-radius: 10px; padding: 0 12px; transition: 0.2s; min-width: 110px; }
+.com-rate-wrap:focus-within { border-color: #F3B63B; box-shadow: 0 0 0 3px rgba(243, 182, 59, 0.18); }
+.com-rate-wrap.disabled { opacity: 0.45; }
+.com-rate-wrap input { border: none !important; background: transparent !important; padding: 10px 0 !important; font-size: 16px; font-weight: 700; color: var(--text); width: 70px; text-align: right; box-shadow: none !important; }
+.com-rate-wrap input:focus { outline: none; }
+.com-rate-wrap .suffix { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-left: 4px; }
+.com-valor-field { display: flex; align-items: center; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: 10px; padding: 0 12px; min-width: 130px; }
+.com-valor-field .prefix { font-size: 0.85rem; font-weight: 700; color: var(--accent-green); margin-right: 4px; }
+.com-valor-field input { border: none !important; background: transparent !important; padding: 10px 0 !important; font-size: 16px; font-weight: 700; color: var(--accent-green); width: 100%; text-align: right; box-shadow: none !important; }
+.com-valor-field input:focus { outline: none; }
+.com-badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; white-space: nowrap; }
+.com-badge.ativa { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
+.com-badge.inativa { background: rgba(120, 120, 120, 0.12); color: var(--text-dim); border: 1px solid var(--border); font-style: italic; font-weight: 500; }
 
 .cliente-info-card { background: linear-gradient(135deg, rgba(16, 185, 129, 0.08), rgba(6, 182, 212, 0.04)); border: 1px solid rgba(16, 185, 129, 0.28); border-radius: 12px; padding: 14px 18px; margin-top: 14px; }
 .cliente-info-card .ci-titulo { font-size: 0.7rem; text-transform: uppercase; color: var(--accent-green); font-weight: 700; letter-spacing: 1.2px; margin-bottom: 10px; }
@@ -338,10 +358,8 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
 }
 .info-comissao-box strong { color: #FCE484; }
 
-/* Bolinha de cor */
 .cor-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: middle; border: 2px solid rgba(255,255,255,0.4); flex-shrink: 0; }
 
-/* Observação destaque */
 .observacao-box { background: linear-gradient(135deg, rgba(243, 182, 59, 0.08), rgba(210, 132, 44, 0.04)); border: 1px solid rgba(243, 182, 59, 0.35); border-left: 4px solid #F3B63B; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
 .observacao-box h2 { font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; }
 .observacao-box h2 i { color: #F3B63B; }
@@ -367,6 +385,11 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
     .chart-canvas-wrapper { height: 220px; }
     .btn { padding: 10px 16px; font-size: 0.84rem; }
     .catalog-grid { grid-template-columns: 1fr; }
+    .com-config-row { flex-direction: column; align-items: stretch; }
+    .com-config-col { width: 100%; }
+    .com-toggle { width: 100%; }
+    .com-toggle button { flex: 1; }
+    .com-rate-wrap, .com-valor-field { width: 100%; }
 }
 @media (max-width: 540px) {
     .finance-grid { grid-template-columns: 1fr 1fr; }
@@ -493,7 +516,6 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
             </div>
         </div>
 
-        <!-- ====== SEÇÃO ICMS ATUALIZADA COM FILTRO SIM/NÃO + ALÍQUOTA CONDICIONAL ====== -->
         <div class="form-section">
             <h2><i class="fas fa-percentage"></i> Alíquota de ICMS Aplicada</h2>
             <div class="icms-banner">
@@ -723,7 +745,35 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
                     </div>
                     <div class="form-group"><label>Preço (R$)</label><input type="number" id="prodPreco" step="0.01" required placeholder="0.00"></div>
                 </div>
-                <div class="form-actions"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button><button type="reset" class="btn btn-outline">Cancelar</button></div>
+                <!-- ====== NOVA SEÇÃO: COMISSÃO DO PRODUTO ====== -->
+                <div class="com-config-box">
+                    <h3><i class="fas fa-percent"></i> Comissão do Produto</h3>
+                    <div class="com-config-row">
+                        <div class="com-config-col">
+                            <label>Usar Comissão?</label>
+                            <div class="com-toggle" id="prodComToggle" data-com-prefix="prod">
+                                <button type="button" data-com-value="sim" class="active">Sim</button>
+                                <button type="button" data-com-value="nao">Não</button>
+                            </div>
+                            <input type="hidden" id="prodComAtiva" value="true">
+                        </div>
+                        <div class="com-config-col">
+                            <label>Comissão (%)</label>
+                            <div class="com-rate-wrap" id="prodComRateWrap">
+                                <input type="number" id="prodComPercent" step="0.01" min="0" max="100" value="5.00">
+                                <span class="suffix">%</span>
+                            </div>
+                        </div>
+                        <div class="com-config-col">
+                            <label>Valor em R$ (por unidade)</label>
+                            <div class="com-valor-field">
+                                <span class="prefix">R$</span>
+                                <input type="text" id="prodComValor" readonly value="0,00">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button><button type="reset" class="btn btn-outline" id="prodResetBtn">Cancelar</button></div>
             </form>
         </div>
         <div class="pdf-orientacao-bar">
@@ -735,7 +785,7 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
         </div>
         <div class="table-section">
             <h2><i class="fas fa-list"></i> Produtos Cadastrados</h2>
-            <div class="table-scroll"><table><thead><tr><th>Código</th><th>Nome</th><th>Categoria</th><th>Preço</th><th>Ações</th></tr></thead><tbody id="tabelaProdutos"></tbody></table></div>
+            <div class="table-scroll"><table><thead><tr><th>Código</th><th>Nome</th><th>Categoria</th><th>Preço</th><th>Comissão</th><th>Ações</th></tr></thead><tbody id="tabelaProdutos"></tbody></table></div>
         </div>
     </div>
 
@@ -1172,14 +1222,12 @@ const clampPercent = v => { const n = parseFloat(v); if (isNaN(n)) return 0; ret
 /* ============================================================
    ESTADO DO ICMS - FILTRO SIM/NÃO + ALÍQUOTA CONDICIONAL
    ============================================================ */
-let icmsAtivo = true;                       // Filtro Sim/Não
-let aliquotaICMSAtual = ALIQUOTA_ICMS;      // Alíquota em % (memorizada)
+let icmsAtivo = true;
+let aliquotaICMSAtual = ALIQUOTA_ICMS;
 
-/* Retorna a alíquota efetiva: 0 se ICMS desativado, ou o valor se ativo */
 function getAliquotaICMS() { return icmsAtivo ? aliquotaICMSAtual : 0; }
 function isIcmsAtivo() { return icmsAtivo; }
 
-/* Define a alíquota (somente se ICMS ativo) */
 function setAliquotaICMS(v) {
     const num = parseFloat(v);
     if (!isNaN(num) && num >= 0 && num <= 100) {
@@ -1189,7 +1237,6 @@ function setAliquotaICMS(v) {
     }
 }
 
-/* Atualiza o display do "badge" dourado e o rótulo do imposto */
 function atualizarIcmsDisplay() {
     const el = document.getElementById('icmsRateDisplay');
     const lbl = document.getElementById('impostoLabel');
@@ -1213,7 +1260,6 @@ function atualizarIcmsDisplay() {
     if (rateInput) rateInput.disabled = !icmsAtivo;
 }
 
-/* Liga/desliga o uso do ICMS */
 function setIcmsAtivo(ativo, silencioso) {
     icmsAtivo = !!ativo;
     DB.set('icms_ativo', icmsAtivo);
@@ -1234,7 +1280,6 @@ function setIcmsAtivo(ativo, silencioso) {
     }
 }
 
-/* Liga os listeners dos botões Sim/Não e do input de alíquota */
 function setupIcmsControls() {
     const toggle = document.getElementById('icmsToggle');
     if (toggle) {
@@ -1261,11 +1306,44 @@ function setupIcmsControls() {
             atualizarIcmsDisplay();
         });
     }
-    /* Estado inicial dos controles */
     setIcmsAtivo(icmsAtivo, true);
     if (rateInput) rateInput.value = aliquotaICMSAtual.toFixed(2);
 }
 
+/* ============================================================
+   COMISSÃO POR PRODUTO
+   ============================================================ */
+function calcularComissaoValorPreview(prefix) {
+    const precoEl = document.getElementById(prefix === 'prod' ? 'prodPreco' : 'epPreco');
+    const percEl = document.getElementById(prefix + 'ComPercent');
+    const valorEl = document.getElementById(prefix + 'ComValor');
+    const hiddenEl = document.getElementById(prefix + 'ComAtiva');
+    const ativo = hiddenEl ? hiddenEl.value === 'true' : true;
+    const preco = parseFloat(precoEl?.value) || 0;
+    const perc = parseFloat(percEl?.value) || 0;
+    const valor = ativo ? preco * (perc / 100) : 0;
+    if (valorEl) valorEl.value = valor.toFixed(2).replace('.', ',');
+}
+
+function initProdComissaoForm() {
+    const toggle = document.getElementById('prodComToggle');
+    if (toggle) {
+        toggle.querySelectorAll('button').forEach(b => {
+            b.classList.toggle('active', b.dataset.comValue === 'sim');
+        });
+    }
+    const hidden = document.getElementById('prodComAtiva');
+    if (hidden) hidden.value = 'true';
+    const percEl = document.getElementById('prodComPercent');
+    if (percEl) { percEl.value = '5.00'; percEl.disabled = false; }
+    const wrap = document.getElementById('prodComRateWrap');
+    if (wrap) wrap.classList.remove('disabled');
+    calcularComissaoValorPreview('prod');
+}
+
+/* ============================================================
+   ESTADO GERAL
+   ============================================================ */
 let catalogData = [], pedidos = [], historico = [], fornecedores = [], clientes = [], fretes = [], cores = [], backupHistory = [];
 let representantes = [];
 let comissaoPercent = COMISSAO_PADRAO;
@@ -1283,23 +1361,23 @@ const DB = {
 };
 
 const CATALOGO_INICIAL = [
-    { codigo: '1', nome: 'CRISTAL BRILHO NATURAL', preco: 244.15, categoria: 'Cristal Brilho' },
-    { codigo: '16', nome: 'CRISTAL BRILHO DUBAI', preco: 255.6, categoria: 'Cristal Brilho' },
-    { codigo: '17', nome: 'CRISTAL BRILHO BRILHANTE RED', preco: 255.6, categoria: 'Cristal Brilho' },
-    { codigo: '18', nome: 'CRISTAL BRILHO POMERIGGIO', preco: 255.6, categoria: 'Cristal Brilho' },
-    { codigo: '395', nome: 'CRISTAL BRILHO ONIX', preco: 255.6, categoria: 'Cristal Brilho' },
-    { codigo: '53', nome: 'DIAMANTE NOBRE NATURAL', preco: 313.05, categoria: 'Diamante Nobre' },
-    { codigo: '59', nome: 'DIAMANTE NOBRE PRETO', preco: 353.95, categoria: 'Diamante Nobre' },
-    { codigo: '27', nome: 'DIAMANTE NOBRE PLUS ARENITO', preco: 376.25, categoria: 'Diamante Nobre Plus' },
-    { codigo: '102', nome: 'GRAFFINO ROYAL NATURAL', preco: 154.8, categoria: 'Graffino Royal' },
-    { codigo: '47', nome: 'GRAFFINO ROYAL MARFIM', preco: 154.8, categoria: 'Graffino Royal' },
-    { codigo: '69', nome: 'TEXTURA RUSTICA NATURAL', preco: 101.35, categoria: 'Textura Rústica' },
-    { codigo: '308', nome: 'EFEITO FULGET LAGO ROSA', preco: 297.5, categoria: 'Efeito Fulget' },
-    { codigo: '139', nome: 'EFEITO FULGET AÇO CORTEN', preco: 341.8, categoria: 'Efeito Fulget' },
-    { codigo: '241', nome: 'FUNDO PREPARADOR CONCENTRADO 900ML', preco: 28.2, categoria: 'Fundo Preparador' },
-    { codigo: '1504', nome: 'ADITIVOS BRILHO GRANDE PRATA', preco: 500.45, categoria: 'Aditivos' },
-    { codigo: '1860', nome: 'MANTA LIQUIDA GRANDE', preco: 439.95, categoria: 'Manta Líquida' },
-    { codigo: '625', nome: 'BROCAL IMPORTADO PRATA', preco: 20.6, categoria: 'Brocal' }
+    { codigo: '1', nome: 'CRISTAL BRILHO NATURAL', preco: 244.15, categoria: 'Cristal Brilho', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 12.21 },
+    { codigo: '16', nome: 'CRISTAL BRILHO DUBAI', preco: 255.6, categoria: 'Cristal Brilho', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 12.78 },
+    { codigo: '17', nome: 'CRISTAL BRILHO BRILHANTE RED', preco: 255.6, categoria: 'Cristal Brilho', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 12.78 },
+    { codigo: '18', nome: 'CRISTAL BRILHO POMERIGGIO', preco: 255.6, categoria: 'Cristal Brilho', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 12.78 },
+    { codigo: '395', nome: 'CRISTAL BRILHO ONIX', preco: 255.6, categoria: 'Cristal Brilho', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 12.78 },
+    { codigo: '53', nome: 'DIAMANTE NOBRE NATURAL', preco: 313.05, categoria: 'Diamante Nobre', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 15.65 },
+    { codigo: '59', nome: 'DIAMANTE NOBRE PRETO', preco: 353.95, categoria: 'Diamante Nobre', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 17.70 },
+    { codigo: '27', nome: 'DIAMANTE NOBRE PLUS ARENITO', preco: 376.25, categoria: 'Diamante Nobre Plus', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 18.81 },
+    { codigo: '102', nome: 'GRAFFINO ROYAL NATURAL', preco: 154.8, categoria: 'Graffino Royal', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 7.74 },
+    { codigo: '47', nome: 'GRAFFINO ROYAL MARFIM', preco: 154.8, categoria: 'Graffino Royal', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 7.74 },
+    { codigo: '69', nome: 'TEXTURA RUSTICA NATURAL', preco: 101.35, categoria: 'Textura Rústica', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 5.07 },
+    { codigo: '308', nome: 'EFEITO FULGET LAGO ROSA', preco: 297.5, categoria: 'Efeito Fulget', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 14.88 },
+    { codigo: '139', nome: 'EFEITO FULGET AÇO CORTEN', preco: 341.8, categoria: 'Efeito Fulget', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 17.09 },
+    { codigo: '241', nome: 'FUNDO PREPARADOR CONCENTRADO 900ML', preco: 28.2, categoria: 'Fundo Preparador', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 1.41 },
+    { codigo: '1504', nome: 'ADITIVOS BRILHO GRANDE PRATA', preco: 500.45, categoria: 'Aditivos', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 25.02 },
+    { codigo: '1860', nome: 'MANTA LIQUIDA GRANDE', preco: 439.95, categoria: 'Manta Líquida', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 22.00 },
+    { codigo: '625', nome: 'BROCAL IMPORTADO PRATA', preco: 20.6, categoria: 'Brocal', comissaoAtiva: true, comissaoPercent: 5.00, comissaoValor: 1.03 }
 ];
 
 const CORES_INICIAIS = [
@@ -1336,6 +1414,12 @@ function salvarTudo() {
 }
 function carregarTudo() {
     catalogData = DB.get('catalogo', null) || CATALOGO_INICIAL.slice();
+    /* Normaliza produtos antigos sem campos de comissão */
+    catalogData.forEach(p => {
+        if (p.comissaoAtiva === undefined) p.comissaoAtiva = true;
+        if (p.comissaoPercent === undefined) p.comissaoPercent = 5.00;
+        if (p.comissaoValor === undefined) p.comissaoValor = parseFloat(p.preco) * (parseFloat(p.comissaoPercent) / 100);
+    });
     pedidos = DB.get('pedido_atual', []);
     historico = DB.get('historico', []);
     fornecedores = DB.get('fornecedores', [
@@ -1347,7 +1431,6 @@ function carregarTudo() {
     representantes = DB.get('representantes', REPRESENTANTES_INICIAIS.slice());
     comissaoPercent = clampPercent(DB.get('comissao_percent', COMISSAO_PADRAO));
     lucroPercent = clampPercent(DB.get('lucro_percent', LUCRO_PADRAO));
-    /* ICMS: carrega estado salvo */
     icmsAtivo = DB.get('icms_ativo', true) !== false;
     aliquotaICMSAtual = clampPercent(DB.get('icms_aliquota', ALIQUOTA_ICMS));
     backupHistory = DB.get('backup_history', []);
@@ -1430,7 +1513,7 @@ function calcularTotais() {
     const entradaBruta = parseFloat(eEl?.value) || 0;
     const desconto = sub * (descontoPerc / 100);
     const baseICMS = Math.max(sub - desconto, 0);
-    const aliquota = getAliquotaICMS();  /* retorna 0 se ICMS desativado */
+    const aliquota = getAliquotaICMS();
     const imposto = baseICMS * (aliquota / 100);
     const totalGeral = baseICMS + imposto;
     const entrada = Math.min(Math.max(entradaBruta, 0), totalGeral);
@@ -1822,7 +1905,6 @@ function editarPedidoHistorico(idx) {
     document.getElementById('entradaInput').value = (h.entrada || 0).toFixed(2);
     document.getElementById('observacaoPedido').value = h.observacao || '';
     document.getElementById('obsPedidoContador').textContent = (h.observacao || '').length;
-    /* Restaura estado do ICMS específico do pedido em edição */
     const icmsPedido = (h.aliquotaICMS !== undefined && h.aliquotaICMS !== null) ? h.aliquotaICMS : ALIQUOTA_ICMS;
     if (icmsPedido > 0) {
         aliquotaICMSAtual = icmsPedido;
@@ -1925,8 +2007,8 @@ function finalizarPedido() {
         itens: JSON.parse(JSON.stringify(pedidos)),
         subtotal: t.sub, desconto: t.desconto, descontoPercent: t.descontoPerc,
         baseICMS: t.baseICMS, imposto: t.imposto,
-        aliquotaICMS: t.aliquota,           /* 0 quando ICMS desativado */
-        icmsAtivo: icmsAtivo,                /* registro do estado */
+        aliquotaICMS: t.aliquota,
+        icmsAtivo: icmsAtivo,
         tipoOperacao: 'substituicao',
         total: t.totalGeral, entrada: t.entrada, saldo: t.saldo,
         cliente: { ...clienteSel }, representante: representanteSel,
@@ -2108,15 +2190,27 @@ function salvarProduto(e) {
     const preco = parseFloat(document.getElementById('prodPreco').value);
     if (!codigo || !nome || isNaN(preco)) { alert('Preencha todos os campos.'); return; }
     if (catalogData.some(p => p.codigo === codigo)) { alert('Código já existe!'); return; }
-    catalogData.push({ codigo, nome, categoria, preco });
+    const comissaoAtiva = document.getElementById('prodComAtiva').value === 'true';
+    const comissaoPercent = comissaoAtiva ? (parseFloat(document.getElementById('prodComPercent').value) || 0) : 0;
+    const comissaoValor = comissaoAtiva ? preco * (comissaoPercent / 100) : 0;
+    catalogData.push({ codigo, nome, categoria, preco, comissaoAtiva, comissaoPercent, comissaoValor });
     salvarTudo(); populateSelects(); renderCatalog(); renderProdutos(); e.target.reset(); atualizarDashboard();
+    initProdComissaoForm();
+    mostrarToast(`Produto ${codigo} cadastrado!`);
 }
 function renderProdutos() {
     const t = document.getElementById('tabelaProdutos'); if (!t) return;
     t.innerHTML = '';
     catalogData.forEach((p, i) => {
+        let comHtml;
+        if (p.comissaoAtiva !== false && parseFloat(p.comissaoPercent) > 0) {
+            const valor = parseFloat(p.comissaoValor) || (parseFloat(p.preco) * (parseFloat(p.comissaoPercent) / 100));
+            comHtml = `<span class="com-badge ativa">✅ ${parseFloat(p.comissaoPercent).toFixed(2).replace('.', ',')}% (${fmt(valor)})</span>`;
+        } else {
+            comHtml = `<span class="com-badge inativa">🚫 Não aplica</span>`;
+        }
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td><strong>${esc(p.codigo)}</strong></td><td>${esc(p.nome)}</td><td>${esc(p.categoria)}</td><td>${fmt(p.preco)}</td>
+        tr.innerHTML = `<td><strong>${esc(p.codigo)}</strong></td><td>${esc(p.nome)}</td><td>${esc(p.categoria)}</td><td>${fmt(p.preco)}</td><td>${comHtml}</td>
             <td>
                 <button class="btn btn-info btn-sm" data-action="view-prod" data-idx="${i}"><i class="fas fa-eye"></i></button>
                 <button class="btn btn-warning btn-sm" data-action="edit-prod" data-idx="${i}"><i class="fas fa-edit"></i></button>
@@ -2130,10 +2224,40 @@ function editarProduto(i) {
     document.getElementById('editIndex').value = i;
     document.getElementById('editType').value = 'produto';
     document.getElementById('editModalTitle').textContent = 'Produto';
+    const comAtiva = p.comissaoAtiva !== false;
+    const comPerc = parseFloat(p.comissaoPercent) || 0;
+    const comValor = parseFloat(p.comissaoValor) || (comAtiva ? parseFloat(p.preco) * (comPerc / 100) : 0);
     document.getElementById('editFields').innerHTML = `
-        <div class="form-group"><label>Nome</label><input type="text" id="epNome" value="${esc(p.nome)}" required></div>
-        <div class="form-group"><label>Categoria</label><input type="text" id="epCategoria" value="${esc(p.categoria)}"></div>
-        <div class="form-group"><label>Preço</label><input type="number" id="epPreco" step="0.01" value="${parseFloat(p.preco)}" required></div>`;
+        <div class="form-group" style="margin-bottom:10px;"><label>Nome</label><input type="text" id="epNome" value="${esc(p.nome)}" required></div>
+        <div class="form-group" style="margin-bottom:10px;"><label>Categoria</label><input type="text" id="epCategoria" value="${esc(p.categoria)}"></div>
+        <div class="form-group" style="margin-bottom:10px;"><label>Preço (R$)</label><input type="number" id="epPreco" step="0.01" value="${parseFloat(p.preco).toFixed(2)}" required></div>
+        <div class="com-config-box">
+            <h3><i class="fas fa-percent"></i> Comissão do Produto</h3>
+            <div class="com-config-row">
+                <div class="com-config-col">
+                    <label>Usar Comissão?</label>
+                    <div class="com-toggle" id="epComToggle" data-com-prefix="ep">
+                        <button type="button" data-com-value="sim" class="${comAtiva ? 'active' : ''}">Sim</button>
+                        <button type="button" data-com-value="nao" class="${!comAtiva ? 'active' : ''}">Não</button>
+                    </div>
+                    <input type="hidden" id="epComAtiva" value="${comAtiva ? 'true' : 'false'}">
+                </div>
+                <div class="com-config-col">
+                    <label>Comissão (%)</label>
+                    <div class="com-rate-wrap ${comAtiva ? '' : 'disabled'}" id="epComRateWrap">
+                        <input type="number" id="epComPercent" step="0.01" min="0" max="100" value="${comPerc.toFixed(2)}" ${comAtiva ? '' : 'disabled'}>
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                <div class="com-config-col">
+                    <label>Valor em R$ (por unidade)</label>
+                    <div class="com-valor-field">
+                        <span class="prefix">R$</span>
+                        <input type="text" id="epComValor" readonly value="${comValor.toFixed(2).replace('.', ',')}">
+                    </div>
+                </div>
+            </div>
+        </div>`;
     document.getElementById('editModal').classList.add('active');
 }
 function excluirProduto(codigo) { if (!confirm('Excluir este produto?')) return; catalogData = catalogData.filter(p => p.codigo !== codigo); salvarTudo(); populateSelects(); renderCatalog(); renderProdutos(); atualizarDashboard(); }
@@ -2244,6 +2368,11 @@ function salvarEdicaoForm(e) {
             p.nome = document.getElementById('epNome').value.trim();
             p.categoria = document.getElementById('epCategoria').value.trim();
             p.preco = parseFloat(document.getElementById('epPreco').value) || p.preco;
+            const comAtiva = document.getElementById('epComAtiva').value === 'true';
+            const comPerc = comAtiva ? (parseFloat(document.getElementById('epComPercent').value) || 0) : 0;
+            p.comissaoAtiva = comAtiva;
+            p.comissaoPercent = comPerc;
+            p.comissaoValor = comAtiva ? p.preco * (comPerc / 100) : 0;
             salvarTudo(); populateSelects(); renderCatalog(); renderProdutos();
         }
     } else if (type === 'cliente') {
@@ -2329,7 +2458,18 @@ function abrirProdutoPDF(idx) {
         doc.setFont('helvetica', 'bold'); doc.setTextColor(60, 60, 80);
         doc.text('Preço:', MX, y);
         doc.setFont('helvetica', 'normal'); doc.setTextColor(16, 185, 129); doc.setFontSize(10);
-        doc.text(fmt(p.preco), MX + 25, y); y += 12;
+        doc.text(fmt(p.preco), MX + 25, y); y += 6;
+        doc.setFont('helvetica', 'bold'); doc.setFontSize(8); doc.setTextColor(60, 60, 80);
+        doc.text('Comissão:', MX, y);
+        doc.setFont('helvetica', 'normal');
+        if (p.comissaoAtiva !== false && parseFloat(p.comissaoPercent) > 0) {
+            doc.setTextColor(16, 185, 129);
+            doc.text(`${parseFloat(p.comissaoPercent).toFixed(2).replace('.', ',')}%  (${fmt(p.comissaoValor || 0)})`, MX + 25, y);
+        } else {
+            doc.setTextColor(150, 150, 150);
+            doc.text('NÃO APLICADA', MX + 25, y);
+        }
+        y += 12;
         doc.setDrawColor(243, 182, 59); doc.setLineWidth(0.3);
         doc.line(MX, pageH - 8, pageW - MX, pageH - 8);
         doc.setFont('helvetica', 'bold'); doc.setFontSize(6); doc.setTextColor(210, 132, 44);
@@ -2481,10 +2621,9 @@ function desenharPedidoCompacto(doc, envelope, layout) {
             if (data.section === 'body') {
                 const totalRow = data.row.index === linhasResumo.length - 3;
                 const saldoRow = data.row.index === linhasResumo.length - 1;
-                const icmsRow = icmsAtivoPed ? data.row.index === 3 : -1;
                 if (totalRow) { data.cell.styles.fillColor = [252, 240, 200]; data.cell.styles.textColor = [90, 60, 0]; data.cell.styles.fontStyle = 'bold'; }
                 if (saldoRow) { data.cell.styles.fillColor = [209, 250, 229]; data.cell.styles.textColor = [6, 78, 59]; data.cell.styles.fontStyle = 'bold'; }
-                if (icmsRow === -1 && data.row.index === 3 && !icmsAtivoPed) { data.cell.styles.fillColor = [240, 240, 240]; data.cell.styles.textColor = [100, 100, 100]; data.cell.styles.fontStyle = 'italic'; }
+                if (!icmsAtivoPed && data.row.index === 3) { data.cell.styles.fillColor = [240, 240, 240]; data.cell.styles.textColor = [100, 100, 100]; data.cell.styles.fontStyle = 'italic'; }
             }
         },
         margin: { top: 12, left: MX, right: MX, bottom: FOOTER_H + 1 },
@@ -3129,6 +3268,11 @@ function processarRestauracao(ev) {
             if (!d.catalogo && !d.produtos) throw new Error('Formato inválido');
             if (!confirm('Isso substituirá TODOS os dados atuais. Continuar?')) return;
             catalogData = d.catalogo || d.produtos || catalogData;
+            catalogData.forEach(p => {
+                if (p.comissaoAtiva === undefined) p.comissaoAtiva = true;
+                if (p.comissaoPercent === undefined) p.comissaoPercent = 5.00;
+                if (p.comissaoValor === undefined) p.comissaoValor = parseFloat(p.preco) * (parseFloat(p.comissaoPercent) / 100);
+            });
             pedidos = d.pedido_atual || [];
             historico = d.historico || [];
             fornecedores = d.fornecedores || [];
@@ -3158,6 +3302,7 @@ function processarRestauracao(ev) {
             setIcmsAtivo(icmsAtivo, true);
             const rateInput = document.getElementById('icmsRateInput');
             if (rateInput) rateInput.value = aliquotaICMSAtual.toFixed(2);
+            initProdComissaoForm();
             alert('✅ Backup restaurado!');
         } catch (err) { alert('Erro ao restaurar: ' + err.message); }
     };
@@ -3223,6 +3368,7 @@ function navigateTo(section) {
     if (section === 'comissoes') { sincronizarPercentuais(); atualizarComissoes(); }
     if (section === 'dashboard') { atualizarDashboard(); setTimeout(() => { if (typeof updateCharts === 'function') try { updateCharts(); } catch(e){} }, 100); }
     if (section === 'pedido') { recalcularTotaisPedido(); atualizarStatusPreview(); atualizarBannerProximoPedido(); renderPedidosFinalizados(); atualizarIcmsDisplay(); }
+    if (section === 'produto') { initProdComissaoForm(); }
 }
 
 function fazerLogin(e) {
@@ -3266,7 +3412,8 @@ function iniciarSistema() {
     }
     sincronizarPercentuais();
     setupBotoesOrientacao();
-    setupIcmsControls();   /* <-- inicializa os controles do ICMS */
+    setupIcmsControls();
+    initProdComissaoForm();
     populateSelects(); renderCatalog(); renderTabelaPedidos();
     renderFornecedores(); renderProdutos(); renderClientes(); renderFretes(); renderCores();
     renderHistorico(); renderPedidosFinalizados(); atualizarDashboard(); atualizarTelaBackup();
@@ -3284,6 +3431,40 @@ function setupEventListeners() {
     document.getElementById('loginThemeToggle')?.addEventListener('click', toggleTheme);
     document.getElementById('logoutBtn')?.addEventListener('click', logout);
     document.getElementById('loginForm')?.addEventListener('submit', fazerLogin);
+
+    /* ===== EVENT DELEGATION: Toggles de Comissão (produto form + modal) ===== */
+    document.body.addEventListener('click', function(e) {
+        const btn = e.target.closest('[data-com-value]');
+        if (!btn) return;
+        const toggle = btn.closest('.com-toggle');
+        if (!toggle) return;
+        const prefix = toggle.dataset.comPrefix;
+        if (!prefix) return;
+        const isSim = btn.dataset.comValue === 'sim';
+        toggle.querySelectorAll('button').forEach(b => {
+            b.classList.toggle('active', (b.dataset.comValue === 'sim') === isSim);
+        });
+        const rateWrap = document.getElementById(prefix + 'ComRateWrap');
+        const rateInput = document.getElementById(prefix + 'ComPercent');
+        const hiddenEl = document.getElementById(prefix + 'ComAtiva');
+        if (rateWrap) rateWrap.classList.toggle('disabled', !isSim);
+        if (rateInput) rateInput.disabled = !isSim;
+        if (hiddenEl) hiddenEl.value = isSim ? 'true' : 'false';
+        calcularComissaoValorPreview(prefix);
+    });
+
+    /* ===== EVENT DELEGATION: Recalcular valor em R$ quando preço/% mudam ===== */
+    document.body.addEventListener('input', function(e) {
+        const t = e.target;
+        if (!t.id) return;
+        if (t.id === 'prodPreco' || t.id === 'prodComPercent') calcularComissaoValorPreview('prod');
+        if (t.id === 'epPreco' || t.id === 'epComPercent') calcularComissaoValorPreview('ep');
+    });
+
+    /* ===== RESET do form de produto re-inicializa o toggle ===== */
+    document.getElementById('prodResetBtn')?.addEventListener('click', function() {
+        setTimeout(() => initProdComissaoForm(), 10);
+    });
 
     const backToTopBtn = document.getElementById('backToTopBtn');
     if (backToTopBtn) {
