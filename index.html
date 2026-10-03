@@ -21,10 +21,6 @@
 html, body { max-width: 100%; overflow-x: hidden; -webkit-text-size-adjust: 100%; -webkit-tap-highlight-color: transparent; }
 body { font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.5; }
 
-/* ============================================================
-   TEMA ESCURO - PALETA IMPÉRIO REVESTIMENTOS
-   Preto #000000 | Dourado #D2842C / #F3B63B / #FCE484 | Bege #C8B17F
-   ============================================================ */
 :root, [data-theme="dark"] {
     --bg: #000000;
     --sidebar-bg: linear-gradient(180deg, #0a0806 0%, #000000 100%);
@@ -291,7 +287,6 @@ table td strong { color: var(--text); font-weight: 600; }
 .icms-banner .icms-info { color: var(--text-muted); flex: 1; min-width: 180px; }
 .icms-banner .icms-info strong { color: var(--text); display: block; font-size: 0.95rem; margin-bottom: 3px; }
 
-/* ===== NOVO: Controles ICMS (Sim/Não + Alíquota) ===== */
 .icms-controls-group { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
 .icms-control { display: flex; flex-direction: column; gap: 6px; }
 .icms-ctrl-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; }
@@ -338,15 +333,12 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
 }
 .info-comissao-box strong { color: #FCE484; }
 
-/* Bolinha de cor */
 .cor-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: middle; border: 2px solid rgba(255,255,255,0.4); flex-shrink: 0; }
 
-/* Observação destaque */
 .observacao-box { background: linear-gradient(135deg, rgba(243, 182, 59, 0.08), rgba(210, 132, 44, 0.04)); border: 1px solid rgba(243, 182, 59, 0.35); border-left: 4px solid #F3B63B; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
 .observacao-box h2 { font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; color: var(--text); font-weight: 700; }
 .observacao-box h2 i { color: #F3B63B; }
 
-/* ===== NOVO: Controles de comissão no cadastro de produto ===== */
 .prod-comissao-group { display: flex; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
 .prod-comissao-control { display: flex; flex-direction: column; gap: 6px; }
 .prod-comissao-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 1px; }
@@ -362,6 +354,207 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
 .prod-comissao-rate-wrap input:focus { outline: none; }
 .prod-comissao-rate-wrap .suffix { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-left: 4px; }
 .prod-comissao-valor { background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.08)); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 10px; padding: 10px 16px; font-weight: 700; font-size: 1.1rem; color: #34d399; min-width: 110px; text-align: center; }
+
+.btn-atualizar-anteriores {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 50%, #6d28d9 100%);
+    color: #fff;
+    box-shadow: 0 8px 22px rgba(139, 92, 246, 0.35);
+}
+.btn-atualizar-anteriores:hover {
+    box-shadow: 0 12px 28px rgba(139, 92, 246, 0.55);
+}
+
+.atualizar-modal .atualizar-info {
+    background: var(--card-bg-solid); border: 1px solid var(--border);
+    border-left: 4px solid #8b5cf6; border-radius: 12px;
+    padding: 12px 16px; margin-bottom: 16px;
+    font-size: 0.85rem; color: var(--text-muted);
+}
+.atualizar-modal .atualizar-info strong { color: var(--text); }
+.atualizar-modal .opcoes-grid {
+    display: grid; grid-template-columns: 1fr; gap: 10px;
+    margin-bottom: 16px;
+}
+.atualizar-modal .opcao-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 12px 14px; border-radius: 10px;
+    background: var(--input-bg); border: 1px solid var(--border-strong);
+    cursor: pointer; transition: 0.2s;
+}
+.atualizar-modal .opcao-item:hover { background: var(--card-hover); border-color: #8b5cf6; }
+.atualizar-modal .opcao-item input[type="checkbox"] {
+    width: 20px; height: 20px; cursor: pointer;
+    accent-color: #8b5cf6; flex-shrink: 0;
+}
+.atualizar-modal .opcao-item .opcao-label {
+    flex: 1; font-size: 0.88rem; color: var(--text); font-weight: 600;
+}
+.atualizar-modal .opcao-item .opcao-desc {
+    font-size: 0.72rem; color: var(--text-dim); font-weight: 400; margin-top: 2px;
+}
+.atualizar-modal .opcao-item .opcao-extra {
+    display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.atualizar-modal .opcao-item .opcao-extra input,
+.atualizar-modal .opcao-item .opcao-extra select {
+    padding: 6px 10px; font-size: 14px; border-radius: 8px;
+    border: 1px solid var(--border-strong); background: var(--input-bg); color: var(--text);
+    font-family: inherit; width: auto; min-width: 100px;
+}
+.atualizar-modal .aviso-box {
+    background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;
+    font-size: 0.8rem; color: var(--text-muted);
+}
+.atualizar-modal .aviso-box i { color: var(--accent-red); margin-right: 6px; }
+.atualizar-modal .preview-box {
+    background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.05));
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 10px; padding: 12px 16px; margin-bottom: 16px;
+    font-size: 0.85rem; color: var(--text-muted);
+}
+.atualizar-modal .preview-box strong { color: #a78bfa; font-size: 1rem; }
+.atualizar-modal .preview-box .stat {
+    display: inline-block; margin-right: 18px; margin-top: 6px;
+}
+.atualizar-modal .preview-box .stat .num {
+    color: #a78bfa; font-weight: 700; font-size: 1rem;
+}
+
+/* ===== NOVO: Modal editor completo do pedido finalizado ===== */
+.editor-pedido-modal { max-width: 980px !important; }
+.editor-pedido-modal .editor-section {
+    background: var(--card-bg-solid); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 18px; margin-bottom: 14px;
+}
+.editor-pedido-modal .editor-section h3 {
+    font-size: 0.82rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: #F3B63B; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+}
+.editor-pedido-modal .editor-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+}
+.editor-pedido-modal .editor-field { display: flex; flex-direction: column; gap: 4px; }
+.editor-pedido-modal .editor-field label {
+    font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+    color: var(--text-dim); letter-spacing: 0.8px;
+}
+.editor-pedido-modal .editor-field input,
+.editor-pedido-modal .editor-field select,
+.editor-pedido-modal .editor-field textarea {
+    padding: 8px 10px; border: 1px solid var(--border-strong);
+    border-radius: 8px; font-size: 14px; background: var(--input-bg);
+    color: var(--text); font-family: inherit; width: 100%;
+}
+.editor-pedido-modal .editor-field input:focus,
+.editor-pedido-modal .editor-field select:focus,
+.editor-pedido-modal .editor-field textarea:focus {
+    outline: none; border-color: #F3B63B;
+    box-shadow: 0 0 0 3px rgba(243, 182, 59, 0.18);
+}
+.editor-pedido-modal .editor-itens-table {
+    width: 100%; border-collapse: collapse; font-size: 0.8rem;
+    min-width: 700px;
+}
+.editor-pedido-modal .editor-itens-table th {
+    background: var(--table-header-bg); padding: 8px 10px; text-align: left;
+    font-size: 0.62rem; text-transform: uppercase; color: var(--text-muted);
+    border-bottom: 1px solid var(--border); letter-spacing: 0.8px;
+}
+.editor-pedido-modal .editor-itens-table td {
+    padding: 6px 8px; border-bottom: 1px solid var(--table-border);
+    vertical-align: middle;
+}
+.editor-pedido-modal .editor-itens-table input,
+.editor-pedido-modal .editor-itens-table select {
+    padding: 5px 7px; border: 1px solid var(--border-strong);
+    border-radius: 6px; font-size: 13px; background: var(--input-bg);
+    color: var(--text); font-family: inherit; width: 100%;
+}
+.editor-pedido-modal .editor-itens-table input:focus,
+.editor-pedido-modal .editor-itens-table select:focus {
+    outline: none; border-color: #F3B63B;
+}
+.editor-pedido-modal .editor-totais {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px; margin-top: 12px;
+}
+.editor-pedido-modal .editor-total-item {
+    background: var(--input-bg); border: 1px solid var(--border);
+    border-radius: 10px; padding: 10px 14px;
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 8px; font-size: 0.78rem;
+}
+.editor-pedido-modal .editor-total-item .lbl {
+    color: var(--text-dim); font-weight: 700; font-size: 0.66rem;
+    text-transform: uppercase; letter-spacing: 0.8px;
+}
+.editor-pedido-modal .editor-total-item .val {
+    color: var(--text); font-weight: 700; font-size: 0.95rem;
+}
+.editor-pedido-modal .editor-total-item.destaque {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 182, 212, 0.06));
+    border-color: rgba(16, 185, 129, 0.35);
+}
+.editor-pedido-modal .editor-total-item.destaque .val { color: #34d399; }
+.editor-pedido-modal .editor-total-item.comissao {
+    background: linear-gradient(135deg, rgba(243, 182, 59, 0.15), rgba(210, 132, 44, 0.08));
+    border-color: rgba(243, 182, 59, 0.4);
+}
+.editor-pedido-modal .editor-total-item.comissao .val { color: #FCE484; }
+.editor-pedido-modal .editor-total-item.lucro {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(6, 182, 212, 0.08));
+    border-color: rgba(16, 185, 129, 0.4);
+}
+.editor-pedido-modal .editor-total-item.lucro .val { color: #34d399; }
+.editor-pedido-modal .editor-comissao-group {
+    display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;
+}
+.editor-pedido-modal .editor-comissao-control {
+    display: flex; flex-direction: column; gap: 5px;
+}
+.editor-pedido-modal .editor-comissao-label {
+    font-size: 0.6rem; font-weight: 700; text-transform: uppercase;
+    color: var(--text-dim); letter-spacing: 0.8px;
+}
+.editor-pedido-modal .editor-comissao-toggle {
+    display: inline-flex; gap: 3px; background: var(--input-bg);
+    border: 1px solid var(--border-strong); border-radius: 8px; padding: 3px;
+}
+.editor-pedido-modal .editor-comissao-toggle button {
+    background: transparent; border: none; padding: 6px 14px;
+    border-radius: 6px; font-family: inherit; font-weight: 700;
+    font-size: 0.78rem; color: var(--text-muted); cursor: pointer;
+    transition: 0.2s; min-width: 50px;
+}
+.editor-pedido-modal .editor-comissao-toggle button.active[data-editor-comissao-value="sim"] {
+    background: linear-gradient(135deg, #10b981, #059669); color: #fff;
+}
+.editor-pedido-modal .editor-comissao-toggle button.active[data-editor-comissao-value="nao"] {
+    background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff;
+}
+.editor-pedido-modal .editor-comissao-rate {
+    display: flex; align-items: center; background: var(--input-bg);
+    border: 1px solid var(--border-strong); border-radius: 8px;
+    padding: 0 10px; min-width: 100px;
+}
+.editor-pedido-modal .editor-comissao-rate.disabled { opacity: 0.45; }
+.editor-pedido-modal .editor-comissao-rate input {
+    border: none !important; background: transparent !important;
+    padding: 8px 0 !important; font-size: 14px; font-weight: 700;
+    color: var(--text); width: 60px; text-align: right;
+}
+.editor-pedido-modal .editor-comissao-rate input:focus { outline: none; }
+.editor-pedido-modal .editor-comissao-rate .suffix {
+    font-size: 0.8rem; font-weight: 700; color: var(--text-muted);
+    margin-left: 4px;
+}
+.editor-pedido-modal .editor-itens-scroll {
+    overflow-x: auto; max-height: 340px; overflow-y: auto;
+    border: 1px solid var(--border); border-radius: 10px;
+}
 
 @media (max-width: 992px) {
     .sidebar { transform: translateX(-100%); }
@@ -463,6 +656,19 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
     </div>
 
     <div id="section-dashboard" class="section active">
+        <div class="form-section" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(109, 40, 217, 0.04)); border-color: rgba(139, 92, 246, 0.35);">
+            <h2><i class="fas fa-sync-alt" style="color:#a78bfa;"></i> Manutenção de Pedidos</h2>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">
+                Recalcula totais, ICMS, comissões, representantes, status e parcelamento de <b>todos os pedidos anteriores</b>.
+                Útil após alterar alíquotas, percentuais ou regras do sistema.
+            </p>
+            <div class="form-actions">
+                <button type="button" class="btn btn-atualizar-anteriores" id="btnAtualizarAnterioresDashboard">
+                    <i class="fas fa-sync-alt"></i> Atualizar Pedidos Anteriores
+                </button>
+            </div>
+        </div>
+
         <div class="finance-grid">
             <div class="finance-card"><i class="fas fa-dollar-sign card-icon"></i><div class="card-label">Receita Operacional</div><div class="card-value" id="cardReceita">R$ 0,00</div><div class="card-sub">Total de pedidos finalizados</div></div>
             <div class="finance-card"><i class="fas fa-chart-line card-icon"></i><div class="card-label">Margem de Contribuição</div><div class="card-value" id="cardMargem">R$ 0,00</div><div class="card-sub">Estimativa de 21%</div></div>
@@ -512,7 +718,6 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
             </div>
         </div>
 
-        <!-- ====== SEÇÃO ICMS ATUALIZADA COM FILTRO SIM/NÃO + ALÍQUOTA CONDICIONAL ====== -->
         <div class="form-section">
             <h2><i class="fas fa-percentage"></i> Alíquota de ICMS Aplicada</h2>
             <div class="icms-banner">
@@ -690,9 +895,12 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
         </div>
 
         <div class="table-section">
-            <h2><i class="fas fa-clipboard-check"></i> Pedidos Finalizados</h2>
+            <h2><i class="fas fa-clipboard-check"></i> Pedidos Finalizados <span style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">(clique em ⚙️ para abrir o editor completo)</span></h2>
             <div class="filter-bar">
                 <input type="text" id="searchFinalizados" placeholder="🔍 Buscar por nº, cliente, data ou status...">
+                <button type="button" class="btn btn-atualizar-anteriores btn-sm" id="btnAtualizarAnterioresPedido" style="flex: 0 0 auto;">
+                    <i class="fas fa-sync-alt"></i> Atualizar Anteriores
+                </button>
             </div>
             <div class="table-scroll">
                 <table>
@@ -743,7 +951,6 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
                     <div class="form-group"><label>Preço (R$)</label><input type="number" id="prodPreco" step="0.01" required placeholder="0.00"></div>
                 </div>
 
-                <!-- ===== NOVO: COMISSÃO DO PRODUTO ===== -->
                 <div class="form-row" style="align-items: flex-end;">
                     <div class="form-group" style="min-width: 200px;">
                         <label>Comissão sobre o Produto</label>
@@ -769,7 +976,6 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
                         </div>
                     </div>
                 </div>
-                <!-- ===== FIM NOVO ===== -->
 
                 <div class="form-actions"><button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button><button type="reset" class="btn btn-outline">Cancelar</button></div>
             </form>
@@ -860,8 +1066,19 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
                 <button type="button" data-orient-value="landscape"><i class="fas fa-file-alt"></i> Paisagem</button>
             </div>
         </div>
+        <div class="form-section" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(109, 40, 217, 0.04)); border-color: rgba(139, 92, 246, 0.35);">
+            <h2><i class="fas fa-sync-alt" style="color:#a78bfa;"></i> Manutenção de Pedidos Anteriores</h2>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">
+                Recalcula totais, ICMS, comissões, representantes, status e parcelamento dos pedidos já finalizados.
+            </p>
+            <div class="form-actions">
+                <button type="button" class="btn btn-atualizar-anteriores" id="btnAtualizarAnterioresHistorico">
+                    <i class="fas fa-sync-alt"></i> Atualizar Pedidos Anteriores
+                </button>
+            </div>
+        </div>
         <div class="table-section">
-            <h2><i class="fas fa-history"></i> Histórico de Pedidos Finalizados</h2>
+            <h2><i class="fas fa-history"></i> Histórico de Pedidos Finalizados <span style="font-size:0.75rem; font-weight:400; color:var(--text-dim);">(clique em ⚙️ para o editor completo)</span></h2>
             <div class="filter-bar">
                 <input type="text" id="searchHistorico" placeholder="🔍 Buscar por nº, empresa, data...">
                 <select id="filterStatus">
@@ -912,6 +1129,18 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
                 a comissão e o lucro são calculados sobre o <b>valor da venda SEM ICMS</b> (subtotal − desconto).
                 O ICMS é imposto estadual e <b>não</b> entra na base de comissão.
                 Faixa permitida: <b>0% a 100%</b>.
+            </div>
+        </div>
+
+        <div class="form-section" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.08), rgba(109, 40, 217, 0.04)); border-color: rgba(139, 92, 246, 0.35);">
+            <h2><i class="fas fa-sync-alt" style="color:#a78bfa;"></i> Aplicar Configuração aos Pedidos Anteriores</h2>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">
+                Aplica os percentuais e regras atuais a todos os pedidos já finalizados, recalculando comissões, lucros, ICMS e totais.
+            </p>
+            <div class="form-actions">
+                <button type="button" class="btn btn-atualizar-anteriores" id="btnAtualizarAnterioresComissoes">
+                    <i class="fas fa-sync-alt"></i> Atualizar Pedidos Anteriores
+                </button>
             </div>
         </div>
 
@@ -1088,6 +1317,317 @@ input[readonly] { background: rgba(243, 182, 59, 0.06) !important; color: var(--
     </div>
 </div>
 
+<div class="modal-overlay" id="atualizarAnterioresModal">
+    <div class="modal atualizar-modal" style="max-width: 720px;">
+        <h2><i class="fas fa-sync-alt" style="color:#a78bfa;"></i> Atualizar Pedidos Anteriores <button class="close-btn" id="closeAtualizarBtn" type="button">&times;</button></h2>
+        <div class="atualizar-info">
+            Selecione <strong>o que deve ser recalculado</strong> em todos os pedidos já finalizados.
+            Os campos não marcados permanecem inalterados.
+        </div>
+        <div class="preview-box" id="atualizarPreview">
+            <div><strong id="atualizarQtdPedidos">0</strong> pedido(s) serão analisados.</div>
+            <div class="stat"><span class="num" id="atualizarQtdItens">0</span> itens no total</div>
+            <div class="stat"><span class="num" id="atualizarQtdComEdicao">0</span> em edição pendente</div>
+        </div>
+        <div class="opcoes-grid">
+            <label class="opcao-item">
+                <input type="checkbox" id="optRecalcularTotais" checked>
+                <div class="opcao-txt">
+                    <div class="opcao-label"><i class="fas fa-calculator" style="color:#a78bfa;"></i> Recalcular Totais e ICMS</div>
+                    <div class="opcao-desc">Recalcula subtotal, desconto, base, imposto, total geral e saldo a partir dos itens.</div>
+                </div>
+            </label>
+            <label class="opcao-item">
+                <input type="checkbox" id="optAplicarIcmsAtual" checked>
+                <div class="opcao-txt">
+                    <div class="opcao-label"><i class="fas fa-percentage" style="color:#a78bfa;"></i> Aplicar alíquota de ICMS atual (<span id="atualizarIcmsAtualTxt">7,00%</span>)</div>
+                    <div class="opcao-desc">Se desmarcado, mantém a alíquota individual já gravada em cada pedido.</div>
+                </div>
+            </label>
+            <label class="opcao-item">
+                <input type="checkbox" id="optAplicarRepresentante">
+                <div class="opcao-txt">
+                    <div class="opcao-label"><i class="fas fa-user-tie" style="color:#a78bfa;"></i> Aplicar representante padrão</div>
+                    <div class="opcao-desc">Define todos os pedidos para o representante:</div>
+                </div>
+                <div class="opcao-extra">
+                    <select id="atualizarRepresentanteSelect"></select>
+                </div>
+            </label>
+            <label class="opcao-item">
+                <input type="checkbox" id="optAplicarStatus">
+                <div class="opcao-txt">
+                    <div class="opcao-label"><i class="fas fa-flag" style="color:#a78bfa;"></i> Aplicar status padrão</div>
+                    <div class="opcao-desc">Define todos os pedidos para o status escolhido.</div>
+                </div>
+                <div class="opcao-extra">
+                    <select id="atualizarStatusSelect">
+                        <option value="Em andamento">🔵 Em andamento</option>
+                        <option value="Finalizado">🟢 Finalizado</option>
+                        <option value="Pendente">🟡 Pendente</option>
+                        <option value="Aguardando Pagamento">🟠 Aguardando Pagamento</option>
+                        <option value="Entregue">🟣 Entregue</option>
+                        <option value="Cancelado">🔴 Cancelado</option>
+                    </select>
+                </div>
+            </label>
+            <label class="opcao-item">
+                <input type="checkbox" id="optAplicarParcelamento">
+                <div class="opcao-txt">
+                    <div class="opcao-label"><i class="fas fa-credit-card" style="color:#a78bfa;"></i> Aplicar parcelamento padrão</div>
+                    <div class="opcao-desc">Define todos os pedidos para o parcelamento escolhido.</div>
+                </div>
+                <div class="opcao-extra">
+                    <select id="atualizarParcelamentoSelect">
+                        <option value="À vista">💰 À vista</option>
+                        <option value="Parcelado 2x">📆 Parcelado 2x</option>
+                        <option value="Parcelado 3x">📆 Parcelado 3x</option>
+                        <option value="Parcelado 4x">📆 Parcelado 4x</option>
+                        <option value="Parcelado 5x">📆 Parcelado 5x</option>
+                        <option value="Parcelado 6x">📆 Parcelado 6x</option>
+                        <option value="Parcelado 10x">📆 Parcelado 10x</option>
+                        <option value="Parcelado 12x">📆 Parcelado 12x</option>
+                        <option value="Boleto 30 dias">🧾 Boleto 30 dias</option>
+                        <option value="Boleto 30/60">🧾 Boleto 30/60</option>
+                        <option value="Boleto 30/60/90">🧾 Boleto 30/60/90</option>
+                        <option value="Cartão de Crédito">💳 Cartão de Crédito</option>
+                        <option value="PIX">⚡ PIX</option>
+                        <option value="Cheque Pré-datado">📝 Cheque Pré-datado</option>
+                    </select>
+                </div>
+            </label>
+            <label class="opcao-item">
+                <input type="checkbox" id="optAplicarComissao">
+                <div class="opcao-txt">
+                    <div class="opcao-label"><i class="fas fa-hand-holding-usd" style="color:#a78bfa;"></i> Recalcular Comissão / Lucro</div>
+                    <div class="opcao-desc">Recalcula comissão e lucro usando os percentuais atuais: <b><span id="atualizarComissaoPercTxt">5,00%</span> comissão</b> / <b><span id="atualizarLucroPercTxt">21,00%</span> lucro</b>.</div>
+                </div>
+            </label>
+        </div>
+        <div class="aviso-box">
+            <i class="fas fa-exclamation-triangle"></i>
+            <b>Atenção:</b> esta operação altera permanentemente os pedidos já gravados. Um <b>backup automático</b> será feito antes. Recomenda-se baixar um backup manual em Backup &gt; Baixar Backup.
+        </div>
+        <div class="form-actions" style="justify-content:flex-end;">
+            <button type="button" class="btn btn-outline" id="cancelarAtualizarBtn">Cancelar</button>
+            <button type="button" class="btn btn-atualizar-anteriores" id="confirmarAtualizarBtn">
+                <i class="fas fa-check"></i> Confirmar Atualização
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== NOVO: MODAL EDITOR COMPLETO DO PEDIDO FINALIZADO ===== -->
+<div class="modal-overlay" id="editorPedidoModal">
+    <div class="modal editor-pedido-modal">
+        <h2>
+            <span><i class="fas fa-pen-to-square" style="color:#F3B63B;"></i> Editar Pedido Finalizado <span id="editorPedidoNumero" style="color:#F3B63B;"></span></span>
+            <button class="close-btn" id="closeEditorPedidoBtn" type="button">&times;</button>
+        </h2>
+        <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:14px;">
+            Edite <b>todos</b> os campos do pedido, incluindo itens, ICMS, comissão, lucro, desconto, entrada, representante e status.
+            Os totais são recalculados automaticamente.
+        </p>
+
+        <!-- Cabeçalho -->
+        <div class="editor-section">
+            <h3><i class="fas fa-file-invoice"></i> Cabeçalho do Pedido</h3>
+            <div class="editor-grid">
+                <div class="editor-field">
+                    <label>Número</label>
+                    <input type="number" id="edNumero" min="1" readonly>
+                </div>
+                <div class="editor-field">
+                    <label>Data</label>
+                    <input type="text" id="edData" placeholder="DD/MM/AAAA">
+                </div>
+                <div class="editor-field">
+                    <label>Hora</label>
+                    <input type="text" id="edHora" placeholder="HH:MM:SS">
+                </div>
+                <div class="editor-field">
+                    <label>Cliente</label>
+                    <select id="edCliente"></select>
+                </div>
+                <div class="editor-field">
+                    <label>Representante</label>
+                    <select id="edRepresentante"></select>
+                </div>
+                <div class="editor-field">
+                    <label>Status</label>
+                    <select id="edStatus">
+                        <option value="Em andamento">🔵 Em andamento</option>
+                        <option value="Finalizado">🟢 Finalizado</option>
+                        <option value="Pendente">🟡 Pendente</option>
+                        <option value="Aguardando Pagamento">🟠 Aguardando Pagamento</option>
+                        <option value="Entregue">🟣 Entregue</option>
+                        <option value="Cancelado">🔴 Cancelado</option>
+                    </select>
+                </div>
+                <div class="editor-field">
+                    <label>Parcelamento</label>
+                    <select id="edParcelamento">
+                        <option value="À vista">💰 À vista</option>
+                        <option value="Parcelado 2x">📆 Parcelado 2x</option>
+                        <option value="Parcelado 3x">📆 Parcelado 3x</option>
+                        <option value="Parcelado 4x">📆 Parcelado 4x</option>
+                        <option value="Parcelado 5x">📆 Parcelado 5x</option>
+                        <option value="Parcelado 6x">📆 Parcelado 6x</option>
+                        <option value="Parcelado 10x">📆 Parcelado 10x</option>
+                        <option value="Parcelado 12x">📆 Parcelado 12x</option>
+                        <option value="Boleto 30 dias">🧾 Boleto 30 dias</option>
+                        <option value="Boleto 30/60">🧾 Boleto 30/60</option>
+                        <option value="Boleto 30/60/90">🧾 Boleto 30/60/90</option>
+                        <option value="Cartão de Crédito">💳 Cartão de Crédito</option>
+                        <option value="PIX">⚡ PIX</option>
+                        <option value="Cheque Pré-datado">📝 Cheque Pré-datado</option>
+                    </select>
+                </div>
+                <div class="editor-field">
+                    <label>Vencimento</label>
+                    <input type="date" id="edVencimento">
+                </div>
+                <div class="editor-field" style="grid-column: 1 / -1;">
+                    <label>Forma de Pagamento (observação)</label>
+                    <input type="text" id="edFormaPagamentoObs">
+                </div>
+            </div>
+        </div>
+
+        <!-- Impostos e Comissão -->
+        <div class="editor-section">
+            <h3><i class="fas fa-percentage"></i> Impostos, Comissão e Lucro</h3>
+            <div class="editor-grid">
+                <div class="editor-field">
+                    <label>Usar ICMS?</label>
+                    <div class="editor-comissao-toggle" id="edIcmsToggle">
+                        <button type="button" data-editor-icms-value="sim" class="active">Sim</button>
+                        <button type="button" data-editor-icms-value="nao">Não</button>
+                    </div>
+                </div>
+                <div class="editor-field">
+                    <label>Alíquota ICMS (%)</label>
+                    <div class="editor-comissao-rate" id="edIcmsRateWrap">
+                        <input type="number" id="edIcmsRate" step="0.01" min="0" max="100" value="7.00">
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                <div class="editor-field">
+                    <label>Usar Comissão?</label>
+                    <div class="editor-comissao-toggle" id="edComissaoToggle">
+                        <button type="button" data-editor-comissao-value="sim" class="active">Sim</button>
+                        <button type="button" data-editor-comissao-value="nao">Não</button>
+                    </div>
+                </div>
+                <div class="editor-field">
+                    <label>% Comissão</label>
+                    <div class="editor-comissao-rate" id="edComissaoRateWrap">
+                        <input type="number" id="edComissaoPercent" step="0.01" min="0" max="100" value="5.00">
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                <div class="editor-field">
+                    <label>% Lucro</label>
+                    <div class="editor-comissao-rate" id="edLucroRateWrap">
+                        <input type="number" id="edLucroPercent" step="0.01" min="0" max="100" value="21.00">
+                        <span class="suffix">%</span>
+                    </div>
+                </div>
+                <div class="editor-field">
+                    <label>Desconto (%)</label>
+                    <input type="number" id="edDescontoPercent" step="0.01" min="0" max="100" value="0.00">
+                </div>
+                <div class="editor-field">
+                    <label>Entrada / Sinal (R$)</label>
+                    <input type="number" id="edEntrada" step="0.01" min="0" value="0.00">
+                </div>
+            </div>
+        </div>
+
+        <!-- Itens -->
+        <div class="editor-section">
+            <h3>
+                <i class="fas fa-list"></i> Itens do Pedido
+                <button type="button" class="btn btn-primary btn-sm" id="edAddItemBtn" style="margin-left:auto;">
+                    <i class="fas fa-plus"></i> Adicionar Item
+                </button>
+            </h3>
+            <div class="editor-itens-scroll">
+                <table class="editor-itens-table">
+                    <thead>
+                        <tr>
+                            <th style="width:40px;">#</th>
+                            <th style="min-width:180px;">Produto</th>
+                            <th style="min-width:120px;">Cor</th>
+                            <th style="width:70px;">Qtd</th>
+                            <th style="width:110px;">Unitário (R$)</th>
+                            <th style="width:110px;">Total (R$)</th>
+                            <th style="width:50px;">Ação</th>
+                        </tr>
+                    </thead>
+                    <tbody id="edItensBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Totais -->
+        <div class="editor-section">
+            <h3><i class="fas fa-calculator"></i> Totais Recalculados</h3>
+            <div class="editor-totais">
+                <div class="editor-total-item">
+                    <span class="lbl">Subtotal</span>
+                    <span class="val" id="edSubtotalView">R$ 0,00</span>
+                </div>
+                <div class="editor-total-item">
+                    <span class="lbl">Desconto</span>
+                    <span class="val" id="edDescontoView">- R$ 0,00</span>
+                </div>
+                <div class="editor-total-item">
+                    <span class="lbl">Base ICMS</span>
+                    <span class="val" id="edBaseIcmsView">R$ 0,00</span>
+                </div>
+                <div class="editor-total-item">
+                    <span class="lbl">ICMS</span>
+                    <span class="val" id="edIcmsView">R$ 0,00</span>
+                </div>
+                <div class="editor-total-item destaque">
+                    <span class="lbl">Total Geral</span>
+                    <span class="val" id="edTotalGeralView">R$ 0,00</span>
+                </div>
+                <div class="editor-total-item">
+                    <span class="lbl">Entrada</span>
+                    <span class="val" id="edEntradaView">- R$ 0,00</span>
+                </div>
+                <div class="editor-total-item destaque">
+                    <span class="lbl">Saldo</span>
+                    <span class="val" id="edSaldoView">R$ 0,00</span>
+                </div>
+                <div class="editor-total-item comissao">
+                    <span class="lbl">Comissão</span>
+                    <span class="val" id="edComissaoView">R$ 0,00</span>
+                </div>
+                <div class="editor-total-item lucro">
+                    <span class="lbl">Lucro</span>
+                    <span class="val" id="edLucroView">R$ 0,00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Observação -->
+        <div class="editor-section">
+            <h3><i class="fas fa-comment-alt"></i> Observações</h3>
+            <textarea id="edObservacao" rows="3" style="width:100%; padding:10px 14px; border:1px solid var(--border-strong); border-radius:10px; font-size:14px; background:var(--input-bg); color:var(--text); font-family:inherit; resize:vertical;"></textarea>
+        </div>
+
+        <div class="form-actions" style="justify-content:flex-end; margin-top:8px;">
+            <button type="button" class="btn btn-outline" id="cancelarEditorPedidoBtn">Cancelar</button>
+            <button type="button" class="btn btn-success" id="salvarEditorPedidoBtn">
+                <i class="fas fa-save"></i> Salvar Todas as Alterações
+            </button>
+        </div>
+    </div>
+</div>
+
 <script>
 'use strict';
 
@@ -1100,7 +1640,6 @@ const ITENS_POR_PAGINA = 15;
 const COMISSAO_PADRAO = 5.00;
 const LUCRO_PADRAO = 21.00;
 
-/* ========= Orientação PDF ========= */
 let orientacaoPDFAtual = localStorage.getItem('pop_tintas_orientacao_pdf') || 'portrait';
 function getOrientacaoPDF() { return orientacaoPDFAtual; }
 function setOrientacaoPDF(v) {
@@ -1217,17 +1756,12 @@ const today = () => new Date().toLocaleDateString('pt-BR');
 const asText = v => { if (v === null || v === undefined) return ''; if (Array.isArray(v)) return v.join(' '); return String(v); };
 const clampPercent = v => { const n = parseFloat(v); if (isNaN(n)) return 0; return Math.max(0, Math.min(100, n)); };
 
-/* ============================================================
-   ESTADO DO ICMS - FILTRO SIM/NÃO + ALÍQUOTA CONDICIONAL
-   ============================================================ */
-let icmsAtivo = true;                       // Filtro Sim/Não
-let aliquotaICMSAtual = ALIQUOTA_ICMS;      // Alíquota em % (memorizada)
+let icmsAtivo = true;
+let aliquotaICMSAtual = ALIQUOTA_ICMS;
 
-/* Retorna a alíquota efetiva: 0 se ICMS desativado, ou o valor se ativo */
 function getAliquotaICMS() { return icmsAtivo ? aliquotaICMSAtual : 0; }
 function isIcmsAtivo() { return icmsAtivo; }
 
-/* Define a alíquota (somente se ICMS ativo) */
 function setAliquotaICMS(v) {
     const num = parseFloat(v);
     if (!isNaN(num) && num >= 0 && num <= 100) {
@@ -1237,7 +1771,6 @@ function setAliquotaICMS(v) {
     }
 }
 
-/* Atualiza o display do "badge" dourado e o rótulo do imposto */
 function atualizarIcmsDisplay() {
     const el = document.getElementById('icmsRateDisplay');
     const lbl = document.getElementById('impostoLabel');
@@ -1259,9 +1792,10 @@ function atualizarIcmsDisplay() {
     }
     const rateInput = document.getElementById('icmsRateInput');
     if (rateInput) rateInput.disabled = !icmsAtivo;
+    const txtAtual = document.getElementById('atualizarIcmsAtualTxt');
+    if (txtAtual) txtAtual.textContent = aliquotaICMSAtual.toFixed(2).replace('.', ',') + '%';
 }
 
-/* Liga/desliga o uso do ICMS */
 function setIcmsAtivo(ativo, silencioso) {
     icmsAtivo = !!ativo;
     DB.set('icms_ativo', icmsAtivo);
@@ -1282,7 +1816,6 @@ function setIcmsAtivo(ativo, silencioso) {
     }
 }
 
-/* Liga os listeners dos botões Sim/Não e do input de alíquota */
 function setupIcmsControls() {
     const toggle = document.getElementById('icmsToggle');
     if (toggle) {
@@ -1309,15 +1842,11 @@ function setupIcmsControls() {
             atualizarIcmsDisplay();
         });
     }
-    /* Estado inicial dos controles */
     setIcmsAtivo(icmsAtivo, true);
     if (rateInput) rateInput.value = aliquotaICMSAtual.toFixed(2);
 }
 
-/* ============================================================
-   NOVO: COMISSÃO DO PRODUTO (cadastro de produto)
-   ============================================================ */
-let prodComissaoAtivo = true;   // filtro Sim/Não
+let prodComissaoAtivo = true;
 
 function setupProdutoComissaoControls() {
     const toggle = document.getElementById('prodComissaoToggle');
@@ -1379,6 +1908,12 @@ let paginaHistorico = 1;
 let chart1 = null, chart2 = null;
 let chartVendasMensais = null, chartComissaoRep = null, chartTopProdutos = null, chartStatusVendas = null;
 let toastTimer = null;
+
+/* Estado do editor completo do pedido finalizado */
+let editorPedidoIdx = -1;
+let editorPedidoItens = [];
+let editorPedidoIcmsAtivo = true;
+let editorPedidoComissaoAtivo = true;
 
 const DB = {
     get(key, def) { try { const v = localStorage.getItem('pop_tintas_' + key); return v ? JSON.parse(v) : def; } catch(e){ return def; } },
@@ -1450,7 +1985,6 @@ function carregarTudo() {
     representantes = DB.get('representantes', REPRESENTANTES_INICIAIS.slice());
     comissaoPercent = clampPercent(DB.get('comissao_percent', COMISSAO_PADRAO));
     lucroPercent = clampPercent(DB.get('lucro_percent', LUCRO_PADRAO));
-    /* ICMS: carrega estado salvo */
     icmsAtivo = DB.get('icms_ativo', true) !== false;
     aliquotaICMSAtual = clampPercent(DB.get('icms_aliquota', ALIQUOTA_ICMS));
     backupHistory = DB.get('backup_history', []);
@@ -1533,7 +2067,7 @@ function calcularTotais() {
     const entradaBruta = parseFloat(eEl?.value) || 0;
     const desconto = sub * (descontoPerc / 100);
     const baseICMS = Math.max(sub - desconto, 0);
-    const aliquota = getAliquotaICMS();  /* retorna 0 se ICMS desativado */
+    const aliquota = getAliquotaICMS();
     const imposto = baseICMS * (aliquota / 100);
     const totalGeral = baseICMS + imposto;
     const entrada = Math.min(Math.max(entradaBruta, 0), totalGeral);
@@ -1564,15 +2098,38 @@ function recalcularTotaisPedido() {
 
 function populateRepresentanteSelect() {
     const sel = document.getElementById('representanteVendaSelect');
-    if (!sel) return;
-    const atual = sel.value;
-    sel.innerHTML = '';
-    representantes.forEach(r => {
-        const o = document.createElement('option');
-        o.value = r; o.textContent = r;
-        sel.appendChild(o);
-    });
-    if (atual) sel.value = atual;
+    if (sel) {
+        const atual = sel.value;
+        sel.innerHTML = '';
+        representantes.forEach(r => {
+            const o = document.createElement('option');
+            o.value = r; o.textContent = r;
+            sel.appendChild(o);
+        });
+        if (atual) sel.value = atual;
+    }
+    const selAtualizar = document.getElementById('atualizarRepresentanteSelect');
+    if (selAtualizar) {
+        const atual = selAtualizar.value;
+        selAtualizar.innerHTML = '';
+        representantes.forEach(r => {
+            const o = document.createElement('option');
+            o.value = r; o.textContent = r;
+            selAtualizar.appendChild(o);
+        });
+        if (atual) selAtualizar.value = atual;
+    }
+    const selEd = document.getElementById('edRepresentante');
+    if (selEd) {
+        const atual = selEd.value;
+        selEd.innerHTML = '';
+        representantes.forEach(r => {
+            const o = document.createElement('option');
+            o.value = r; o.textContent = r;
+            selEd.appendChild(o);
+        });
+        if (atual) selEd.value = atual;
+    }
 }
 
 function populateCorSelect() {
@@ -1607,6 +2164,17 @@ function populateClienteSelect() {
     sel.innerHTML = '<option value="">Selecione a empresa para esta venda...</option>';
     clientes.forEach(c => { const o = document.createElement('option'); o.value = c.id; o.textContent = c.nome + (c.cnpj ? ' — ' + c.cnpj : ''); sel.appendChild(o); });
     if (atual) sel.value = atual;
+    const selEd = document.getElementById('edCliente');
+    if (selEd) {
+        const atual2 = selEd.value;
+        selEd.innerHTML = '';
+        clientes.forEach(c => {
+            const o = document.createElement('option');
+            o.value = c.id; o.textContent = c.nome + (c.cnpj ? ' — ' + c.cnpj : '');
+            selEd.appendChild(o);
+        });
+        if (atual2) selEd.value = atual2;
+    }
     atualizarBannerProximoPedido();
 }
 function getClienteSelecionado() {
@@ -1847,7 +2415,8 @@ function renderPedidosFinalizados() {
             <td>${h.itens.length}</td>
             <td><strong>${fmt(h.total)}</strong></td>
             <td>
-                <button class="btn btn-warning btn-sm" data-action="edit-fin" data-idx="${i}" title="Editar"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-info btn-sm" data-action="editor-pedido" data-idx="${i}" title="Editor completo"><i class="fas fa-cog"></i></button>
+                <button class="btn btn-warning btn-sm" data-action="edit-fin" data-idx="${i}" title="Carregar no formulário"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-danger btn-sm" data-action="del-fin" data-idx="${i}" title="Excluir"><i class="fas fa-trash"></i></button>
                 <button class="btn btn-info btn-sm" data-action="view-hist" data-idx="${i}" title="Ver PDF"><i class="fas fa-file-pdf"></i></button>
             </td>`;
@@ -1925,7 +2494,6 @@ function editarPedidoHistorico(idx) {
     document.getElementById('entradaInput').value = (h.entrada || 0).toFixed(2);
     document.getElementById('observacaoPedido').value = h.observacao || '';
     document.getElementById('obsPedidoContador').textContent = (h.observacao || '').length;
-    /* Restaura estado do ICMS específico do pedido em edição */
     const icmsPedido = (h.aliquotaICMS !== undefined && h.aliquotaICMS !== null) ? h.aliquotaICMS : ALIQUOTA_ICMS;
     if (icmsPedido > 0) {
         aliquotaICMSAtual = icmsPedido;
@@ -1944,7 +2512,7 @@ function editarPedidoHistorico(idx) {
     atualizarBannerProximoPedido();
     renderPedidosFinalizados();
     document.getElementById('section-pedido').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    mostrarToast(`Editando pedido #${h.numero}.`);
+    mostrarToast(`Pedido #${h.numero} carregado no formulário.`);
 }
 
 function cancelarEdicaoPedido(silencioso) {
@@ -1977,6 +2545,8 @@ function excluirPedidoFinalizado(idx) {
     if (!confirm(msg)) return;
     if (historicoEditandoIdx === idx) cancelarEdicaoPedido(true);
     else if (historicoEditandoIdx > idx) historicoEditandoIdx--;
+    if (editorPedidoIdx === idx) fecharEditorPedido();
+    else if (editorPedidoIdx > idx) editorPedidoIdx--;
     historico.splice(idx, 1);
     salvarTudo();
     renderPedidosFinalizados();
@@ -2028,8 +2598,8 @@ function finalizarPedido() {
         itens: JSON.parse(JSON.stringify(pedidos)),
         subtotal: t.sub, desconto: t.desconto, descontoPercent: t.descontoPerc,
         baseICMS: t.baseICMS, imposto: t.imposto,
-        aliquotaICMS: t.aliquota,           /* 0 quando ICMS desativado */
-        icmsAtivo: icmsAtivo,                /* registro do estado */
+        aliquotaICMS: t.aliquota,
+        icmsAtivo: icmsAtivo,
         tipoOperacao: 'substituicao',
         total: t.totalGeral, entrada: t.entrada, saldo: t.saldo,
         cliente: { ...clienteSel }, representante: representanteSel,
@@ -2782,7 +3352,8 @@ function renderHistorico() {
             <td>${h.itens.length}</td>
             <td><strong>${fmt(h.total)}</strong></td>
             <td>
-                <button class="btn btn-warning btn-sm" data-action="edit-fin" data-idx="${i}" title="Editar"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-info btn-sm" data-action="editor-pedido" data-idx="${i}" title="Editor completo"><i class="fas fa-cog"></i></button>
+                <button class="btn btn-warning btn-sm" data-action="edit-fin" data-idx="${i}" title="Carregar no formulário"><i class="fas fa-edit"></i></button>
                 <button class="btn btn-info btn-sm" data-action="view-hist" data-idx="${i}" title="PDF"><i class="fas fa-file-pdf"></i></button>
                 <button class="btn btn-danger btn-sm" data-action="del-hist" data-idx="${i}" title="Excluir"><i class="fas fa-trash"></i></button>
             </td>`;
@@ -2822,6 +3393,8 @@ function excluirHistorico(i) {
     if (!confirm(`Excluir o pedido #${h.numero} do histórico?`)) return;
     if (historicoEditandoIdx === i) cancelarEdicaoPedido(true);
     else if (historicoEditandoIdx > i) historicoEditandoIdx--;
+    if (editorPedidoIdx === i) fecharEditorPedido();
+    else if (editorPedidoIdx > i) editorPedidoIdx--;
     historico.splice(i, 1);
     salvarTudo();
     renderHistorico();
@@ -2884,9 +3457,6 @@ function updateCharts() {
     }
 }
 
-/* ============================================================
- *  COMISSÕES & VENDAS
- * ============================================================ */
 function getBaseFiscal(h) {
     if (h.baseICMS !== undefined && h.baseICMS !== null) return parseFloat(h.baseICMS) || 0;
     const sub = parseFloat(h.subtotal) || 0;
@@ -3195,6 +3765,10 @@ function sincronizarPercentuais() {
     if (cr) cr.value = comissaoPercent;
     if (li) li.value = lucroPercent.toFixed(2);
     if (lr) lr.value = lucroPercent;
+    const cPercTxt = document.getElementById('atualizarComissaoPercTxt');
+    if (cPercTxt) cPercTxt.textContent = comissaoPercent.toFixed(2).replace('.', ',') + '%';
+    const lPercTxt = document.getElementById('atualizarLucroPercTxt');
+    if (lPercTxt) lPercTxt.textContent = lucroPercent.toFixed(2).replace('.', ',') + '%';
 }
 
 function exportarComissoesCSV() {
@@ -3440,14 +4014,481 @@ function iniciarSistema() {
     }
     sincronizarPercentuais();
     setupBotoesOrientacao();
-    setupIcmsControls();   /* inicializa os controles do ICMS */
-    setupProdutoComissaoControls(); /* NOVO: inicializa os controles de comissão do produto */
+    setupIcmsControls();
+    setupProdutoComissaoControls();
     populateSelects(); renderCatalog(); renderTabelaPedidos();
     renderFornecedores(); renderProdutos(); renderClientes(); renderFretes(); renderCores();
     renderHistorico(); renderPedidosFinalizados(); atualizarDashboard(); atualizarTelaBackup();
     atualizarStatusPreview(); atualizarBannerProximoPedido();
     updateCharts();
     atualizarComissoes();
+}
+
+/* ============================================================
+ *  NOVO: EDITOR COMPLETO DO PEDIDO FINALIZADO
+ * ============================================================ */
+function abrirEditorPedido(idx) {
+    const h = historico[idx];
+    if (!h) { alert('Pedido não encontrado.'); return; }
+
+    editorPedidoIdx = idx;
+    editorPedidoItens = h.itens.map(it => ({ ...it }));
+    editorPedidoIcmsAtivo = h.icmsAtivo !== false && (Number(h.aliquotaICMS || 0) > 0);
+    editorPedidoComissaoAtivo = h.comissaoAtiva !== false;
+
+    document.getElementById('editorPedidoNumero').textContent = '#' + h.numero;
+    document.getElementById('edNumero').value = h.numero;
+    document.getElementById('edData').value = h.data || '';
+    document.getElementById('edHora').value = h.hora || '';
+    document.getElementById('edCliente').value = h.cliente ? h.cliente.id : (clientes[0]?.id || '');
+    document.getElementById('edRepresentante').value = h.representante || REPRESENTANTE;
+    document.getElementById('edStatus').value = h.status || 'Em andamento';
+    document.getElementById('edParcelamento').value = h.parcelamento || 'À vista';
+    document.getElementById('edVencimento').value = h.vencimento || '';
+    document.getElementById('edFormaPagamentoObs').value = h.formaPagamentoObs || '';
+    document.getElementById('edDescontoPercent').value = (h.descontoPercent || 0).toFixed(2);
+    document.getElementById('edEntrada').value = (h.entrada || 0).toFixed(2);
+
+    const icmsRate = editorPedidoIcmsAtivo ? (Number(h.aliquotaICMS) || aliquotaICMSAtual) : aliquotaICMSAtual;
+    document.getElementById('edIcmsRate').value = icmsRate.toFixed(2);
+    document.getElementById('edComissaoPercent').value = (h.comissaoPercent != null ? h.comissaoPercent : comissaoPercent).toFixed(2);
+    document.getElementById('edLucroPercent').value = (h.lucroPercent != null ? h.lucroPercent : lucroPercent).toFixed(2);
+
+    document.getElementById('edObservacao').value = h.observacao || '';
+
+    // Toggles
+    const icmsToggle = document.getElementById('edIcmsToggle');
+    icmsToggle.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('active', (b.dataset.editorIcmsValue === 'sim') === editorPedidoIcmsAtivo);
+    });
+    const icmsWrap = document.getElementById('edIcmsRateWrap');
+    if (icmsWrap) icmsWrap.classList.toggle('disabled', !editorPedidoIcmsAtivo);
+
+    const comToggle = document.getElementById('edComissaoToggle');
+    comToggle.querySelectorAll('button').forEach(b => {
+        b.classList.toggle('active', (b.dataset.editorComissaoValue === 'sim') === editorPedidoComissaoAtivo);
+    });
+    const comWrap = document.getElementById('edComissaoRateWrap');
+    if (comWrap) comWrap.classList.toggle('disabled', !editorPedidoComissaoAtivo);
+
+    renderEditorItens();
+    recalcularEditorTotais();
+
+    document.getElementById('editorPedidoModal').classList.add('active');
+}
+function fecharEditorPedido() {
+    document.getElementById('editorPedidoModal').classList.remove('active');
+    editorPedidoIdx = -1;
+    editorPedidoItens = [];
+}
+
+function renderEditorItens() {
+    const tbody = document.getElementById('edItensBody');
+    if (!tbody) return;
+    tbody.innerHTML = '';
+    editorPedidoItens.forEach((it, i) => {
+        const prod = catalogData.find(p => p.codigo === it.codigo);
+        const corOptions = '<option value="">— Sem cor —</option>' + cores.map(c => `<option value="${esc(c.codigo)}" ${c.codigo === it.cor ? 'selected' : ''}>${esc(c.codigo)} - ${esc(c.nome)}</option>`).join('');
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+            <td style="text-align:center; color:var(--text-dim); font-weight:700;">${i+1}</td>
+            <td>
+                <select data-ed-field="codigo" data-ed-idx="${i}" style="min-width:160px;">
+                    ${catalogData.map(p => `<option value="${esc(p.codigo)}" ${p.codigo === it.codigo ? 'selected' : ''}>${esc(p.codigo)} - ${esc(p.nome)}</option>`).join('')}
+                </select>
+            </td>
+            <td>
+                <select data-ed-field="cor" data-ed-idx="${i}" style="min-width:110px;">
+                    ${corOptions}
+                </select>
+            </td>
+            <td><input type="number" min="1" data-ed-field="quantidade" data-ed-idx="${i}" value="${parseInt(it.quantidade,10)||1}" style="width:70px;"></td>
+            <td><input type="number" step="0.01" min="0" data-ed-field="unitario" data-ed-idx="${i}" value="${parseFloat(it.unitario||0).toFixed(2)}" style="width:100px;"></td>
+            <td style="text-align:right; font-weight:700; color:#34d399;">${fmt((parseFloat(it.quantidade)||0) * (parseFloat(it.unitario)||0))}</td>
+            <td style="text-align:center;">
+                <button type="button" class="btn btn-danger btn-sm" data-ed-action="remove" data-ed-idx="${i}"><i class="fas fa-times"></i></button>
+            </td>`;
+        tbody.appendChild(tr);
+    });
+
+    // Listeners de alteração
+    tbody.querySelectorAll('[data-ed-field]').forEach(el => {
+        el.addEventListener('input', function () {
+            const idx = parseInt(this.dataset.edIdx, 10);
+            const field = this.dataset.edField;
+            const item = editorPedidoItens[idx];
+            if (!item) return;
+            if (field === 'codigo') {
+                const prod = catalogData.find(p => p.codigo === this.value);
+                if (prod) {
+                    item.codigo = prod.codigo;
+                    item.nome = prod.nome;
+                    item.categoria = prod.categoria;
+                    item.unitario = parseFloat(prod.preco);
+                }
+                renderEditorItens();
+            } else if (field === 'cor') {
+                item.cor = this.value;
+            } else if (field === 'quantidade') {
+                item.quantidade = parseInt(this.value, 10) || 1;
+                item.total = item.quantidade * (parseFloat(item.unitario) || 0);
+                recalcularEditorTotais();
+            } else if (field === 'unitario') {
+                item.unitario = parseFloat(this.value) || 0;
+                item.total = (parseInt(item.quantidade, 10) || 0) * item.unitario;
+                recalcularEditorTotais();
+            }
+        });
+    });
+    tbody.querySelectorAll('[data-ed-action="remove"]').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const idx = parseInt(this.dataset.edIdx, 10);
+            if (!confirm('Remover este item do pedido?')) return;
+            editorPedidoItens.splice(idx, 1);
+            renderEditorItens();
+            recalcularEditorTotais();
+        });
+    });
+}
+
+function adicionarItemEditor() {
+    const prod = catalogData[0];
+    if (!prod) { alert('Nenhum produto cadastrado.'); return; }
+    editorPedidoItens.push({
+        codigo: prod.codigo,
+        nome: prod.nome,
+        categoria: prod.categoria,
+        cor: '',
+        quantidade: 1,
+        unitario: parseFloat(prod.preco),
+        total: parseFloat(prod.preco)
+    });
+    renderEditorItens();
+    recalcularEditorTotais();
+}
+
+function recalcularEditorTotais() {
+    if (editorPedidoIdx < 0) return;
+
+    // Subtotal dos itens
+    let subtotal = 0;
+    editorPedidoItens.forEach(it => {
+        it.total = (parseInt(it.quantidade, 10) || 0) * (parseFloat(it.unitario) || 0);
+        subtotal += it.total;
+    });
+
+    const descPerc = clampPercent(document.getElementById('edDescontoPercent')?.value);
+    const desconto = subtotal * (descPerc / 100);
+    const base = Math.max(subtotal - desconto, 0);
+
+    const icmsAtivoEd = editorPedidoIcmsAtivo;
+    const aliquota = icmsAtivoEd ? clampPercent(document.getElementById('edIcmsRate')?.value) : 0;
+    const imposto = base * (aliquota / 100);
+    const totalGeral = base + imposto;
+
+    const entradaBruta = parseFloat(document.getElementById('edEntrada')?.value) || 0;
+    const entrada = Math.min(Math.max(entradaBruta, 0), totalGeral);
+    const saldo = totalGeral - entrada;
+
+    // Comissão e lucro sobre a base sem ICMS
+    const comissaoAtiva = editorPedidoComissaoAtivo;
+    const comissaoPerc = comissaoAtiva ? clampPercent(document.getElementById('edComissaoPercent')?.value) : 0;
+    const lucroPerc = clampPercent(document.getElementById('edLucroPercent')?.value);
+    const comissao = base * (comissaoPerc / 100);
+    const lucro = base * (lucroPerc / 100);
+
+    const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    setTxt('edSubtotalView', fmt(subtotal));
+    setTxt('edDescontoView', '- ' + fmt(desconto));
+    setTxt('edBaseIcmsView', fmt(base));
+    setTxt('edIcmsView', fmt(imposto));
+    setTxt('edTotalGeralView', fmt(totalGeral));
+    setTxt('edEntradaView', '- ' + fmt(entrada));
+    setTxt('edSaldoView', fmt(saldo));
+    setTxt('edComissaoView', fmt(comissao));
+    setTxt('edLucroView', fmt(lucro));
+
+    return { subtotal, desconto, base, imposto, totalGeral, entrada, saldo, comissao, lucro, aliquota, comissaoPerc, lucroPerc };
+}
+
+function salvarEditorPedido() {
+    if (editorPedidoIdx < 0) { alert('Nenhum pedido em edição.'); return; }
+    const h = historico[editorPedidoIdx];
+    if (!h) { alert('Pedido não encontrado.'); return; }
+
+    if (editorPedidoItens.length === 0) {
+        if (!confirm('O pedido ficará SEM ITENS. Deseja continuar mesmo assim?')) return;
+    }
+
+    // Cliente
+    const cliId = parseInt(document.getElementById('edCliente')?.value, 10);
+    const cli = clientes.find(c => c.id === cliId);
+    if (!cli) { alert('Selecione um cliente válido.'); return; }
+
+    const rep = document.getElementById('edRepresentante')?.value || REPRESENTANTE;
+    if (!representantes.includes(rep)) {
+        representantes.push(rep);
+        populateRepresentanteSelect();
+    }
+
+    const status = document.getElementById('edStatus')?.value || 'Em andamento';
+    const parcelamento = document.getElementById('edParcelamento')?.value || 'À vista';
+    const vencimento = document.getElementById('edVencimento')?.value || '';
+    const formaPagamentoObs = document.getElementById('edFormaPagamentoObs')?.value.trim() || '';
+    const observacao = document.getElementById('edObservacao')?.value.trim() || '';
+
+    const data = document.getElementById('edData')?.value.trim() || h.data;
+    const hora = document.getElementById('edHora')?.value.trim() || h.hora || '';
+    const numero = parseInt(document.getElementById('edNumero')?.value, 10) || h.numero;
+
+    // Recalcula totais finais
+    const t = recalcularEditorTotais();
+
+    const icmsAtivoEd = editorPedidoIcmsAtivo;
+    const comissaoAtivaEd = editorPedidoComissaoAtivo;
+
+    const novoPedido = {
+        ...h,
+        numero: numero,
+        data: data,
+        hora: hora,
+        itens: editorPedidoItens.map(it => ({ ...it })),
+        subtotal: t.subtotal,
+        desconto: t.desconto,
+        descontoPercent: clampPercent(document.getElementById('edDescontoPercent')?.value),
+        baseICMS: t.base,
+        imposto: t.imposto,
+        aliquotaICMS: t.aliquota,
+        icmsAtivo: icmsAtivoEd,
+        comissaoAtiva: comissaoAtivaEd,
+        comissaoPercent: t.comissaoPerc,
+        comissaoValor: t.comissao,
+        lucroPercent: t.lucroPerc,
+        lucroValor: t.lucro,
+        total: t.totalGeral,
+        entrada: t.entrada,
+        saldo: t.saldo,
+        cliente: { ...cli },
+        representante: rep,
+        status: status,
+        parcelamento: parcelamento,
+        vencimento: vencimento,
+        formaPagamentoObs: formaPagamentoObs,
+        observacao: observacao
+    };
+
+    historico[editorPedidoIdx] = novoPedido;
+    salvarTudo();
+
+    // Refresh global
+    renderHistorico();
+    renderPedidosFinalizados();
+    atualizarDashboard();
+    atualizarComissoes();
+    atualizarBannerProximoPedido();
+    atualizarTelaBackup();
+
+    fecharEditorPedido();
+    mostrarToast(`Pedido #${novoPedido.numero} atualizado com sucesso!`);
+}
+
+/* ============================================================
+ *  ATUALIZAR PEDIDOS ANTERIORES
+ * ============================================================ */
+function abrirAtualizarAnteriores() {
+    if (historico.length === 0) {
+        alert('Não há pedidos finalizados para atualizar.');
+        return;
+    }
+    const optRep = document.getElementById('optAplicarRepresentante');
+    const optStatus = document.getElementById('optAplicarStatus');
+    const optParc = document.getElementById('optAplicarParcelamento');
+    const optTotais = document.getElementById('optRecalcularTotais');
+    const optIcmsAtual = document.getElementById('optAplicarIcmsAtual');
+    const optComissao = document.getElementById('optAplicarComissao');
+    if (optRep) optRep.checked = false;
+    if (optStatus) optStatus.checked = false;
+    if (optParc) optParc.checked = false;
+    if (optTotais) optTotais.checked = true;
+    if (optIcmsAtual) optIcmsAtual.checked = true;
+    if (optComissao) optComissao.checked = true;
+
+    populateRepresentanteSelect();
+    const selRep = document.getElementById('atualizarRepresentanteSelect');
+    if (selRep && representantes.length > 0 && !selRep.value) selRep.value = representantes[0];
+
+    const selStatus = document.getElementById('atualizarStatusSelect');
+    if (selStatus) selStatus.value = 'Em andamento';
+    const selParc = document.getElementById('atualizarParcelamentoSelect');
+    if (selParc) selParc.value = 'À vista';
+
+    const txtIcms = document.getElementById('atualizarIcmsAtualTxt');
+    if (txtIcms) txtIcms.textContent = aliquotaICMSAtual.toFixed(2).replace('.', ',') + '%';
+    const txtCom = document.getElementById('atualizarComissaoPercTxt');
+    if (txtCom) txtCom.textContent = comissaoPercent.toFixed(2).replace('.', ',') + '%';
+    const txtLuc = document.getElementById('atualizarLucroPercTxt');
+    if (txtLuc) txtLuc.textContent = lucroPercent.toFixed(2).replace('.', ',') + '%';
+
+    const qtdPedidos = historico.length;
+    const qtdItens = historico.reduce((s, h) => s + (h.itens ? h.itens.length : 0), 0);
+    const qtdEmEdicao = historicoEditandoIdx >= 0 ? 1 : 0;
+    const elQtd = document.getElementById('atualizarQtdPedidos');
+    const elItens = document.getElementById('atualizarQtdItens');
+    const elEdicao = document.getElementById('atualizarQtdComEdicao');
+    if (elQtd) elQtd.textContent = qtdPedidos;
+    if (elItens) elItens.textContent = qtdItens;
+    if (elEdicao) elEdicao.textContent = qtdEmEdicao;
+
+    document.getElementById('atualizarAnterioresModal').classList.add('active');
+}
+function fecharAtualizarAnteriores() {
+    document.getElementById('atualizarAnterioresModal').classList.remove('active');
+}
+
+function executarAtualizacaoAnteriores() {
+    const optTotais = document.getElementById('optRecalcularTotais')?.checked;
+    const optIcmsAtual = document.getElementById('optAplicarIcmsAtual')?.checked;
+    const optRep = document.getElementById('optAplicarRepresentante')?.checked;
+    const optStatus = document.getElementById('optAplicarStatus')?.checked;
+    const optParc = document.getElementById('optAplicarParcelamento')?.checked;
+    const optComissao = document.getElementById('optAplicarComissao')?.checked;
+
+    if (!optTotais && !optIcmsAtual && !optRep && !optStatus && !optParc && !optComissao) {
+        alert('Selecione pelo menos uma opção para atualizar.');
+        return;
+    }
+
+    const repPadrao = document.getElementById('atualizarRepresentanteSelect')?.value || REPRESENTANTE;
+    const statusPadrao = document.getElementById('atualizarStatusSelect')?.value || 'Em andamento';
+    const parcPadrao = document.getElementById('atualizarParcelamentoSelect')?.value || 'À vista';
+
+    const linhas = [];
+    if (optTotais) linhas.push('• Recalcular totais/ICMS' + (optIcmsAtual ? ` (aplicando ${aliquotaICMSAtual.toFixed(2).replace('.', ',')}% atual)` : ' (mantendo alíquota individual)'));
+    if (optRep) linhas.push(`• Aplicar representante: ${repPadrao}`);
+    if (optStatus) linhas.push(`• Aplicar status: ${statusPadrao}`);
+    if (optParc) linhas.push(`• Aplicar parcelamento: ${parcPadrao}`);
+    if (optComissao) linhas.push(`• Recalcular comissão/lucro (${comissaoPercent.toFixed(2)}% / ${lucroPercent.toFixed(2)}%)`);
+
+    const msg = `⚠️ ATUALIZAR PEDIDOS ANTERIORES\n\nPedidos afetados: ${historico.length}\n\n${linhas.join('\n')}\n\nUm backup automático será gerado antes.\n\nDeseja continuar?`;
+    if (!confirm(msg)) return;
+
+    if (historicoEditandoIdx >= 0) {
+        cancelarEdicaoPedido(true);
+    }
+
+    let atualizados = 0;
+    historico.forEach(h => {
+        if (!Array.isArray(h.itens)) h.itens = [];
+
+        if (optTotais) {
+            const sub = h.itens.reduce((s, it) => s + (parseFloat(it.total) || 0), 0);
+            const descPerc = clampPercent(h.descontoPercent || 0);
+            const desconto = sub * (descPerc / 100);
+            const base = Math.max(sub - desconto, 0);
+
+            let aliquota;
+            if (optIcmsAtual) {
+                aliquota = icmsAtivo ? aliquotaICMSAtual : 0;
+            } else {
+                aliquota = parseFloat(h.aliquotaICMS);
+                if (isNaN(aliquota)) aliquota = icmsAtivo ? aliquotaICMSAtual : 0;
+                if (h.icmsAtivo === false) aliquota = 0;
+            }
+            const imposto = base * (aliquota / 100);
+            const totalGeral = base + imposto;
+            const entrada = Math.min(Math.max(parseFloat(h.entrada) || 0, 0), totalGeral);
+            const saldo = totalGeral - entrada;
+
+            h.subtotal = sub;
+            h.desconto = desconto;
+            h.descontoPercent = descPerc;
+            h.baseICMS = base;
+            h.imposto = imposto;
+            h.aliquotaICMS = aliquota;
+            h.icmsAtivo = aliquota > 0;
+            h.total = totalGeral;
+            h.entrada = entrada;
+            h.saldo = saldo;
+        }
+
+        if (optRep) h.representante = repPadrao;
+        if (optStatus) h.status = statusPadrao;
+        if (optParc) h.parcelamento = parcPadrao;
+        if (optComissao) {
+            h.comissaoRecalculada = true;
+            h.comissaoPercent = comissaoPercent;
+            h.lucroPercent = lucroPercent;
+        }
+
+        atualizados++;
+    });
+
+    salvarTudo();
+
+    populateSelects();
+    renderTabelaPedidos();
+    renderPedidosFinalizados();
+    paginarHistoricoReset();
+    renderHistorico();
+    atualizarDashboard();
+    atualizarBannerProximoPedido();
+    atualizarComissoes();
+    atualizarTelaBackup();
+
+    fecharAtualizarAnteriores();
+    mostrarToast(`✅ ${atualizados} pedido(s) atualizado(s) com sucesso!`);
+}
+
+function setupAtualizarAnteriores() {
+    document.getElementById('btnAtualizarAnterioresDashboard')?.addEventListener('click', abrirAtualizarAnteriores);
+    document.getElementById('btnAtualizarAnterioresPedido')?.addEventListener('click', abrirAtualizarAnteriores);
+    document.getElementById('btnAtualizarAnterioresHistorico')?.addEventListener('click', abrirAtualizarAnteriores);
+    document.getElementById('btnAtualizarAnterioresComissoes')?.addEventListener('click', abrirAtualizarAnteriores);
+    document.getElementById('closeAtualizarBtn')?.addEventListener('click', fecharAtualizarAnteriores);
+    document.getElementById('cancelarAtualizarBtn')?.addEventListener('click', fecharAtualizarAnteriores);
+    document.getElementById('confirmarAtualizarBtn')?.addEventListener('click', executarAtualizacaoAnteriores);
+}
+
+/* ============================================================
+ *  SETUP DO EDITOR COMPLETO
+ * ============================================================ */
+function setupEditorPedido() {
+    document.getElementById('closeEditorPedidoBtn')?.addEventListener('click', () => {
+        if (confirm('Fechar sem salvar? As alterações não serão aplicadas.')) fecharEditorPedido();
+    });
+    document.getElementById('cancelarEditorPedidoBtn')?.addEventListener('click', () => {
+        if (confirm('Cancelar edição? As alterações não serão aplicadas.')) fecharEditorPedido();
+    });
+    document.getElementById('salvarEditorPedidoBtn')?.addEventListener('click', salvarEditorPedido);
+    document.getElementById('edAddItemBtn')?.addEventListener('click', adicionarItemEditor);
+
+    document.getElementById('edIcmsToggle')?.querySelectorAll('button').forEach(b => {
+        b.addEventListener('click', () => {
+            editorPedidoIcmsAtivo = (b.dataset.editorIcmsValue === 'sim');
+            document.getElementById('edIcmsToggle').querySelectorAll('button').forEach(x => {
+                x.classList.toggle('active', (x.dataset.editorIcmsValue === 'sim') === editorPedidoIcmsAtivo);
+            });
+            const wrap = document.getElementById('edIcmsRateWrap');
+            if (wrap) wrap.classList.toggle('disabled', !editorPedidoIcmsAtivo);
+            recalcularEditorTotais();
+        });
+    });
+    document.getElementById('edComissaoToggle')?.querySelectorAll('button').forEach(b => {
+        b.addEventListener('click', () => {
+            editorPedidoComissaoAtivo = (b.dataset.editorComissaoValue === 'sim');
+            document.getElementById('edComissaoToggle').querySelectorAll('button').forEach(x => {
+                x.classList.toggle('active', (x.dataset.editorComissaoValue === 'sim') === editorPedidoComissaoAtivo);
+            });
+            const wrap = document.getElementById('edComissaoRateWrap');
+            if (wrap) wrap.classList.toggle('disabled', !editorPedidoComissaoAtivo);
+            recalcularEditorTotais();
+        });
+    });
+
+    ['edDescontoPercent', 'edEntrada', 'edIcmsRate', 'edComissaoPercent', 'edLucroPercent'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('input', recalcularEditorTotais);
+    });
 }
 
 function setupEventListeners() {
@@ -3551,6 +4592,9 @@ function setupEventListeners() {
     document.getElementById('restoreFileInput')?.addEventListener('change', processarRestauracao);
     document.getElementById('btnLimparTudo')?.addEventListener('click', limparTudo);
 
+    setupAtualizarAnteriores();
+    setupEditorPedido();
+
     document.body.addEventListener('click', function(e) {
         const btn = e.target.closest('[data-action]');
         if (!btn) return;
@@ -3581,6 +4625,7 @@ function setupEventListeners() {
             case 'del-hist': excluirHistorico(idx); break;
             case 'edit-fin': editarPedidoHistorico(idx); break;
             case 'del-fin': excluirPedidoFinalizado(idx); break;
+            case 'editor-pedido': abrirEditorPedido(idx); break;
         }
     });
 
